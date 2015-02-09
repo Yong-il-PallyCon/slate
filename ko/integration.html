@@ -1,0 +1,2147 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation</title>
+
+    <link href="../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+  </head>
+
+  <body class="ko ko_integration">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <a href="#"> <img src="../images/logo.png" /></a>
+      <div id="toc">
+      </div>
++-
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='연동-가이드'>연동 가이드</h1><h2 id='연동-개요'>연동 개요</h2><h3 id='pallycon-service-building'>PallyCon Service Building</h3>
+<p>PallyCon Service는 업체가 가지고 있는 콘텐츠를 보안처리가 된(DRM) 콘텐츠나 원본 콘텐츠(non-DRM)를 서비스하기 위해 제공되는 서비스입니다. 그 중 PallyCon Service 구축을 위해 필요한 정보를 제공합니다.</p>
+
+<p><img alt="overview_building" src="../images/Overview_Building.png" /></p>
+
+<p>PallyCon Service의 DRM 솔루션은 모든 파일에 적용할 수 있습니다. 하지만, PallyCon Service는 동영상 콘텐츠만을 서비스합니다. 그 외 파일에 대한 DRM 적용은 PallyCon SDK를 활용하여 직접 구현하셔야 합니다. </p>
+
+<p>PallyCon Service는 &lsquo;Packaging&#39;과 &#39;PallyCon Cloud 서비스 사이트&rsquo;, &#39;Player&rsquo; 로 구성되어 있습니다. </p>
+
+<ul>
+<li>Packaging: 원본 콘텐츠를 DRM 콘텐츠로 변환하는 서비스를 제공합니다.<br></li>
+<li>PallyCon Cloud Service Site: DRM 콘텐츠를 생성하거나 DRM 콘텐츠를 서비스하는데 필요한 정보를 가지고 오는 서비스를 제공합니다. </li>
+<li>Player: DRM 콘텐츠를 서비스하는 Mobile, PC Player입니다.</li>
+</ul>
+
+<p><img alt="overview_composition" src="../images/Overview_Composition.png" /></p>
+
+<p>Packaging을 위해 PallyCon Service에서는 Packager를 제공합니다. </p>
+
+<p><img alt="overview_tool" src="../images/Overview_Tool.png" /></p>
+
+<p>PallyCon Service는 업체의 서비스 정책에 영향을 받아 서비스 되어야 합니다. 업체의 서비스 정책의 반영은</p>
+
+<ul>
+<li> Packaging에서 <strong>DRM 콘텐츠의 식별자(CID, Content ID)를 부여</strong>하는 형태로 서비스 정책이 반영됩니다. CID를 부여하는 방법은 <strong>CID(Content ID) 발급 페이지를 개발하여 부여</strong>하거나, <strong>직접 입력하여 부여</strong>하는 방법이 있습니다. </li>
+<li> DRM 콘텐츠를 서비스하는 <strong>Player에서 DRM 콘텐츠를 사용할 때 콘텐츠 사용 정보를 결정하는 것</strong>으로 정책이 반영됩니다. 콘텐츠 사용 정보는 재생 기간, 재생 횟수로 구성되고, 결정하는 방법은 <strong>콘텐츠 사용 권한 정보 페이지 개발을 통해 가능</strong>합니다. </li>
+<li> <strong>Player를 서비스 정책에 맞게 설정</strong>하는 것으로  반영됩니다. 정책을 Player에 설정하는 방법은 <strong>Service Site 페이지와 Player를 서로 연동</strong>시키는 것으로 가능합니다. </li>
+</ul>
+
+<p><img alt="overview_workingpage" src="../images/Overview_WorkingPage.png" /></p>
+<h3 id='pallycon-service-scenario'>PallyCon Service Scenario</h3>
+<p>업체가 DRM 콘텐츠를 서비스할 때의 콘텐츠 흐름을 통해 PallyCon Service 시나리오에 대하여 설명합니다.</p>
+<h4 id='packaging'>Packaging</h4>
+<p>DRM 서비스를 위해 가장 먼저 하는 일은 원본 콘텐츠를 Packaging 하는 것입니다. Packaging은 Packager에 의해 이루어지며, Packager는 Content ID(CID)를 발급받아, CEK를 생성한 뒤 원본을 DRM 콘텐츠로 변환합니다. 변환이 완료되면 Content ID(CID)와 CEK를 PallyCon Cloud 서비스 사이트로 전달하는 것으로 Packaging을 완료합니다. </p>
+
+<aside class="notice">CEK (Content Encryption Key)는 원본 콘텐츠를 DRM 콘텐츠로 변환하거나, DRM 콘텐츠를 원본 콘텐츠로 변환되는 데 사용되는 Key 입니다. </aside> 
+
+<p>변환된 DRM 콘텐츠를 다운로드 서버에 업로드 하여 서비스를 준비합니다.  </p>
+<h4 id='player를-통한-drm-서비스'>Player를 통한 DRM 서비스</h4>
+<p>다운로드 서버에 있는 DRM 콘텐츠를 Player에서 사용을 할 때, License가 필요합니다. License는 PallyCon Cloud 서비스 사이트에서 생성하여 Player로 발급하며, License를 생성할 때 PallyCon Cloud 서비스 사이트에 저장되어 있는 <em>CID, CEK</em>와 콘텐츠 사용 정보 페이지에서 <em>콘텐츠 사용 정보</em>를 사용합니다.</p>
+
+<p>License를 발급 받은 Player는 DRM 콘텐츠를 원본 콘텐츠로 변환하여 사용합니다. </p>
+<h3 id='pallycon-service-building-scenario'>PallyCon Service Building Scenario</h3>
+<p>PallyCon Service는 아래의 순서대로 진행하면서 구축합니다. </p>
+
+<aside class="notice">PallyCon Service를 구축하기 위해서 반드시 Site ID가 있어야만 합니다. Site ID는 CP Admin에서 관리할 수 있습니다. 
+Site ID하나 당 하나의 PallyCon Service를 구축 할 수 있으나, 하나의 Site ID로 여러 PallyCon Service를 구축할 수 없습니다. </aside>
+
+<p><strong>STEP1:</strong> Packager를 선택하여 Packaging 준비를 합니다. 
+<strong>STEP2:</strong> CID(Content ID) 발급 페이지(Content ID Issue Page)를 개발하고, URL을 CP Admin에 등록합니다. 
+<strong>STEP3:</strong> 원본 콘텐츠를 Packaging합니다. 
+<strong>STEP4:</strong> Packaging된 DRM 콘텐츠를 다운로드 서버에 업로드 합니다. 
+<strong>STEP5:</strong> 콘텐츠 사용 권한 정보 페이지(Content Usage Rights Info Page)를 개발하고, URL을 CP Admin에 등록합니다. 
+<strong>STEP6:</strong> Client가 연동할 Service Site를 개발합니다. 
+<strong>STEP7:</strong> 서비스를 시작합니다. </p>
+
+<p>PallyCon Service에서는 구축에 필요한 가이드 문서를 제공합니다. </p>
+<h4 id='packaging-guide'>Packaging Guide</h4>
+<p><strong>STEP1 ~ STEP4</strong>에 대한 가이드 문서입니다. 이 가이드 문서에서는 Packaging 하는 방법과 CID 발급 페이지 개발에 필요한 정보, 주의사항에 대하여 설명합니다. </p>
+
+<p><img alt="overview_packagingguide" src="../images/Overview_PackagingGuide.png" /></p>
+<h4 id='license-issue-guide'>License Issue Guide</h4>
+<p><strong>STEP5</strong>에 대한 가이드 문서입니다. 이 가이드 문서에서는 DRM 콘텐츠를 사용하기 위해 필요한 License와 License 생성, 발급, 콘텐츠 사용 권한 정보 페이지 개발에 필요한 정보 및 주의사항에 대하여 설명합니다. </p>
+
+<p><img alt="overview_licenseissueguide" src="../images/Overview_LicenseIssueGuide.png" /></p>
+<h4 id='web-working-guide-mobile-working-guide'>Web Working Guide, Mobile Working Guide</h4>
+<p><strong>STEP6</strong>에 대한 가이드 문서입니다. 이 가이드 문서는 PallyCon Service에서 제공하는 Web Player와 Mobile Player를 사용하기 위해 필요한 연동 작업들에 대하여 설명합니다. </p>
+
+<p><img alt="overview_playerworking" src="../images/Overview_PlayerWorkingGuide.png" /></p>
+<h3 id='revision-history'>Revision History</h3>
+<p>이 테이블은 Overview 가이드의 수정사항에 대해 설명한 것입니다.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Date</th>
+<th style="text-align: left">Detail</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">2014.08.27</td>
+<td style="text-align: left">Overview Guide 제작</td>
+</tr>
+</tbody></table>
+<h2 id='패키징-가이드'>패키징 가이드</h2><h3 id='introduction'>Introduction</h3>
+<p>이 문서는 업체에서 <strong>DRM 서비스를 시작하기 위한 최초 작업인 CMS(Contents Manager System)에 DRM 콘텐츠를 추가</strong>하기 위한 가이드 문서입니다. </p>
+<h4 id='drm-packaging'>DRM Packaging</h4>
+<p>DRM 서비스를 위해서는, 기존 업체가 가지고 있는 콘텐츠 관리 시스템(Contents Manager System, CMS)에 DRM을 추가해야 합니다. <strong>DRM 콘텐츠는 원본 콘텐츠를 DRM이 적용된 콘텐츠로 변환(Packaging)하여 얻을 수 있습니다.</strong></p>
+
+<p><strong>원본 콘텐츠를 DRM이 적용된 콘텐츠로 변환하기 위해서는 Packager가 필요</strong>하며, PallyCon Cloud 서비스 사이트에서는 Packaging을 위하여 <strong>Cloud Application Packager</strong>와 <strong>Cloud CLI Packager</strong>를 제공하고 있습니다. </p>
+
+<p><i class="icon-folder-open"></i> <a href="http://www.pallycon.com/developer/PallyCon_Packager.zip">Packager 다운로드</a></p>
+
+<ul>
+<li>Cloud Application Packager : UI를 갖추고 있는 Application 형태의 Packager입니다. 이 프로그램은 Application 형태로 제공되며, 윈도우에서만 사용이 가능합니다. </li>
+<li>Cloud CLI Packager : 업체에서 가지고 있는 CMS 솔루션에 연동이 가능하도록 하기 위한 Cloud <strong>CLI</strong>(Commend Line Interface) Packager 이며, 윈도우와 리눅스 환경에서 사용이 가능합니다. </li>
+</ul>
+<h4 id='이-문서의-활용'>이 문서의 활용</h4>
+<p>이 문서에서는 원본 파일을 DRM 적용을 위한 <strong>Packaging/DRM Service 시나리오</strong>와 <strong>Packager 사용 방법</strong>에 대한 설명을 제공합니다. </p>
+
+<p><strong>이 설명을 통해</strong></p>
+
+<ul>
+<li>Packaging에서의 주의사항에 대해 알수 있습니다. </li>
+<li>DRM 콘텐츠를 관리하는데 도움을 줄 수 있는 정보를 얻을 수 있습니다. </li>
+<li>Player에서의 서비스 시나리오 뿐만 아니라, 업체의 전체 DRM 서비스 시나리오를 이해하는데 도움을 줄 수 있습니다. </li>
+</ul>
+<h4 id='필요조건'>필요조건</h4>
+<p>작업을 진행하기 전에 먼저 개발자가 갖추어야할 것들은 다음과 같습니다. </p>
+
+<ul>
+<li>PallyCon 서비스 사이트로부터 <strong>site ID</strong>, <strong>packager key</strong>, <strong>site key</strong>가 발급된 상태이어야 합니다.</li>
+<li>Quick Start를 통해 PallyCon 서비스의 전체적인 흐름을 이해하고 있어야 합니다.</li>
+<li>개발에 필요한 HTTP(s) 통신과 AES암호화 등에 대한 지식 및 적용 기술을 가지고 있어야 합니다. </li>
+</ul>
+<h4 id='적용-순서'>적용 순서</h4>
+<p><strong>STEP1:</strong> Packager에 대해 알기 위해 이 문서를 최소 한번 이상 정독합니다. </p>
+
+<p><strong>STEP2:</strong> 콘텐츠 식별자 (Content ID, CID) 생성 정책에 대해 결정합니다.</p>
+
+<p><strong>STEP3:</strong> CID를 직접 입력하는 방법과 CID 발급 페이지와 연동하여 발급받는 방법 중 CID 발급 방법을 선택합니다.   </p>
+
+<p><em>[CASE1: CID를 직접 입력하는 방법을 선택 - Cloud CLI Packager에서만 가능합니다.]</em></p>
+
+<p><strong>STEP4:</strong> CMS 솔루션에 CID(28byte)가 입력되도록 Cloud CLI Packager를 연동 개발을 합니다. </p>
+
+<p><em>[CASE2: CID 발급 페이지와 연동하여 발급받는 방법을 선택 - Cloud CLI Packager, Cloud Application Packager 모두 가능합니다.]</em></p>
+
+<p><strong>STEP4:</strong> 이 문서에서 제공하는 CID 발급 연동 규격에 따라 CID 발급 페이지를 개발합니다.</p>
+
+<p><strong>STEP5:</strong> CID 발급 페이지 주소를 CP Admin의 <strong>Content ID Issue URL</strong>으로 등록합니다.</p>
+
+<p><strong>STEP6-Cloud CLI Packager</strong>
+:  CMS 솔루션에 CID를 입력되지 않도록 Cloud CLI Packager를 연동 개발을 합니다. </p>
+
+<p><strong>STEP6-Cloud Application Packager</strong><br>
+ <strong>STEP6-1:</strong> Cloud Application Packager를 실행합니다.<br>
+ <strong>STEP6-2:</strong> 환경 설정 창에서 site ID와 packager key를 입력합니다.<br>
+ <strong>STEP6-3:</strong> Packaging할 파일 경로를 입력한 후 Packaging을 시작합니다.<br>
+ <strong>STEP6-4:</strong> Packaging된 DRM 콘텐츠를 다운로드 서버에 업로드합니다.  </p>
+<h3 id='scenario'>Scenario</h3>
+<p>원본 콘텐츠가 Packaging되는 시나리오와 Packaging된 DRM 콘텐츠가 어떻게 서비스되는지 설명합니다. </p>
+
+<p>이 설명을 통해 Content ID의 중요성을 알고, Content ID(CID)와 CEK가 어떻게 생성되고 어디에 사용되는지를 이해하셔야 합니다. </p>
+
+<aside class="notice">CEK(Content Encryption Key): DRM 콘텐츠를 Packaging/Un-packaging에 사용되는 Key입니다. </aside>
+ 
+<h4 id='packaging-scenario'>Packaging Scenario</h4>
+<p>Content ID를 직접 입력하는지, Contnet ID 발급 페이지에서 발급받는지에 따라 Packaging 되는 시나리오를 설명합니다. 
+Packaging에 사용되는 두 가지의 Packager는 공통적으로 Site ID, Packager Key, Source Path, Destination Path를 입력받습니다. 그외에 Cloud CLI Packager의 경우, CID를 직접 입력이 가능합니다. </p>
+
+<ul>
+<li><em>Site ID, Packager Key:</em> 사용하는 Packager를 PallyCon Cloud 서비스 사이트에서 인증할 때 사용하는 값입니다. </li>
+<li><em>Source Path:</em> 원본 콘텐츠가 있는 경로입니다. </li>
+<li><em>Destination Path:</em> Packaging된 DRM 콘텐츠가 생성될 경로입니다. </li>
+</ul>
+
+<p>업체가 직접 입력하거나, Content ID 발급 페이지에서 발급되는 CID는 28 byte입니다. 이 Content ID는 PallyCon 서비스 사이트에서 업체에서 입력한 Site ID와 합쳐지게 되어, Packaging되는데 사용되는 Content ID는 32 byte가 됩니다. </p>
+<h5 id='content-id-변환'>Content ID 변환</h5>
+<ul>
+<li>사용자 입력: <em>Content ID (28 byte)</em></li>
+<li>PallyCon Cloud 서비스 사이트:  Content ID (28 byte) + Site ID (4 byte) = <em>Content ID (32 byte)</em></li>
+<li>Packaging에 사용되는 Content ID: <em>Content ID (32 byte)</em></li>
+</ul>
+<h5 id='cid-contents-id를-직접-입력'>CID (Contents ID)를 직접 입력</h5>
+<p>Cloud CLI Packager만 CID 인터페이스가 있어 입력여부를 결정할 수 있습니다.  </p>
+
+<p><img alt="Packaging_Packaging_CID" src="../images/Packaging_Packaging_CID.png" /></p>
+
+<p>Cloud CLI Packager에 <strong>CID가 입력되었다면, Packager는 PallyCon Cloud 서비스 사이트에 CID가 있는지 확인</strong>합니다. </p>
+
+<p>PallyCon Cloud 서비스 사이트는 Packager와 Site ID를 인증합니다. 인증에 성공하면, 입력받은 28byte의 Content ID를 Site ID와 결합하여 32 byte의 Content ID를 생성합니다. 32 byte의 CID가 PallyCon Cloud 서비스 사이트에 동일한 CID가 있는지 검색합니다. 동일한 CID가 있다면, PallyCon Cloud 서비스 사이트에서 CID에 해당하는 CEK를 검색하여 Packager로 CID와 함께 전달합니다. 없다면, CID만 전달합니다. </p>
+
+<p>Packager에서 PallyCon Cloud 서비스 사이트에서 전달한 데이터에서 CEK가 없으면, CEK를 생성합니다. 그 다음, <strong>CEK와 CID를 이용하여 Source Path에 있는 원본 콘텐츠를 DRM 콘텐츠로 변환을 시작</strong>합니다. </p>
+
+<p>변환이 완료되면, <strong>Destination Path에 DRM 콘텐츠가 생성</strong>되고, Packager에서 <strong>CID와 CEK를 PallyCon Cloud 서비스 사이트로 전달</strong>합니다. </p>
+
+<aside class="notice">CEK는 내부적으로 생성되어 관리되기 때문에, 업체에서 직접 입력하거나 관리할 수 없습니다. 그리고, Packager에 데이터를 입력하는 부분 외에 다른 과정은 Packager에서 자동으로 처리됩니다. </aside>
+<h5 id='cid-발급-페이지를-통해-cid-발급'>CID 발급 페이지를 통해 CID 발급</h5>
+<p>*<em>Cloud CLI Packager에서 CID 인터페이스에 CID를 입력하지 않거나, Cloud Application Packager를 사용하는 경우에는 반드시 CID 발급 페이지에서 CID를 발급받아야 합니다. *</em></p>
+
+<p><img alt="Packaging_Packaging_NoCID" src="../images/Packaging_Packaging_NoCID.png" /></p>
+
+<p>Packager는 <strong>PallyCon Cloud 서비스 사이트에 CID 발급 요청</strong>을 하고, <strong>PallyCon Cloud 서비스 사이트는 Content ID Issue Page URL의 CID 발급 페이지에 CID 발급 요청</strong>을 합니다.  <strong>CID 발급 페이지에서 CID(28byte)를 생성하여 PallyCon Cloud 서비스 사이트에 전달</strong>합니다. </p>
+
+<p>그 다음 과정은 CID를 직접 입력하는 과정과 동일합니다. </p>
+
+<aside class="notice">Packager에 데이터를 입력하는 부분과 CID 발급 페이지 외에 다른 과정은 Packager에서 자동으로 처리됩니다.</aside>
+<h4 id='drm-content-amp-service-scenario'>DRM Content &amp; Service Scenario</h4><h5 id='drm-content'>DRM Content</h5>
+<p>모든 콘텐츠를 DRM 콘텐츠로 Packaging 할 수 있습니다. </p>
+
+<p>일반적으로 원본 파일을 직접 Packaging하지만, HLS 콘텐츠의 경우에는 HLS Key를 Packaging합니다. </p>
+
+<p>HLS 콘텐츠를 Packaging 하기 위해서는 첫번째 단계로 일반적인 HLS 파일로 변환하는 과정을 거칩니다. 이 때 사용되는 Tool은 반드시 <strong>Segment Tool의 &#39;Simple Encryption&rsquo; 옵션</strong>을 제공하는 것으로 사용해야 합니다.  이 옵션을 사용하여 TS파일을 생성하면, TS 파일과 M3U8 파일외에 암호화된 TS 파일을 복호화하기 위한 HLS Key가 생성됩니다. 이 HLS Key를 Packager를 사용해 Packaging합니다. </p>
+
+<p>아래 그림은 HLS 서비스를 위한 DRM 콘텐츠 준비에 대한 그림입니다. </p>
+
+<p><img alt="Packaging_Scenario_HSL" src="../images/Packaging_Scenario_HSL.png" /></p>
+<h5 id='service-scenario'>Service Scenario</h5>
+<p>DRM 콘텐츠를 서비스 하기 위해서는 <strong>License가 필요</strong>합니다. License는 DRM 콘텐츠의 <strong>Content ID</strong>와 <strong>CEK</strong>, 그리고 <strong>콘텐츠 사용기간과 사용횟수</strong>에 대한 License Rule 정보를 가지고 있습니다. </p>
+
+<p><img alt="Packaging_Scenario_License" src="../images/Packaging_Scenario_License.png" /></p>
+
+<p><strong>License는 PallyCon Cloud 서비스 사이트에서 발급됩니다.</strong> License를 발급받기 위해서는 사용자 정보, 기기 정보, 콘텐츠 정보가 필요합니다. 이 정보들 중에 콘텐츠 정보는 DRM 콘텐츠에서 추출된, Site ID를 포함하고 있는 32byte의 CID(Content ID)를 포함하고 있습니다.  </p>
+
+<aside class="notice">Content Usage Right Info Page: CID 발급 페이지 외에 개발자가 개발해야 하는 페이지로, 콘텐츠 사용 권한 정보를 조회할 수 있어야 합니다. </aside>
+
+<p><img alt="Packaging_Scenario_DRMService" src="../images/Packaging_Scenario_DRMService.png" /></p>
+
+<p>DRM 콘텐츠를 사용자가 사용하려고 할 때, Player에서는 <strong>DRM 콘텐츠에서 Content ID를 추출</strong>합니다. 그리고 사용하는 <strong>기기와 사용자 정보, 기타 콘텐츠 정보를 추출</strong>하여, CID와 함께 PallyCon Cloud 서비스 사이트로 License를 요청하기 위한 데이터를 전달합니다. </p>
+
+<p>PallyCon Cloud 서비스 사이트에서는 이 정보 중 사용자 정보와  기기 정보를 이용하여 <strong>License를 발급가능한지 판단</strong>합니다. 발급이 가능하다면, CID를 포함한 콘텐츠 정보와 사용자 정보를 <strong>콘텐츠 사용 권한 정보 페이지에 콘텐츠 사용 정보(사용기간, 횟수)를 위한 요청데이터를 전달</strong>합니다. </p>
+
+<p>콘텐츠 사용 권한 정보 페이지에서는 요청데이터에 맞는 <strong>콘텐츠 사용 권한 정보를  PallyCon Cloud 서비스 사이트로 전달</strong>합니다. PallyCon Cloud 서비스 사이트에서는 CID에 맞는 <strong>CEK를 추출</strong>합니다. <strong>CEK는 콘텐츠 사용 정보와 함께 License를 생성하여 Player로 전달</strong>합니다. </p>
+
+<p>클라이언트는 발급받은 <strong>License를 이용해 DRM 콘텐츠가 사용가능한지 판단하고, 사용이 가능하다면 CEK를 이용하여 DRM 콘텐츠를 원본 콘텐츠로 변환(Un-packaging)</strong>합니다.  </p>
+<h3 id='content-id-정책'>Content ID 정책</h3>
+<p><strong>Content ID는 License와 1대1로 관리</strong>됩니다. 그렇기 때문에, <strong>콘텐츠를 Packaging할 때 CID를 어떻게 설정하느냐에 따라 여러 개의 콘텐츠를 한 개의 License로 관리할 수도 있고, 각각 하나의 License로 관리할 수도 있습니다.</strong></p>
+
+<p><img alt="Packaging_CID_1vs1" src="../images/Packaging_CID_1vs1.png" /></p>
+
+<p>만약, 하나의 묶음으로 여러 개의 콘텐츠를 서비스 한다면, 콘텐츠 한 개당 한 개의 Licnese로 관리하는 것보다 하나의 묶음를 한 개의 License로 관리하는 것이 효과적일 것입니다. 여러 개의 콘텐츠를 한 개의 License로 관리하기 위해서는 콘텐츠를 Packaging 할 때 같은 묶음의 콘텐츠는 같은 CID를 사용하십시오. </p>
+
+<p><img alt="Packaging_CID_Package" src="../images/Packaging_CID_Package.png" /></p>
+
+<p>만약, 하나의 콘텐츠로 서비스를 한다면, 콘텐츠 한 개당 한 개의 License로 관리해야만 합니다. 콘텐츠를 Packaging 할 때 콘텐츠마다 서로 다른 CID를 사용하십시오.</p>
+
+<p><img alt="Packaging_CID_NoPackage" src="../images/Packaging_CID_NoPackage.png" /></p>
+<h3 id='content-id-발급-페이지'>Content ID 발급 페이지</h3>
+<p>Content ID (CID)를 직접 입력하지 않고, CID 발급 페이지와 통신하여 CID를 전달받을 때 페이지 개발에 대한 Protocol과 규격에 대한 설명입니다.   </p>
+<h4 id='https-protocol-post-method-requestresponse-data'>Http(s) Protocol (POST Method, REQUEST/RESPONSE Data)</h4>
+<p>개발자는 CID 발급 페이지 개발을 통해 Cloud CLI Packager나 Cloud Application Packager에서 요청하는 28 byte의 Content ID를 생성하여야 합니다. </p>
+<h5 id='request-data'>REQUEST DATA</h5><h6 id='details'>Details</h6>
+<p>CID 발급 페이지에서 파싱해야 할 데이터 입니다. 
+<code class="prettyprint">http(s)://ContentIDIssuePageURL&amp;data=Base64Encoding(AES256Encyption(XML DATA))String</code></p>
+
+<p><em>Format</em></p>
+
+<ul>
+<li>UTF-8 String Encoding 사용<br></li>
+<li>POST Method </li>
+<li>URL: http(s)://Content ID Issue Page URL<br></li>
+<li>Body<br>
+<strong>Parameter :</strong> <em>data</em> <strong>Value II:</strong> <em>XML DATA</em></li>
+</ul>
+
+<p><em>XML DATA</em></p>
+
+<ul>
+<li>Packaging을 하려는 콘텐츠에 대한 정보가 들어있는 데이터 입니다. 이 데이터는 <a href="http://">AES256</a> 으로 암호화되며, 다시 Base64로 인코딩하여 전달됩니다. </li>
+</ul>
+<h6 id='xml-standards'>XML Standards</h6>
+<p>Request data는 PallyCon Cloud 서비스에서 전달하는 값으로 빈값없이 CID 발급 페이지로 전달됩니다. </p>
+<pre><code class="highlight xml"><span class="cp">&lt;?xml version='1.0' encoding='UTF-8'?&gt;</span>
+<span class="nt">&lt;RES&gt;</span>
+<span class="nt">&lt;FILEPATH&gt;</span>C:\DATA\package_content_ori.mp4<span class="nt">&lt;/FILEPATH&gt;</span>
+<span class="nt">&lt;FILENAME&gt;</span>package_content_ori.mp4<span class="nt">&lt;/FILENAME&gt;</span>
+<span class="nt">&lt;NONCE&gt;</span>fdfe321xb74azv<span class="nt">&lt;/NONCE&gt;</span>
+<span class="nt">&lt;/RES&gt;</span>
+</code></pre>
+
+<p><em>FILEPATH</em>
+:  Packager에서 전달한 파일의 전체 경로입니다.</p>
+
+<p><em>FILENAME</em>
+: Packager에서 올라온 FilePath의 파일명입니다. </p>
+
+<p><em>NONCE</em>
+: PallyCon Cloud 서비스에서 CID 발급 페이지와 통신하는 데이터를 인증하기 위한 값입니다.</p>
+<h5 id='response-data'>RESPONSE DATA</h5><h6 id='details'>Details</h6>
+<p>CID 발급 페이지에서 만들어야 할 데이터 입니다. 
+<code class="prettyprint">Base64Encoding(AES256Encyption(XML DATA)) String</code></p>
+
+<p><em>Format</em> </p>
+
+<ul>
+<li>Base64Encoding(AES256Encyption(XML DATA)) String<br></li>
+<li>UTF-8 String Encoding 사용</li>
+</ul>
+
+<p><em>XML DATA</em></p>
+
+<ul>
+<li>PallyCon Cloud 서비스에서의 요청에 대한 응답</li>
+</ul>
+<h6 id='xml-standards'>XML Standards</h6><pre><code class="highlight xml">(CID 발급 성공)
+<span class="cp">&lt;?xml version='1.0' encoding='UTF-8'?&gt;</span>
+<span class="nt">&lt;RES&gt;</span>
+    <span class="nt">&lt;ERROR&gt;</span>0000<span class="nt">&lt;/ERROR&gt;</span>
+    <span class="nt">&lt;CID&gt;</span>idd_32_geedesef123fde34512dfe<span class="nt">&lt;/CID&gt;</span>
+    <span class="nt">&lt;NONCE&gt;</span>fdfe321xb74azv<span class="nt">&lt;/NONCE&gt;</span>
+<span class="nt">&lt;/RES&gt;</span>
+</code></pre>
+<pre><code class="highlight xml">(CID 발급 실패)
+<span class="cp">&lt;?xml version='1.0' encoding='UTF-8'?&gt;</span>
+<span class="nt">&lt;RES&gt;</span>
+    <span class="nt">&lt;ERROR&gt;</span>0001<span class="nt">&lt;/ERROR&gt;</span>
+    <span class="nt">&lt;ERRMSG&gt;</span>No Registerd File<span class="nt">&lt;/ERRMSG&gt;</span>
+    <span class="nt">&lt;NONCE&gt;</span>fdfe321xb74azv<span class="nt">&lt;/NONCE&gt;</span>
+<span class="nt">&lt;/RES&gt;</span>
+</code></pre>
+
+<p><em>ERROR</em>
+: 정의된 Error code로, 필수로 사용해야 하는 parameter입니다. 고정된 4byte의 길이를 가져야 하며, 빈 값은 허용하지 않습니다. 성공일 때는 <code class="prettyprint">0000</code>으로 표시하고, 그외에는 실패입니다. </p>
+
+<p><em>ERRORMSG</em>
+: <code class="prettyprint">ERROR</code>값이 실패이었을 때, 그와 관련된 메시지입니다. 이 parameter는 필수로 사용할 필요가 없으며, 빈값이 허용됩니다. 최대 255byte까지 허용됩니다. </p>
+
+<p><em>CID</em>
+: CID 발급 페이지에서 CID 정책에 의해 생성된 CID로, 성공시 필수로 사용해야 하는 parameter입니다. 빈값은 허용하지 않으며, 최대 <strong>28byte</strong>까지 허용합니다. CID는 영문, 숫자, 일부 특수 문자 (&rsquo; _ &rsquo;, &rsquo; . &rsquo;)만 허용합니다. </p>
+
+<p><em>NONCE</em>
+: PallyCon Cloud 서비스에서 CID 발급 페이지와 통신하는 데이터를 인증하기 위한 값으로, 필수로 사용해야 하는 parameter입니다. 빈값은 허용하지 않으며, <strong>반드시 Request Data에서의 &#39;NONCE&rsquo; 값과 동일한 값을 보내주셔야 합니다.</strong></p>
+<h4 id='a-hrefhttpaes256a-encryptiondecryption'><a href="http://">AES256</a> Encryption/Decryption</h4>
+<p>Cloud Packager와 DRM 서버 사이에 통신하는 데이터(REQUEST / RESPONSE DATA)는 <a href="http://">AES256</a> 암호화를 통해 보호받습니다. </p>
+<h6 id='details'>Details</h6>
+<p><em>Algorithm</em></p>
+
+<ul>
+<li>Algorithm : AES<br></li>
+<li>Keysize : 256 bit<br></li>
+<li>Mode : CBC</li>
+</ul>
+
+<p><em>Key, Initial vector</em></p>
+
+<ul>
+<li>Key: 32 byte  (PallyCon CP Admin 페이지에서 확인 가능)</li>
+<li>Initial vector: 16 byte  (고정값: <strong>1234567890abcdef</strong>)</li>
+</ul>
+
+<p><em>Padding</em></p>
+
+<ul>
+<li><a href="http://">PKCS7</a>을 사용합니다.</li>
+</ul>
+<h3 id='how-to-use-cloud-application-packager'>How To Use Cloud Application Packager</h3><h4 id='설치'>설치</h4>
+<p>Cloud Application packager는 설치 과정없이 .zip 파일을 압축을 푼 후 바로 사용이 가능합니다.</p>
+
+<p><strong><em>Bin 폴더</em></strong></p>
+
+<ul>
+<li>PallyCon_Packager.exe: 프로그램 실행 파일</li>
+<li>Setting.ini, Image: 프로그램을 실행하는데 필요한 파일</li>
+<li>readme.txt : 프로그램 매뉴얼 파일</li>
+</ul>
+
+<p><strong><em>Doc 폴더</em></strong></p>
+
+<ul>
+<li>NCG_Packager_Manual_Eng.doc: 프로그램 매뉴얼 파일</li>
+</ul>
+
+<p><strong><em>Release_Note.txt</em></strong></p>
+
+<ul>
+<li>이번 버전에서 변경된 사항 기술</li>
+</ul>
+<h4 id='사용법'>사용법</h4>
+<p><strong>STEP1:</strong> Bin 폴더의 NCG_Packager_Cloud.exe를 더블클릭하여 실행합니다.</p>
+
+<p><strong>STEP2:</strong> Settings 화면에서 Site ID와 Packager Key를 입력입력합니다. (PallyCon CP Admin에서 확인이 가능합니다.)</p>
+
+<p><strong>STEP3:</strong> Settings 화면에서 Packager 설정합니다. 최초 실행히 default 값으로 설정되어 있습니다. </p>
+
+<p><strong>STEP4:</strong> Main 화면에서 Destination 경로를 설정합니다. </p>
+
+<p><strong>STEP5:</strong> Main 화면에서 Source 경로 (폴더)를 설정하여 Packaging할 파일 목록을 불러옵니다. </p>
+
+<p><strong>STEP6:</strong> Main 화면에서 &#39;Packaging&rsquo; 버튼을 클릭하여 Packaging을 시작합니다. </p>
+<h4 id='화면설명'>화면설명</h4><h5 id='main-화면'>Main 화면</h5>
+<p><img alt="Packaging_CloudApplicationPackager_Main" src="../images/Packaging_CloudApplicationPackager_Main.png" /></p>
+
+<p><em>(1) Input</em>
+: Packaging 이 필요한 원본 영상 파일들이 존재하는 폴더입니다. </p>
+
+<p><em>(2) Ouput</em>
+: Packaging 작업 후에 Packed 된 파일을 저장하는 폴더입니다.</p>
+
+<p><em>(3) Input Folder</em>
+: 버튼을 눌러 탐색기를 통해 folder 를 지정 할 수 있습니다.</p>
+
+<p><em>(4) Output Folder</em><br>
+: 이 버튼은 Settings 의 Pack type 이 Batch 일 경우만 사용 가능합니다.<br>
+: 버튼을 눌러 탐색기를 통해 folder 를 지정 할 수 있습니다.<br>
+: 지정한 폴더를 변경하면 File List 는 초기화 됩니다.  </p>
+
+<p><em>(5) Add Input Folder</em>
+: 이 버튼은 Settings 의 Pack Type 이 Unit 일 경우만 사용 가능 합니다.
+: 폴더를 지정하지 않고 하고 계속해서 원하는 폴더를 추가 시킬 수 있습니다..</p>
+
+<p><em>(6) Add Input False</em>
+: 이 버튼은 Settings 의 Pack type 이 Batch 일 경우만 사용 가능 합니다.
+: 낱개 파일을 계속적으로 추가 시킬 수 있습니다.</p>
+
+<p><em>(7) Settings</em>
+: Settings 화면을 불러옵니다.</p>
+
+<p><em>(8) Packaging</em>
+: 파일 리스트들을 Packaging 합니다..</p>
+
+<p><em>(9) File List</em>
+: File Name Column, Result Column 두 개의 Column으로 구성되어 있습니다. </p>
+
+<ul>
+<li><p><strong>File Name Column</strong><br>
+패키징 할 리스트들 목록입니다. 이 목록은 Input folder로 지정할 수 있습니다.
+Add Input Folder로 추가 할 수 있습니다.
+목록에 있는 파일 중 Packaging 하고 싶지 않은 파일은 클릭 한 후에 Delete 키를 눌러서 삭제 할 수 있습니다. 목록에 있는 파일 다중 삭제 또한 가능합니다.</p></li>
+<li><p><strong>Result Column</strong><br>
+<strong>Ready:</strong> 패키징 하기 전에 표시됩니다.
+<strong>Success:</strong> 패키징 성공했을 때 표시됩니다. 
+<strong>Fail:</strong> 패키징 실패했을 때 표시됩니다.</p></li>
+</ul>
+
+<p><em>(10) Log List</em>
+: Log Type Column, Contents Column 두 개의 Column으로 구성되어 있습니다. </p>
+
+<ul>
+<li><p><strong>Log Type Column</strong><br>
+<strong>Error:</strong> 패키징 중에 예기치 않은 오류를 만났을 때 표시됩니다.<br>
+<strong>Work:</strong> 패키징 중에 정상 작업 상황을 기록합니다.<br>
+<strong>Settings:</strong> 환경 설정에 관한 사항을 기록합니다.</p></li>
+<li><p><strong>Contents Column</strong>
+<strong>Work:</strong> &rsquo;[작업 파일 이름] + 작업 결과&#39;로 표시됩니다.<br>
+<strong>Error:</strong> &rsquo;[작업 파일 이름] + 작업 실패 위치 + Code Number&#39;로 표시됩니다. 실제 Error 가 발생 했을 때 이 로그들은 파일로 자동 저장 되며 분석을 위해 help desk로 Log File을 보내주어야 합니다.<br>
+<strong>Settings:</strong> Packaging 시점에 Settings 설정을 나타낸다.<br>
+<strong>Result:</strong> Total, Success, Fail 개수가 File List 화면의 Result Column과 일치한다. Packaging한 결과를 요약한다.</p></li>
+</ul>
+<h5 id='settings-화면'>Settings 화면</h5>
+<p>Settings 화면은 상단에 &#39;Common&rsquo; 섹션과 &#39;Packaging&#39;섹션으로 구분됩니다. </p>
+
+<p><img alt="Packaging_Setting-Common" src="../images/Packaging_Setting-Common.png" /></p>
+
+<p><em>(1) Packaging Type</em></p>
+
+<p><strong>Batch Pack:</strong> 일괄 작업으로서 input folder 버튼으로 한 개의 폴더만 지정 가능합니다. 그러나 하위 폴더 구조 그대로 유지하여 output 폴더를 생성합니다. 다른 폴더를 지정 할 경우 File List 에 있던 목록이 사라집니다.</p>
+
+<p><strong>Unit Pack:</strong> 개별 작업으로서 add input folder 를 통해 계속적으로 packaging 하고자 하는 폴더를 추가 할 수 있습니다. 그러나 output 폴더에 하위구조를 그대로 유지 할 수는 없습니다.
+Add input file 버튼으로 개별 파일 도 계속 해서 추가 할 수 있습니다.</p>
+
+<p><img alt="Packaging_Setting-Packaging" src="../images/Packaging_Setting-Packaging.png" /></p>
+
+<p><em>(1) Supported Extensions</em>
+: 지원 가능한 확장자 리스트입니다. 메인 화면의 Input folder를 통해 파일을 추가 할 때 지원하지 않는 확장자의 파일은 추가 하지 않습니다. 추가하고자 하는 확장자가 따로 있다면 Add, Remove 버튼을 통해 추가, 삭제 할 수 있습니다.</p>
+
+<p><em>(2) Integration Info</em></p>
+
+<ul>
+<li><strong>Site ID:</strong> PallyCon CP Admin에서 발급받은 Site ID입니다.</li>
+<li><strong>Packager Key:</strong> PallyCon CP Admin에서 발급받은 Packager Key입니다.</li>
+</ul>
+<h5 id='progress-bar-화면'>Progress Bar 화면</h5>
+<p><img alt="Packaging_CloudApplicationPackager_ProgressBar" src="../images/Packaging_CloudApplicationPackager_ProgressBar.png" /></p>
+
+<p><em>(1) File Name</em>
+: 실시간 진행되고 있는 파일의 이름을 나타냅니다.</p>
+
+<p><em>(2) Timer</em>
+: 전체 경과 시간을 나타낸다. Pause 한 시간은 추가되지 않습니다.</p>
+
+<p><em>(3) Percentage</em>
+: 한 개의 파일의 Packaging 진행률을 나타냅니다.</p>
+
+<p><em>(4) Total Number</em>
+: 전체 Packaging 하려는 개수 와 작업이 완료된 개수를 나타냅니다.</p>
+
+<p><em>(5) Pause &amp; Cancel</em>
+: 작업 도중 일시 정지 할 수 있으며 이때 작업시간은 추가되지 않습니다. Continue 버튼으로 작업 재개 할 수 있습니다. 또한 Cancel 버튼으로 작업 취소를 할 수 있으며 작업 취소는 파일단위로 취소 되기 때문에 현재 작업 중인 파일이 끝나고 나서 작업이 중단됩니다.</p>
+<h4 id='로그-분석'>로그 분석</h4>
+<p>Log File 위치 : <strong>실행 폴더/LogList_mmddhhmm.txt 파일로 자동 생성</strong> 되며 &#39;mm = month , dd = day , hh = hours , mm = minutes&rsquo; 를 뜻합니다.</p>
+<h3 id='how-to-use-cloud-cli-packager'>How To Use Cloud CLI Packager</h3><h4 id='cloud-cli-packager-확인'>Cloud CLI Packager 확인</h4>
+<ul>
+<li>  PallyCon 서비스 사이트를 통해 Cloud CLI Packager 파일을 받습니다.</li>
+<li>  압축을 해제하면 <strong>Linux_CentOS, Linux_Ubuntu, Windows</strong>폴더를 확인할 수 있습니다. </li>
+<li>  각 폴더에는 <strong>bin, doc</strong> 폴더와 <strong>ReleaseNote.txt</strong> 파일이 있습니다. </li>
+<li>  <em><strong>Windows:</strong></em> bin 폴더 내에 있는 pallyconpack.exe 파일이 커맨드 라인 패키져입니다.</li>
+<li>  <em><strong>Linux</strong></em> 반드시 권한상승이 필요합니다.
+
+<ul>
+<li>  권한상승 방법: <strong>chmod 775 &ldquo;filename&rdquo;</strong></li>
+</ul></li>
+</ul>
+<h4 id='input--output-standards'>Input / Output Standards</h4><h5 id='input'>Input</h5>
+<p><em>Format</em><br>
+<code class="prettyprint">pallyconpack pack Site_ID Packager_Key &quot;SourceFilePath&quot; &quot;DestinationFilePath&quot; (Content_ID)</code></p>
+<pre><code class="highlight shell">// cid 입력
+pallyconpack pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</span><span class="se">\c</span><span class="s2">ontent</span><span class="se">\O</span><span class="s2">T.mp4"</span> <span class="s2">"d:</span><span class="se">\N</span><span class="s2">CGcontent</span><span class="se">\O</span><span class="s2">T.mp4.ncg"</span> 
+
+// cid 입력하지 않을 때
+pallyconpack pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</span><span class="se">\c</span><span class="s2">ontent</span><span class="se">\O</span><span class="s2">T.mp4"</span> <span class="s2">"d:</span><span class="se">\N</span><span class="s2">CGcontent</span><span class="se">\O</span><span class="s2">T.mp4.ncg"</span> 1234
+</code></pre>
+
+<p><em>pack</em>
+: 콘텐츠를 Packaging을 한다는 값으로, 고정 4byte 값입니다. 소문자로 사용하세요.</p>
+
+<p><em>Site_ID, Packager_Key</em>
+: PallyCon Cloud 서비스 사이트에서 부여 받은 값입니다. </p>
+
+<p><em>SourceFilePath, DestinationFilePath</em>
+: 원본 파일의 전체 경로와 DRM 파일이 생성되는 전체 경로(절대경로)입니다. 공백이 있을 경우에는 반드시 &ldquo;&quot;로 묶어서 사용해야합니다. </p>
+
+<p><em>Content_ID</em>
+: Content ID입니다. 직접입력할 경우에 맨 마지막에 넣어주셔야 합니다. 28byte이하의 영문과 숫자, 일부 특수문자 ( &rsquo; . &rsquo; , &rsquo; _ &rsquo; )만 가능합니다. </p>
+<h5 id='output'>Output</h5><pre><code class="highlight xml">(성공)
+<span class="cp">&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;</span>
+<span class="nt">&lt;ncgpackager&gt;</span>
+<span class="nt">&lt;RESULT&gt;</span>0<span class="nt">&lt;/RESULT&gt;</span>
+<span class="nt">&lt;SRCFILE&gt;</span>d:\content\20140814\OT.mp4<span class="nt">&lt;/SRCFILE&gt;</span>
+<span class="nt">&lt;DSTFILE&gt;</span>d:\NCGcontent\20140814\OT.mp4.ncg<span class="nt">&lt;/DSTFILE&gt;</span>
+<span class="nt">&lt;ELAPSETIME&gt;</span>1.95000<span class="nt">&lt;/ELAPSETIME&gt;</span>
+<span class="nt">&lt;CID&gt;</span>1234<span class="nt">&lt;/CID&gt;</span>
+<span class="nt">&lt;/ncgpackager&gt;</span>
+</code></pre>
+<pre><code class="highlight xml">(실패)
+<span class="cp">&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;</span>
+<span class="nt">&lt;ncgpackager&gt;</span>
+<span class="nt">&lt;RESULT&gt;</span>1202<span class="nt">&lt;/RESULT&gt;</span>
+<span class="nt">&lt;ERRORMSG&gt;</span>Source File is not found<span class="nt">&lt;/ERRORMSG&gt;</span>
+<span class="nt">&lt;SRCFILE&gt;</span>d:\content\2014-08-14\OT.mp4<span class="nt">&lt;/SRCFILE&gt;</span>
+<span class="nt">&lt;DSTFILE&gt;</span>d:\NCGcontent\2014-08-14\OT.mp4.ncg<span class="nt">&lt;/DSTFILE&gt;</span>
+<span class="nt">&lt;/ncgpackager&gt;</span>
+</code></pre>
+
+<aside class="notice"> 실패일 때, `SRCFILE`과 `DSTFILE`은 옵션으로 해당 파일 오류일 경우에 나타납니다. </aside>
+
+<p><em>RESULT</em>
+: Packaging 결과 code 값,  성공 – 0 / 실패 – Error Code</p>
+
+<p><em>ERRORMSG</em>
+: RESULT에 해당하는 메시지</p>
+
+<p><em>SRCFILE</em>
+: App Error, 원본 파일이 설정된 경로</p>
+
+<p><em>DSTFILE</em>
+: App Error, DestFile의 경로</p>
+
+<p><em>ELAPSETIME</em>
+: 성공시 Packaging에 경과된 시간</p>
+
+<p><em>CID</em>
+: 성공시 컨텐츠 헤더에 입력된 32 byte의 Content ID</p>
+<h4 id='error-code'>Error Code</h4>
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Error Location</th>
+<th>Explanation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>SUCCESS</td>
+<td>성공</td>
+</tr>
+<tr>
+<td><strong>1101</strong></td>
+<td>PARAM</td>
+<td>실행 명령어 뒤에 Param이 하나도 전달되지 않음</td>
+</tr>
+<tr>
+<td><strong>1102</strong></td>
+<td>PARAM</td>
+<td>실행 명령어 다음에 pack이라는 Param이 아님</td>
+</tr>
+<tr>
+<td><strong>1103</strong></td>
+<td>PARAM</td>
+<td>실행 명령어 다음의 Param의 개수가 맞지 않음</td>
+</tr>
+<tr>
+<td><strong>1202</strong></td>
+<td>FILE</td>
+<td>원본 파일이 지정된 경로에 위치하지 않음</td>
+</tr>
+<tr>
+<td><strong>1204</strong></td>
+<td>FILE</td>
+<td>원본 파일에 Access할 수 없음 (권한 / 파일이름 문제)</td>
+</tr>
+<tr>
+<td><strong>1205</strong></td>
+<td>FILE</td>
+<td>NCG 파일 생성에 실패함 (권한 / 파일이름 문제)</td>
+</tr>
+<tr>
+<td><strong>1206</strong></td>
+<td>FILE</td>
+<td>경로에 지정된 폴더 중 존재하지 않는 폴더 생성에 실패함 (권한 / 폴더이름 문제)</td>
+</tr>
+<tr>
+<td><strong>1210</strong></td>
+<td>FILE</td>
+<td>App에서 버퍼를 할당받는데 실패함 (메모리 확보 / 재부팅)</td>
+</tr>
+<tr>
+<td><strong>1301</strong></td>
+<td>PACK</td>
+<td>CID가 빈 값임</td>
+</tr>
+<tr>
+<td><strong>1302</strong></td>
+<td>PACK</td>
+<td>CEK가 빈 값임</td>
+</tr>
+<tr>
+<td><strong>2001</strong></td>
+<td>NETWORK</td>
+<td>Networks 통신을 하다 오류가 발생(ErrorMessage 확인)</td>
+</tr>
+<tr>
+<td><strong>100XX</strong></td>
+<td>WINDOWS</td>
+<td>윈도우 소켓 생성에 실패함.(재시도 / 재부팅)</td>
+</tr>
+<tr>
+<td><strong>그 외</strong></td>
+<td></td>
+<td>알 수 없는 에러.</td>
+</tr>
+</tbody></table>
+<h3 id='revision-history'>Revision History</h3>
+<p>이 테이블은 PallyCon Packaging 가이드의 수정사항에 대해 설명한 것입니다.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Date</th>
+<th style="text-align: left">Detail</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">2014.08.24</td>
+<td style="text-align: left">Packaging Guide 제작</td>
+</tr>
+<tr>
+<td style="text-align: left">2014.09.30</td>
+<td style="text-align: left">How to use Cloud CLI Packager 가이드 규격 수정</td>
+</tr>
+</tbody></table>
+<h2 id='라이선스-발급-가이드'>라이선스 발급 가이드</h2><h3 id='introduction'>Introduction</h3>
+<p>DRM 콘텐츠를 서비스 하기 위해서는 License가 필요합니다. 이 문서에서는 License 발급에 필요한 정보를 설명합니다.</p>
+<h4 id='license'>License</h4>
+<p>License는 <strong>DRM 콘텐츠의 Content ID와 CEK, 그리고 콘텐츠 사용기간과 사용횟수에 대한 정보</strong>를 가지고 있으며, PallyCon Cloud 서비스 사이트에서 생성되어 Client로 발급됩니다. </p>
+
+<p><img alt="Packaging_Scenario_License" src="../images/Packaging_Scenario_License.png" /></p>
+
+<p>그렇기 때문에, 개발자는 License 발급에 직접적인 개발을 할 필요가 없습니다. 다만, 개발자가 개발해야 하는 부분은 PallyCon Cloud 서비스 사이트에서 License를 생성에 필요한 <strong>콘텐츠 사용 권한 정보</strong>를 조회하기 위한 페이지입니다. </p>
+<h4 id='이-문서의-활용'>이 문서의 활용</h4>
+<p>이 문서에서는 <strong>License가 발급되는 과정과 License 발급에 필요한 콘텐츠 사용 권한 정보를 설정하는 방법</strong>에 대해 설명합니다. </p>
+
+<p>이 설명을 통해 </p>
+
+<ul>
+<li>License 발급 시 주의사항에 대해 알수 있습니다. </li>
+<li>License 정보의 다양한 설정방법에 대한 아이디어를 얻을 수 있습니다.</li>
+</ul>
+<h4 id='필요조건'>필요조건</h4>
+<p>작업을 진행하기 전에 먼저 개발자가 갖추어야할 것들은 다음과 같습니다.</p>
+
+<ul>
+<li>서비스할 DRM 콘텐츠가 있어야 합니다.</li>
+<li>개발에 필요한 HTTP(s) 통신과 AES암호화 등에 대한 지식 및 적용 기술을 가지고 있어야 합니다.</li>
+</ul>
+<h4 id='작업-순서'>작업 순서</h4>
+<p><strong>STEP1:</strong> License 발급에 대해 알기 위해 이 문서를 최소 한번 이상 정독합니다. </p>
+
+<p><strong>STEP2:</strong> 콘텐츠 사용 권한 정보(Content Usage Rights Info)를 설정하는 것에 대한 정책을 결정합니다. </p>
+
+<p><strong>STEP3:</strong> 이 문서에서 제공하는 콘텐츠 사용 정보 규격에 따라 Content Usage Rights Info 페이지를 개발합니다. </p>
+
+<p><strong>STEP4:</strong> 콘텐츠 사용 정보 페이지 주소를 PallyCon CP Admin의 Content Usage Rights Info URL으로 등록합니다.</p>
+<h3 id='scenario'>Scenario</h3><h4 id='license-issue-scenario'>License Issue Scenario</h4>
+<p><img alt="Packaging_Scenario_DRMService" src="../images/Packaging_Scenario_DRMService.png" /></p>
+
+<p>DRM 콘텐츠를 사용자가 사용하려고 할 때, Player에서는 <strong>DRM 콘텐츠에서 Site ID가 포함된 32 byte의 Content ID를 추출</strong>합니다. 그리고 사용하는 <strong>기기와 사용자 정보, 기타 콘텐츠 정보를 추출</strong>하여, CID와 함께 PallyCon Cloud 서비스 사이트로 License를 요청하기 위한 데이터를 전달합니다. </p>
+
+<p>PallyCon Cloud 서비스 사이트에서는 이 정보 중 사용자 정보와  기기 정보를 이용하여 <strong>License를 발급가능한지 판단</strong>합니다. 발급이 가능하다면, CID를 포함한 콘텐츠 정보와 사용자 정보를 <strong>Content Usage Rights Info 페이지에 콘텐츠 사용 정보(사용기간, 횟수)를 위한 요청데이터를 전달</strong>합니다. </p>
+
+<aside class="notice">Content Usage Rights Info Page(_그림에서 빨간색 Box_): CID 발급 페이지 외에 개발자가 개발해야 하는 페이지로, 콘텐츠 사용 권한 정보를 조회할 수 있어야 합니다. </aside>
+
+<p>Content Usage Info 페이지에서는 요청데이터에 맞는 <strong>콘텐츠 사용 정보를  PallyCon Cloud 서비스 사이트로 전달</strong>합니다. PallyCon Cloud 서비스 사이트에서는 CID에 맞는 <strong>CEK를 추출</strong>합니다. <strong>CEK는 콘텐츠 사용 정보와 함께 License를 생성하여 Player로 전달</strong>합니다. </p>
+
+<p>Player는 발급받은 <strong>License를 이용해 DRM 콘텐츠가 사용가능한지 판단하고, 사용이 가능하다면 CEK를 이용하여 DRM 콘텐츠를 원본 콘텐츠로 변환(Un-packaging)</strong>합니다.  </p>
+<h5 id='content-usage-info-연동'>Content Usage Info 연동</h5>
+<p>PallyCon Cloud 서비스 사이트에서 Content Usage Rights Info 페이지로 사용자 정보, 콘텐츠 정보, 기기 정보를 전달하여 사용하고자 하는 콘텐츠의 License를 만들기 위한 콘텐츠 사용 권한 정보를 요청합니다. </p>
+
+<p><img alt="LicenseIssue_Scenario_ContentUsageInfoPage" src="../images/LicenseIssue_Scenario_ContentUsageInfoPage.png" /></p>
+
+<p>Content Usage Rights Info 페이지에서는 업체에서 결정한 콘텐츠 사용에 대한 정책에 맞게 정보를 설정하여 PallyCon Cloud 서비스 사이트로 전달합니다. </p>
+<h3 id='content-usage-rights-info-페이지'>Content Usage Rights Info 페이지</h3>
+<p>Content Usage Rights Info 페이지와 통신하여 콘텐츠 사용 권한 정보(Content Usage Rights Info)를 전달받을 때 페이지 개발에 대한 Protocol과 규격에 대한 설명입니다.   </p>
+<h4 id='protocol-post-method-requestresponse-data'>Protocol (POST Method, REQUEST/RESPONSE Data)</h4>
+<p>개발자는 Content Usage Rights Info 페이지 개발을 통해 PallyCon Cloud 서비스 사이트에서 콘텐츠 사용 권한 정보를 요청하는 데이터에 알맞은 응답 데이터를 생성하여야 합니다.</p>
+<h5 id='request-data'>REQUEST DATA</h5><h6 id='details'>Details</h6>
+<aside class="notice">Content Usage Rights Info 페이지에서 파싱해야 할 데이터 입니다. </aside>
+
+<p><code class="prettyprint">http(s)://ContentUsageRightsInfoURL&amp;data=Base64Encoding(AES256Encyption(XML DATA))String</code></p>
+
+<p><em>Format</em></p>
+
+<ul>
+<li>UTF-8 String Encoding 사용</li>
+<li>POST Method </li>
+<li>URL: http(s)://Content Usage Rights Info URL </li>
+<li>Body<br>
+<strong>Parameter :</strong> <em>data</em> <strong>Value II:</strong> <em>XML DATA</em></li>
+</ul>
+
+<p><em>XML DATA</em>
+- 콘텐츠 사용 권한 정보를 확인 하려는 콘텐츠와 사용자, 기기에 대한 정보가 들어있는 데이터 입니다. 이 데이터는 <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES256</a> 으로 암호화되며, 다시 Base64로 인코딩하여 전달됩니다. </p>
+<h6 id='xml-standards'>XML Standards</h6>
+<p>Request data는 PallyCon Cloud 서비스 사이트에서 전달하는 값으로 빈값없이 Content Usage Rights Info 페이지로 전달됩니다. </p>
+<pre><code class="highlight xml"><span class="cp">&lt;?xml version='1.0' encoding='UTF-8'?&gt;</span>
+<span class="nt">&lt;RES&gt;</span>
+    <span class="nt">&lt;CID&gt;</span>C000004731001HDKLSE23KFL34KJQNC2<span class="nt">&lt;/CID&gt;</span>
+    <span class="nt">&lt;USERID&gt;</span>1113654772<span class="nt">&lt;/USERID&gt;</span>
+    <span class="nt">&lt;DEVICEID&gt;</span>YqiqMLuuKbIVtPp+Vl36RdLbE+cMmtADw5M=<span class="nt">&lt;/DEVICEID&gt;</span>
+    <span class="nt">&lt;DEVICEMODEL&gt;</span>iPhone<span class="nt">&lt;/DEVICEMODEL&gt;</span>
+    <span class="nt">&lt;OID&gt;</span>MOVIE-J-R15-2011<span class="nt">&lt;/OID&gt;</span>
+    <span class="nt">&lt;NONCE&gt;</span>fdfe321xb74azv<span class="nt">&lt;/NONCE&gt;</span>
+<span class="nt">&lt;/RES&gt;</span>
+</code></pre>
+
+<p><em>CID</em>
+:  사용하려는 콘텐츠에서 추출한 Site ID가 포함된 32 byte의 Content ID로, Packaging시 사용된 값입니다. </p>
+
+<p><em>USERID</em>
+: 콘텐츠를 사용하려는 사용자 정보입니다. </p>
+
+<p><em>DEVICEID</em>
+: 콘텐츠를 사용하려는 기기의 ID입니다. </p>
+
+<p><em>DEVICEMODEL</em>
+: 기기의 모델명입니다. </p>
+
+<p><em>OID</em>
+: 콘텐츠의 주문정보 (Order ID)입니다. </p>
+
+<p><em>NONCE</em>
+: PallyCon Cloud 서비스 사이트에서 Content Usage Info 페이지와 통신하는 데이터를 인증하기 위한 값입니다.</p>
+<h5 id='response-data'>RESPONSE DATA</h5><h6 id='details'>Details</h6>
+<p>CID 발급 페이지에서 만들어야 할 데이터 입니다. </p>
+
+<p><code class="prettyprint">Base64Encoding(AES256Encyption(XML DATA)) String</code></p>
+
+<p><em>Format</em> </p>
+
+<ul>
+<li>Base64Encoding(AES256Encyption(XML DATA)) String<br></li>
+<li>UTF-8 String Encoding 사용</li>
+</ul>
+
+<p><em>XML DATA</em></p>
+
+<ul>
+<li>PallyCon Cloud 서비스에서의 요청에 대한 응답</li>
+</ul>
+<h6 id='xml-standards'>XML Standards</h6><pre><code class="highlight xml"><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</span>
+<span class="nt">&lt;RES&gt;</span>
+    <span class="nt">&lt;ERROR&gt;</span>0000<span class="nt">&lt;/ERROR&gt;</span>
+    <span class="nt">&lt;ERRMSG&gt;</span>OK<span class="nt">&lt;/ERRMSG&gt;</span> 
+    <span class="nt">&lt;LIMIT&gt;</span>Y<span class="nt">&lt;/LIMIT&gt;</span>
+    <span class="nt">&lt;PD_COUNT&gt;&lt;/PD_COUNT&gt;</span>
+    <span class="nt">&lt;PD_START&gt;</span>2013-12-17T13:27:01<span class="nt">&lt;/PD_START&gt;</span>
+    <span class="nt">&lt;PD_END&gt;</span>2013-12-18T10:44:56<span class="nt">&lt;/PD_END&gt;</span>
+    <span class="nt">&lt;NONCE&gt;</span>fdfe321xb74azv<span class="nt">&lt;/NONCE&gt;</span>
+<span class="nt">&lt;/RES&gt;</span>
+</code></pre>
+
+<p><em>ERROR</em>
+: 정의된 Error code로, 필수로 사용해야 하는 parameter입니다. 고정된 4byte의 길이를 가져야 하며, 빈 값은 허용하지 않습니다. 성공일 때는 <code class="prettyprint">0000</code>으로 표시하고, 실패일때는 업체에서 정의한 4byte의 에러코드로 정의하십시오. </p>
+
+<p><em>ERRORMSG</em>
+: <code class="prettyprint">ERROR</code>값이 실패이었을 때, 그와 관련된 메시지입니다. 이 parameter는 필수로 사용해야하며, 빈값은 Error일 경우가 아닐 때만 허용됩니다. 최대 255byte까지 허용됩니다. </p>
+
+<p><em>LIMIT</em>
+: 콘텐츠가 무제한으로 재생될 지 결정하는 parameter입니다. &#39;Y&rsquo;, &#39;N&#39;만 허용됩니다. 그외의 문자는 에러로 처리됩니다. </p>
+
+<p><em>PD_COUNT</em>
+: 횟수제 타입에서 사용해야 하는 횟수입니다. 횟수제 타입을 선택하시면 반드시 0보다 큰 값을 선택하셔야 합니다. </p>
+
+<p><em>PD_START</em>
+: 기간제 타입에서 사용해야 하는 기간 중 시작 날짜와 시간입니다. 기간제 타입을 선택하시면 반드시 이 parameter에 해당하는 값을 넣어 주셔야 합니다. 날짜와 시간은 GMT 시간으로 설현</p>
+
+<p><em>PD_END</em>
+: CID 발급 페이지에서 CID 정책에 의해 생성된 CID로, 성공시 필수로 사용해야 하는 parameter입니다. 빈값은 허용하지 않으며, 최대 32byte까지 허용합니다. CID는 영문, 숫자, 일부 특수 문자 (&rsquo; _ &rsquo;, &rsquo; . &rsquo;)만 허용합니다. </p>
+
+<p><em>NONCE</em>
+: PallyCon Cloud 서비스에서 CID 발급 페이지와 통신하는 데이터를 인증하기 위한 값으로, 필수로 사용해야 하는 parameter입니다. 빈값은 허용하지 않으며, <strong>반드시 Request Data에서의 &#39;NONCE&rsquo; 값과 동일한 값을 보내주셔야 합니다.</strong></p>
+<h4 id='a-hrefhttpen-wikipedia-orgwikiadvanced_encryption_standardaes256a-encryptiondecryption'><a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES256</a> Encryption/Decryption</h4>
+<p>Cloud Packager와 DRM 서버 사이에 통신하는 데이터(REQUEST / RESPONSE DATA)는 <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES256</a> 암호화를 통해 보호받습니다. </p>
+<h6 id='details'>Details</h6>
+<p><em>Algorithm</em></p>
+
+<ul>
+<li>Algorithm : AES<br></li>
+<li>Keysize : 256 bit<br></li>
+<li>Mode : CBC</li>
+</ul>
+
+<p><em>Key, Initial vector</em></p>
+
+<ul>
+<li>Key: 32 byte  (PallyCon CP Admin 페이지에서 확인 가능)</li>
+<li>Initial vector: 16 byte  (고정값: <strong>1234567890abcdef</strong>)</li>
+</ul>
+
+<p><em>Padding</em></p>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/PKCS">PKCS7</a>을 사용합니다.</li>
+</ul>
+<h3 id='how-to-set-content-usage-rights-info'>How To Set Content Usage Rights Info</h3>
+<p>License에 포함되어 있는 사용기간과 사용횟수는 콘텐츠 사용 권한 정보에 의해서 생성됩니다. 콘텐츠 사용 권한 정보는 업체의 정책에 따라 만들어 지게 됩니다. 업체가 정책을 결정하는 데 필요한 정보로, PallyCon Cloud 서비스 사이트에서는 Player에서 추출한 Content ID, User ID, Device ID, Order ID를 콘텐츠 사용 권한 정보 페이지로 전달합니다. </p>
+
+<p>여기에서는 콘텐츠 사용 권한 정보를 PallyCon Cloud 서비스 사이트에서 어떻게 판단하여 사용기간과 사용횟수를 설정하는지에 대하여 설명합니다. </p>
+<h4 id='license-rule-정보'>License Rule 정보</h4>
+<p>License Rule은 사용기간과 사용횟수에 의하여 결정됩니다. License Rule은 각각 횟수제, 기간제, 무제한, 기간제+횟수제 4가지로 결정됩니다. </p>
+
+<ul>
+<li><strong>횟수제:</strong> 횟수에 따라 재생을 관리합니다. </li>
+<li><strong>기간제:</strong> 기간에 따라 재생을 관리합니다. </li>
+<li><strong>무제한:</strong> 무제한으로 재생할 수 있도록 합니다. </li>
+<li><strong>횟수제 + 기간제:</strong> 일정 기간동안에 지정된 횟수만큼 재생되도록 관리합니다. 기간이 만료되었을 때 횟수가 남아있어도 재생은 되지 않으며, 횟수가 0이 되었을 때 기간이 남아있어도 재생되지 않습니다. </li>
+</ul>
+
+<p>License Rule은 콘텐츠 사용 권한 정보 페이지에서 설정한 값을 판단하여 결정됩니다. </p>
+
+<p>아래의 표는 <strong>콘텐츠 사용 권한 정보 설정에 따라 License Rule이 어떻게 설정되는지에 대한 표</strong>입니다. </p>
+
+<table><thead>
+<tr>
+<th>License Rules</th>
+<th>LIMIT</th>
+<th>PD_START</th>
+<th>PD_END</th>
+<th>COUNT</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>횟수제</strong></td>
+<td>Y</td>
+<td>Empty</td>
+<td>Empty</td>
+<td>0 보다 큰 값</td>
+</tr>
+<tr>
+<td><strong>기간제</strong></td>
+<td>Y</td>
+<td>PD_END보다 이전 날짜</td>
+<td>PD_START보다 이후 날짜</td>
+<td>Empty</td>
+</tr>
+<tr>
+<td><strong>기간제+횟수제</strong></td>
+<td>Y</td>
+<td>PD_END보다 이전 날짜</td>
+<td>PD_START보다 이후 날짜</td>
+<td>0 보다 큰 값</td>
+</tr>
+<tr>
+<td><strong>무제한</strong></td>
+<td>N</td>
+<td>Empty</td>
+<td>Empty</td>
+<td>Empty</td>
+</tr>
+</tbody></table>
+<h4 id='content-id-user-id-device-id-order-id'>CONTENT ID, USER ID, DEVICE ID, ORDER ID</h4>
+<p>업체에서 생성하는 콘텐츠 사용 권한 정보는 PallyCon Player에서 추출한 Content ID와 User ID, Device ID, Order ID를 이용하여 생성되어야 합니다. 
+네가지 정보를 활용하여, 콘텐츠 사용 권한 정보는 매우 다양하게 만들 수 있습니다. 이 네가지 정보를 활용하기 위해서는 이 정보들의 세부적인 내용을 아셔야만 합니다. </p>
+<h5 id='content-id'>Content ID</h5>
+<p>원본 콘텐츠를 Packaging 할 때, 사용한 Site ID가 포함된 32 byte의 콘텐츠 식별자입니다.</p>
+<h5 id='user-id'>User ID</h5>
+<p>업체가 운영하는 Service Site에서의 사용자 계정입니다. </p>
+<h5 id='device-id'>Device ID</h5>
+<p>사용자가 콘텐츠를 사용하려는 기기의 ID입니다. Device ID는 PallyCon Cloud 서비스 사이트에서 <strong>기기 체크</strong>를 하게 됩니다. </p>
+
+<p><strong>기기체크</strong>: 업체가 CP Admin에서 Site ID당 기기 대수를 설정한 대로 제어하는 기능입니다.</p>
+
+<p>PallyCon Mobile Player의 경우, PallyCon Cloud 서비스 사이트에서의 기기 체크 이외에 <strong>기기 등록</strong>이라는 기능을 제공하고 있습니다. 
+이 기능은 <strong>기기 등록 해제</strong>라는 기능과 함께 제공됩니다. 이 두가지 기능을 통해 <strong>Mobile로 다운로드된 콘텐츠를 재생을 관리</strong>할 수 있습니다.  </p>
+
+<p>PallyCon PC Player의 경우, 스트리밍 기능으로 재생이 되기 때문에 별도의 <strong>기기등록</strong>이 필요하지 않고, PallyCon Cloud 서비스 사이트에서의 <strong>기기 체크</strong>를 통해 관리될 수 있습니다. </p>
+
+<aside class="notice">CP Admin 에서 Mobile이나 PC, 또는 Mobile/PC  둘 다 기기 대수를 무제한으로 하고 직접 콘텐츠 사용 정보 페이지에서 기기 관리를 할 수도 있습니다.  </aside>
+<h5 id='order-id'>Order ID</h5>
+<p>Order ID는 사용자가 재생하고자 하는 콘텐츠의 주문 정보입니다. 이 정보는 업체의 Service Site에서 전달 받은 값을 그대로 전달하는 것으로, Content ID외에 재생하고자 하는 콘텐츠가 어떤 콘텐츠인지 확인하는 정보로 활용됩니다. </p>
+
+<p>실제 서비스에서 동일한 콘텐츠를 다른 카테고리로 묶어 서비스 할 경우가 생깁니다. 이 때, Content ID는 동일하나 실제 다른 카테고리일 수 있습니다. 이것을 구분하기 위하여 주문정보를 활용해야만 합니다. </p>
+<h3 id='revision-history'>Revision History</h3>
+<p>이 테이블은 License Issue 가이드의 수정사항에 대해 설명한 것입니다.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Date</th>
+<th style="text-align: left">Detail</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">2014.08.27</td>
+<td style="text-align: left">License Issue Guide 제작</td>
+</tr>
+</tbody></table>
+<h2 id='모바일-플레이어-연동'>모바일 플레이어 연동</h2><h3 id='introduction'>Introduction</h3>
+<p>이 문서는 <strong>PallyCon Player</strong>와 <strong>Service Site</strong>(웹 서버 혹은 웹 페이지, PallyCon Player에서 제공하는 기능과 연동되기 위한 업체에서 운영하는 서버)와의 연동에 도움을 주기 위한 가이드입니다. </p>
+<h4 id='pallycon-player에-대하여'>PallyCon Player에 대하여</h4>
+<aside class="notice">PallyCon Player(Mobile, PC)는 횟수제가 설정된 라이선스에 대한 재생 처리는 지원하지 않습니다.  </aside>
+
+<p><strong>PallyCon Player는 여러 업체가 접근하여 사용하는 앱입니다.</strong> PallyCon Player에 접근한 업체를 효과적으로 관리하기 위해 각 업체별 콘텐츠와 License 등 모든 정보를 분리하여 관리합니다. 그렇기 때문에 업체별 명확한 구분을 위해 이 가이드 문서에서 제공하는 규격은 반드시 지켜져야 합니다.</p>
+
+<p><strong>PallyCon Player의 기능 대부분은 Service Site와의 연동</strong>됩니다.</p>
+
+<ul>
+<li><strong>다운로드/스트리밍:</strong> 브라우저 내 웹 페이지에서 버튼을 터치하면 앱이 호출되어 각 기능을 수행합니다.</li>
+<li> <strong>기기 등록/해제:</strong> 웹 서버에 사용자가 사용하는 기기를 등록/해제하여 관리할 수 있는 기능입니다.</li>
+<li><strong>유효성 체크:</strong> 다운로드 받은 콘텐츠를 재생하기 전에 서버에 이 콘텐츠를 재생해도 되는지 확인하는 기능입니다.</li>
+<li> <strong>다운로드 완료:</strong> 콘텐츠의 다운로드가 완료되면 서버에 다운로드가 완료되었음을 알리는 기능입니다. </li>
+</ul>
+
+<p><strong>PallyCon Player는 원본/패키징 동영상 콘텐츠만 재생이 가능합니다.</strong> PallyCon Player는 동영상 콘텐츠만 재생이 가능하며, 원본 MP4 파일(non-DRM)과 NCG로 패키징된 MP4 파일(DRM)을 재생할 수 있습니다.</p>
+
+<p><strong>PallyCon Player는 PallyCon Cloud 서비스 사이트에서 기기 체크와는 별도로 제어가 가능합니다.</strong> PallyCon Player는 사용자 계정당 기기 대수를 제어할 수 있습니다. 이는 Mobile에 다운로드 받은 콘텐츠를 관리하기 위한 방법으로 제공하는 기능입니다. <strong>기기 등록에 성공하면, 다운로드와 스트리밍을 진행할 수 있습니다. 기기 등록 해제에 성공하면, 다운로드 된 콘텐츠와 콘텐츠의 License는 모두 삭제됩니다.</strong></p>
+
+<p><strong>PallyCon Player는 재생에 관련된 다양한 기능을 제공</strong>합니다.</p>
+
+<ul>
+<li> <strong>즐겨 찾기:</strong> 사용자가 자주 사용하는 콘텐츠를 즐겨 찾기로 등록하여 관리할 수 있습니다.</li>
+<li><strong>구간 반복:</strong> 재생 중에 원하는 구간을 설정하여 반복하여 재생할 수 있습니다.</li>
+<li><strong>배속:</strong> 원하는 속도로 콘텐츠를 재생할 수 있습니다. Android의 경우, 배속 콘텐츠는 720p 이하에서만 가능합니다. 배속은 0.5 ~ 2.0까지 가능합니다. </li>
+<li><strong>북마크:</strong> 재생 중 원하는 지점을 메모와 함께 저장하여 관리할 수 있습니다. </li>
+<li><strong>진도 정보:</strong> 다운로드 받은 콘텐츠의 재생(로컬 재생)을 얼만큼 했는지 퍼센트로 관리됩니다. 서버와 연동되지 않습니다.</li>
+<li><strong>QnA:</strong> 사용자가 재생 중에 QnA버튼을 터치하여, 웹 페이지로 이동하여 재생 중인 콘텐츠에 대하여 질문을 하거나 그 외의 용도로 사용이 가능하도록 지원하는 기능입니다.</li>
+</ul>
+<h4 id='이-문서의-활용'>이 문서의 활용</h4>
+<p>이 문서에서는 PallyCon Player와 Service Site의 웹 서버 사이에 주고 받는 데이터의 규격과 흐름, 시나리오에 대한 세부적인 설명을 제공합니다. </p>
+
+<p>이 설명을 통해</p>
+
+<ul>
+<li>  개발자에게 제공된 샘플 스크립트에 대한 이해와 Service Site 구축에 필요한 정보를 제공받을 수 있습니다. </li>
+<li> 서비스를 위해 앱을 제어하고, 서비스에 필요한 정보를 얻을 수 있습니다. </li>
+<li>서비스 중에 발생하는 CS 처리에 대한 필요한 정보를 얻을 수 있습니다. </li>
+</ul>
+<h4 id='필요-조건'>필요 조건</h4>
+<p>PallyCon Player는 원본 동영상 파일과 NCG로 패키징된 동영상 파일을 재생하기 때문에, 먼저 <strong>원본 동영상 콘텐츠와 Packaging된 DRM 동영상 콘텐츠가 준비되어 있어야 하고, Content Usage Rights Info Page가 CP Admin에 등록</strong>되어 있어야 합니다. </p>
+
+<p>Quick Start 가이드(서버 연동)를 통해서 <strong>전체적인 서비스 흐름에 대해서 알고 있어야 합니다.</strong></p>
+
+<p>PallyCon Player와 주고(응답) 받는(요청) 데이터를 설정할 수 있는 <strong>기술적인 이해와 적용</strong>이 필요합니다. PallyCon Player는 웹 서버의 응답에 따라 콘텐츠를 관리하고 기능을 수행합니다. 그렇기 때문에 웹 서버에서 PallyCon Player로 올바른 정보를 전송해 주어야만 합니다.   </p>
+<h4 id='연동-작업-순서'>연동 작업 순서</h4>
+<p>위의 ‘필요 조건’을 만족한다면, 아래의 순서대로 PallyCon Player 연동 작업을 진행합니다. </p>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>STEP1</strong></td>
+<td>전체 흐름을 파악하기 위해 최소 한번 정독합니다.</td>
+</tr>
+<tr>
+<td><strong>STEP2</strong></td>
+<td>개발 로그(PallyCon Player와 웹 서버와의 통신 로그)를 활성화 합니다. (URL Scheme의 <strong>Download/Streaming 규격</strong>에 ‘log_type’을 ‘1’로 설정합니다.로그는 PallyCon Player의 ‘환경 설정’ 페이지에서 확인이 가능합니다.)</td>
+</tr>
+<tr>
+<td><strong>STEP3</strong></td>
+<td>서비스 시나리오 2가지로 진행을 하면서 연동 테스트를 시작합니다.</td>
+</tr>
+</tbody></table>
+
+<p><strong>다운로드 시나리오</strong><br>
+Download(URL Scheme) -&gt; 업체 인증(RI Cloud) -&gt; 기기 등록(Service Manager URL)  -&gt; 다운로드 완료(Service Manager URL)  -&gt; 유효성 체크(Service Manager URL)  -&gt; 기기 등록 해제(Service Manager URL)</p>
+
+<p><strong>스트리밍 시나리오</strong><br>
+Streaming (URL Scheme) -&gt; 업체 인증(RI Cloud) -&gt; 기기 등록(Service Manager URL)  -&gt; 기기 등록 해제(Service Manager URL)</p>
+<h3 id='apis'>APIs</h3>
+<p>PallyCon Player와 Service Site의 웹 서버 사이의 통신은 <strong>URL Scheme(Protocol I)</strong>과 <strong>HTTP/HTTPs(Protocol II)</strong>을 통해 이루어집니다. </p>
+<h4 id='protocol-i-a-hrefhttpen-wikipedia-orgwikiuri_schemeurl-schemea'>Protocol I: <a href="http://en.wikipedia.org/wiki/URI_scheme">URL Scheme</a></h4>
+<p>브라우저내의 웹에서 PallyCon Player를 호출하기 위해 URL Scheme을 사용합니다. 이런 접근을 사용하는 기능은 Download와 Streaming(Progressive Download Play) 서비스 입니다. </p>
+<h5 id='details'>DETAILS</h5>
+<ul>
+<li>Single-Download URL Scheme: <strong>pallyconplayerdownload://info=</strong> JSON DATA <strong>&amp;site_id=</strong> SITE ID<br></li>
+<li>Multi-Download URL Scheme: <strong>pallyconplayerdownloads://info=</strong> JSON DATA <strong>&amp;site_id=</strong> SITE ID</li>
+<li>Streaming URL Scheme: <strong>pallyconplayerplay://info=</strong> JSON DATA <strong>&amp;site_id=</strong> SITE ID</li>
+</ul>
+
+<p><em>Format</em>  </p>
+
+<ul>
+<li><strong>UTF-8 String Encoding</strong> 사용</li>
+</ul>
+
+<p><em>JSON DATA</em>  </p>
+
+<ul>
+<li><strong>Base64Encoding(AES256Encyption(JSON DATA)) String</strong><br></li>
+<li>다운로드가 진행되는 콘텐츠 정보, 사용자 정보, PallyCon Player 설정 정보</li>
+</ul>
+
+<p><em>SITE ID</em>  </p>
+
+<ul>
+<li>서비스 사이트 식별 ID (PallyCon CP Admin 페이지에서 확인 가능)</li>
+</ul>
+<h4 id='protocol-ii-a-hrefhttpen-wikipedia-orgwikihypertext_transfer_protocolhttpaa-hrefhttpen-wikipedia-orgwikihttp_securehttpsa-protocol-post-method'>Protocol II: <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a>/<a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPs</a> protocol (POST method)</h4>
+<p>PallyCon Player와 웹 서버 사이에 주고 받는 통신은 HTTP/HTTPs로 이루어집니다. POST 방식을 이용하여 데이터를 전달합니다. 
+PallyCon Player와 웹 서버 사이에 통신을 이용하는 기능은 다음과 같습니다. </p>
+
+<ul>
+<li>기기 등록 </li>
+<li>다운로드 완료</li>
+<li>유효성 체크</li>
+<li>기기 등록 해제</li>
+</ul>
+<h5 id='details'>DETAILS</h5>
+<p><img alt="Mobile_ProtocolII" src="../images/Mobile_ProtocolII.png" /></p>
+
+<p>HTTP/HTTPs 통신은 PallyCon Player에서 웹 서버로 요청하는 데이터(REQUEST DATA)와 웹 서버에서 PallyCon Player로 응답하는 데이터(RESPONSE DATA)로 이루어집니다.</p>
+<h6 id='strongrequest-datastrong'><strong>REQUEST DATA</strong></h6>
+<aside class="notice"> 모든 기능은 하나의 URL(Service manager URL)을 사용합니다. Service manager URL은 URL Scheme의 [JSON](http://en.wikipedia.org/wiki/JSON) data에서 전달 받아 Local DB에 저장하여 사용하게 됩니다. </aside>
+
+<p><em>Format</em></p>
+
+<ul>
+<li><strong>UTF-8 String Encoding</strong> 사용</li>
+<li>POST Method </li>
+<li>URL: http(s)://Service manager URL<br></li>
+<li>Body<br>
+<strong>Parameter</strong>: <em>data</em><br>
+<strong>Value</strong>: <em>Base64Encoding(AES256Encyption(JSON DATA))String</em><br></li>
+</ul>
+
+<p><code class="prettyprint">http(s)://Service_Manager_URL?data=Base64Encoding(AES256Encryption(JSON DATA))String</code></p>
+
+<p><em>JSON DATA</em><br>
+하나의 URL에서 서로 다른 4개의 데이터를 처리해야 하기 때문에 JSON data안에는 각 4개의 mode를 통해 구분할 수 있도록, parameter를 제공하고 있습니다.</p>
+
+<ul>
+<li>기기 등록: <strong>{&quot;mode&rdquo;:&ldquo;Device Register&rdquo;, …}</strong><br></li>
+<li>다운로드 완료: <strong>{&ldquo;mode&rdquo;:&ldquo;Download Complete&rdquo;, …}</strong><br></li>
+<li>유효성 체크: <strong>{&ldquo;mode&rdquo;:&ldquo;Validity Check&rdquo;, …}</strong><br></li>
+<li>진도 정보 전달: <strong>{&ldquo;mode&rdquo;:&ldquo;LMS&rdquo;, …}</strong> </li>
+<li>기기 등록 해제: <strong>{&ldquo;mode&rdquo;:&ldquo;Device Release&rdquo;, …}</strong><br></li>
+</ul>
+<h6 id='strongresponse-datastrong'><strong>RESPONSE DATA</strong></h6>
+<p><em>Format</em> </p>
+
+<ul>
+<li>Base64Encoding(AES256Encyption(JSON DATA)) String<br></li>
+<li><strong><a href="http://en.wikipedia.org/wiki/UTF-8">UTF-8 String Encoding</a></strong> 사용</li>
+</ul>
+
+<p><em>JSON DATA</em></p>
+
+<ul>
+<li>PallyCon Player의 요청에 대한 응답</li>
+</ul>
+<h4 id='security'>Security</h4>
+<p>PallyCon Player와 웹 서버 사이에 통신하는 데이터(REQUEST / RESPONSE DATA)는 <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES256</a> 암호화를 통해 보호받습니다. </p>
+<h5 id='details'>DETAILS</h5>
+<p><em>Algorithm</em></p>
+
+<ul>
+<li>Algorithm : AES<br></li>
+<li>Keysize : 256 bit<br></li>
+<li>Mode : CBC</li>
+</ul>
+
+<p><em>Key, Initial vector</em></p>
+
+<ul>
+<li>Key: 32 byte  (CP Admin 페이지에서 서비스 사이트 별 확인 가능)</li>
+<li>Initial vector: 16 byte  (고정값: <strong>123456890abcdef</strong>)</li>
+</ul>
+
+<p><em>Padding</em></p>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/PKCS">PKCS7</a>을 사용합니다.</li>
+</ul>
+<h3 id='apis-working-scenario'>APIs Working Scenario</h3><h4 id='service-scenario'>Service Scenario</h4>
+<p>PallyCon Player는 크게 2개의 서비스로 서버와 연동하며 동작합니다.</p>
+<h5 id='downloadlocal-재생'>Download/Local 재생</h5>
+<p>웹 페이지에서 콘텐츠를 다운로드 받기 위한 버튼 터치부터 다운로드 받은 콘텐츠를 재생하고, 기기 등록 해제를 하기까지의 서비스입니다. 이 서비스에서는 다양한 기능이 사용되고, 기능을 사용하기 위해 데이터를 저장하거나 불러옵니다. 이 서비스에서 사용되는 기능과 데이터 설정 액션은 다음과 같습니다.  </p>
+
+<ul>
+<li><a href="#앱pallycon-player-상태-확인">앱(PallyCon Player) 상태 확인</a><br></li>
+<li><a href="#업체-인증">업체 인증</a><br></li>
+<li><a href="#복호화">복호화</a><br></li>
+<li><a href="#기기-등록">기기 등록</a><br></li>
+<li>다운로드 완료<br></li>
+<li><a href="#유효성-체크">유효성 체크</a><br></li>
+<li><a href="#진도-정보-전달lms">진도 정보 전달(LMS)</a></li>
+<li><a href="#기기-등록-해제">기기 등록 해제</a><br></li>
+</ul>
+<h5 id='streaming'>Streaming</h5>
+<p>웹 페이지에서 콘텐츠의 플레이 버튼을 터치부터, 재생까지의 서비스입니다. 이 서비스에서 사용되는 기능과 데이터 설정 액션은 다음과 같습니다.   </p>
+
+<ul>
+<li><a href="#앱pallycon-player-상태-확인">앱(PallyCon Player) 상태 확인</a><br></li>
+<li><a href="#업체-인증">업체 인증</a><br></li>
+<li><a href="#복호화">복호화</a><br></li>
+<li><a href="#기기-등록">기기 등록</a><br></li>
+<li><a href="#진도-정보-전달lms">진도 정보 전달(LMS)</a></li>
+<li><a href="#기기-등록-해제">기기 등록 해제</a><br></li>
+</ul>
+<h5 id='scenario'>Scenario</h5>
+<p>Download와 Streaming 서비스는 Service Site의 웹 페이지에서 PallyCon Player를 호출하여 진행되는 동일한 구조를 가지고 있습니다. 그렇기 때문에 아래의 그림과 같이 PallyCon Player는 ‘<a href="#앱pallycon-player-상태-확인">앱 상태 확인</a>’, ‘<a href="#업체-인증">업체 인증</a>’, ‘<a href="#기기-등록">기기 등록</a>’ 등 공통의 과정을 거치게 됩니다. </p>
+
+<p><img alt="Mobile_Scenario_URLScheme" src="../images/Mobile_Scenario_URLScheme.png" /></p>
+
+<p>또한, 두 가지의 서비스에서 ‘기기 등록’이 이루어 지기 때문에, ‘<a href="#기기-등록-해제">기기 등록 해제</a>’ 기능을 공통으로 가지고 있습니다. 기기 등록 해제의 시나리오는 다음과 같습니다. </p>
+
+<p><img alt="Mobile_Scenario_Unregister" src="../images/Mobile_Scenario_Unregister.png" /></p>
+
+<p>Download가 완료된 콘텐츠는 PallyCon Player의 ‘콘텐츠 리스트’에서 확인이 가능합니다. 콘텐츠의 사용자가 콘텐츠 재생, 북마크 설정, 즐겨찾기 설정하는 행위를 통해 ‘즐겨찾기 리스트’, ‘북마크 리스트’, ‘최근 재생 콘텐츠 리스트’에서도 확인이 가능합니다. 각 리스트에서 재생할 콘텐츠를 선택할 때의 시나리오는 다음과 같습니다. </p>
+
+<p><img alt="Mobile_Scenario_Localplay" src="../images/Mobile_Scenario_Localplay.png" /></p>
+<h4 id='앱pallycon-player-상태-확인'>앱(PallyCon Player) 상태 확인</h4>
+<p>URL Scheme을 통해 PallyCon Player를 실행하게 되었을 때, 각 기능들이 동작하기 위해 PallyCon Player의 상태를 확인합니다. 
+PallyCon Player의 상태가 <strong>‘다운로드’, ‘재생’, ‘기기 등록 해제 확인 요청’ 중에는 URL Scheme으로의 접근을 막습니다.</strong> </p>
+<h4 id='업체-인증'>업체 인증</h4>
+<p><strong>URL Scheme으로 접근한 데이터 중 ‘site_id’를 추출하여, 업체 인증을 시작합니다.</strong> ‘site_id’는 INKA와 계약할 때 발급받는 정보 중 하나로서, 암호화를 하지 않아도 되는 값입니다.</p>
+
+<p><strong>업체 인증은 INKA의 PallyCon Cloud 서비스 사이트와 통신하기 때문에, 개발자가 따로 개발할 필요가 없습니다.</strong> 다만, 여기서 개발자가 알아야 하는 내용은 업체 인증이 성공하면 그 응답 데이터로 ‘site_id’에 해당하는 업체명과 URL Scheme의 ‘info’값의 데이터 암호화를 푸는데 사용되는 Key와 IV를 전달받는 다는 것입니다. </p>
+
+<p><img alt="Mobile_Scenario_EnterpriseCertificate" src="../images/Mobile_Scenario_EnterpriseCertificate.png" /></p>
+
+<p><strong>AES 256 암/복호화 Key, IV(Initial vector):</strong></p>
+
+<ul>
+<li>웹 서버와 연동하는 데이터(Protocol I/Protocol II)의 AES256 암/복호화를 위한 Key는 INKA와 계약할 때 발급받습니다. 이 것은 ‘site_id’에 매칭되는 값으로 전달되기 때문에 반드시 계약할 때 전달받은 site_id와 AES256 Key를 사용해야만 합니다. (AES256 Key와 함께 사용되는 Initial Vector는 16 byte의 고정값으로 &rsquo;<strong>1234567890abcdef</strong>&rsquo; 입니다.)<br></li>
+<li>업체 인증을 통해 전달받은 업체명과 Key, IV는 기기의 DB에 저장됩니다.<br></li>
+<li>INKA의 RI Cloud 서버와의 통신은 <a href="http://en.wikipedia.org/wiki/Public_key_infrastructure">PKI</a>를 이용하기 때문에 통신과 DB에서 사용되는 데이터는 강력하게 보호받습니다. </li>
+</ul>
+<h4 id='복호화'>복호화</h4>
+<p>암호화 및 복호화는 Service Site의 웹 서버와 PallyCon Player 사이에 통신하는 모든 데이터에서 이루어 집니다. 하지만, 이 섹션에서는 각 서비스 시나리오에서 업체 인증 후에 복호화가 이루어지는 시나리오에 대해 설명합니다.</p>
+
+<p><img alt="Mobile_Scenario_Decryption" src="../images/Mobile_Scenario_Decryption.png" /></p>
+
+<p>PallyCon Cloud 서비스 사이트로부터 전달받은 AES256 Key/IV를 통해 URL Scheme의 ‘info’에 해당하는 값을 복호화합니다. 복호화에 성공하면, Download와 Streaming 재생에 필요한 모든 정보를 가지고 있는 JSON 스트링을 얻습니다. JSON 스트링에서 업체정보를 추출하여 DB에 저장합니다.</p>
+<h4 id='기기-등록'>기기 등록</h4>
+<p>기기 등록을 하기 위해서 복호화된 JSON 스트링에서 사용자 정보와 사용자의 기기에서 기기정보를, PallyCon Player에서 앱 정보를 추출합니다. 추출한 정보를 JSON 스트링으로 변환하여 Service Site의 웹 서버로 기기 등록 요청을 합니다. </p>
+
+<p><img alt="Mobile_Scenario_DeviceRegister" src="../images/Mobile_Scenario_DeviceRegister.png" /></p>
+
+<p>기기 등록 요청에 대한 웹 서버의 응답 데이터가 전송되면, 데이터를 복호화한 후 성공여부를 확인하고, 웹 서버에서 전달해준 응답 데이터에서 메시지를 추출하여 PallyCon Player의 알럿으로 표시합니다. 기기 등록에 성공하면, 사용자 정보를 DB에 저장합니다. </p>
+<h4 id='streaming'>Streaming</h4>
+<p><strong>iOS에서는 WiFi에서만 스트리밍 재생이 가능합니다.</strong></p>
+
+<p><strong><a href="https://developer.apple.com/appstore/resources/approval/guidelines.html">Apple 규정(9.4)</a>에서 셀룰러 모드에서의 Streaming 재생은 반드시 HLS (HTTP Live Stream)를 사용하도록 규정하고 있습니다.</strong> 하지만, PallyCon Player에서의 Streaming 재생은 <strong>Progressive Download Play</strong>를 사용하기 때문에, iOS에서의 스트리밍은 Wifi 모드에서만 가능합니다. </p>
+
+<p><img alt="Mobile_Scenario_Streaming" src="../images/Mobile_Scenario_Streaming.png" /></p>
+
+<p>Streaming 재생을 하기 위하여 PallyCon Player에서는 ‘사용자 정보’와 ‘콘텐츠 정보’를 이용하여 INKA의 PallyCon Cloud 서비스 사이트에서 License를 발급받은 뒤, License가 유효한지 확인한 후 재생을 시작합니다. </p>
+<h4 id='download'>Download</h4>
+<p>Download는 Single-Download와 Multi-Download가 있습니다. 일반적으로 Single-Download는 사용자가 Servcie Site의 웹 페이지에서 다운로드를 원하는 콘텐츠 목록의 다운로드 버튼은 터치하여 이루어지고, Multi-Download는 사용자가 Servcie Site의 웹 페이지에서 다운로드를 원하는 콘텐츠를 선택한 후 멀티 다운로드 버튼을 터치하여 이루어 집니다. </p>
+
+<p><img alt="Mobile_Scenario_Download" src="../images/Mobile_Scenario_Download.png" /></p>
+
+<p>사용자가 선택한 콘텐츠를 다운로드 하기 위하여 PallyCon Player에서는 <strong>다운로드 목록을 생성</strong>합니다. Single-Download의 경우 다운로드 목록은 1개일 것이고, Multi-Download의 경우 다운로드 목록은 n개일 것입니다.<br>
+<strong>다운로드 목록의 0번째 행부터 다운로드를 시작</strong>합니다. 파일의 다운로드가 완료되면 <strong>다운로드 목록의 정보를 DB에 저장</strong>합니다.
+사용자 정보와 콘텐츠 정보를 이용해 PallyCon Cloud 서비스 사이트로부터 <strong>다운로드 받은 파일의 License를 발급</strong>받습니다. 만약 License를 발급 받지 못하더라도 다운로드 실패로 결정하지 않습니다. 이유는 로컬 재생을 시도할 경우 License를 확인할 때, License가 없고 온라인 상태이면, License 발급을 시도하기 때문입니다. 
+사용자가 콘텐츠를 기기로 <strong>다운로드를 완료하였다는 정보를 Service SIte의 웹 서버로 전달</strong>하게 됩니다. 이 정보를 웹 서버에 저장하여, 이후에 업체에서 환불이나 통계 자료로 사용할 수 있습니다. 
+만약, 다운로드 목록에 다운로드를 할 콘텐츠가 남아있다면, 다음 목록의 다운로드를 시도합니다. 없을 경우, <strong>PallyCon Player는 보관함의 최상위 리스트로 이동</strong>하게 됩니다. </p>
+<h4 id='유효성-체크'>유효성 체크</h4>
+<p><strong>콘텐츠를 재생하기 전 가장 먼저 하는 것은 Local DB의 업체 정보에서 재생 타입(play_type)을 확인하는 것입니다.</strong>
+재생 타입에 따라 유효성 체크를 하는지에 대한 여부를 판단합니다.  </p>
+
+<p><strong>유효성 체크를 해야 한다면,</strong>
+‘사용자 정보’, ‘기기 정보’, ‘콘텐츠 정보’를 추출하여 Service Site의 웹 서버에 콘텐츠의 유효성 확인을 요청합니다. 웹 서버는 그 응답으로 유효성 여부와 메시지를 전달해 줍니다. </p>
+
+<p><img alt="Mobile_Scenario_ValidityCheck" src="../images/Mobile_Scenario_ValidityCheck.png" /></p>
+
+<p><strong>콘텐츠 유효성 상태는 4가지로 구분됩니다.</strong> </p>
+
+<ul>
+<li><strong>재생 가능:</strong> 재생이 가능한 상태로 License Rule 정보에 맞춰 재생하라는 응답입니다.<br></li>
+<li><strong>휴강:</strong> 사용자가 업체에 잠시 콘텐츠를 사용하지 않는 상태라는 응답입니다. 이 경우, License를 삭제합니다.<br></li>
+<li><strong>환불:</strong> 사용자가 업체에 환불 받은 콘텐츠입니다. 이 경우, 콘텐츠는 패키지로 서비스 되므로 콘텐츠의 카테고리와 그에 해당하는 모든 콘텐츠(License 포함)까지 모두 삭제합니다.<br></li>
+<li><strong>재생 제한:</strong> License나 콘텐츠 등 아무것도 지우지 않으나, 특수한 사정으로 재생을 제한합니다. </li>
+</ul>
+<h4 id='진도-정보-전달lms'>진도 정보 전달(LMS)</h4>
+<p>PallyCon Player의 LMS는 재생 구간(sections)과 진도율(percent), 재생 완료 시간(last play time)으로 구성됩니다. </p>
+
+<ul>
+<li>LMS는 사용자가 Download/Streaming 재생 시도시 PallyCon Player로 전달하는 데이터 중 콘텐츠 정보에 포함되어 있습니다. </li>
+<li>PallyCon Player는 Local 재생 또는 Streaming 재생을 시작할 때 이 정보를 사용합니다. </li>
+<li>사용자가 재생을 완료할 때, PallyCon Player에서는 LMS 정보를 다시 설정하여 웹 서버로 전달합니다. </li>
+</ul>
+<h5 id='pallycon-player에서의-진도-정보-설정'>PallyCon Player에서의 진도 정보 설정</h5>
+<p><em>재생 구간 (sections)</em></p>
+
+<ul>
+<li>이전 재생 구간과 새로운 재생 구간은 합쳐서 전달할 재생 구간을 생성합니다. </li>
+<li>ex) 이전 재생 구간: <strong>&ldquo;0:20&rdquo;</strong> + 새로운 재생 구간: <strong>&ldquo;15:40&rdquo;</strong> = 전달할 재생 구간: <strong>&ldquo;0:40&rdquo;</strong></li>
+</ul>
+
+<p><em>진도율(percent)</em></p>
+
+<ul>
+<li>전달할 재생 구간의 시간 간격을 계산하여 전체 시간에 대한 퍼센트를 계산합니다. </li>
+</ul>
+
+<p><em>재생 완료 시간(last play time)</em> </p>
+
+<ul>
+<li>사용자가 완료 버튼을 누를 때의 시간</li>
+</ul>
+<h4 id='기기-등록-해제'>기기 등록 해제</h4>
+<p>기기 등록 해제는 기기 정보와 사용자 정보를 웹 서버에 전달하면서 요청합니다. 그에 대한 응답으로 Service Site의 웹 서버는 기기 등록 해제 성공 여부와 메시지를 전달합니다. PallyCon Player에서는 기기 등록 해제가 성공하면, 업체와 카테고리, 콘텐츠, License를 삭제합니다. </p>
+
+<p><img alt="Mobile_Scenario_DeviceRelease" src="../images/Mobile_Scenario_DeviceRelease.png" /></p>
+<h3 id='json-standards'>JSON Standards</h3>
+<p>이 섹션에서는 APIs에서 설명한 JSON DATA의 규격에 대하여 상세한 설명을 제공합니다. JSON에서 쓰이는 모든 값은 <strong>String</strong>이기 때문에, <strong>&ldquo;&rdquo;</strong>안에 값을 넣어 주셔야만 합니다.    </p>
+
+<ul>
+<li>JSON String의 가독성을 높이기 위해 Parameter를 줄바꿈으로 구분하였습니다. 하지만, 실제 데이터에서는 줄바꿈이나 Parameter사이에 공백을 허용하지 않으니 주의하세요.<br></li>
+<li>PallyCon Player에서 전달하는 Request Data의 모든 parameter는 필수입니다.</li>
+</ul>
+<h4 id='download--streaming-standard'>Download / Streaming Standard</h4>
+<p>웹 페이지의 Download / Streaming 버튼에 설정해야 하는 데이터 입니다. </p>
+<pre><code class="highlight json"><span class="err">Single-Download_JSON_String_Streaming_JSON_String</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"ID"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"current_url"</span><span class="p">:</span><span class="s2">"http://demo.netsync.co.kr/download_new2.asp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"enterprise_icon_url"</span><span class="p">:</span><span class="s2">"http://demo.netsync.co.kr/KR2/image/a_logo.png"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"play_type"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"service_manager"</span><span class="p">:</span><span class="s2">"http://demo.netsync.co.kr/LIC/service_manager.asp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"log_type"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_name"</span><span class="p">:</span><span class="s2">"Category"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_person"</span><span class="p">:</span><span class="s2">"Person"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_image"</span><span class="p">:</span><span class="s2">"http://demo.netsync.co.krKR2/image/korean_icon.png"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_assortment"</span><span class="p">:</span><span class="s2">"Assortment"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contents"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"content_file"</span><span class="p">:</span><span class="s2">"http://112.136.244.30/1_low_language_basic.mp4.ncg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content_name"</span><span class="p">:</span><span class="s2">"Content"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content_qna"</span><span class="p">:</span><span class="s2">"QnA"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_orderID"</span><span class="p">:</span><span class="s2">"OrderID"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_one"</span><span class="p">:</span><span class="s2">"One"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_two"</span><span class="p">:</span><span class="s2">"Two"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_three"</span><span class="p">:</span><span class="s2">"Three"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_four"</span><span class="p">:</span><span class="s2">"Four"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_play_time"</span><span class="p">:</span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"lms_sections"</span><span class="p">:</span><span class="s2">"0:10"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"lms_percent"</span><span class="p">:</span><span class="s2">"10"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<pre><code class="highlight json"><span class="err">Multi-Download_JSON_String_(two_Contents)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"ID"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"current_url"</span><span class="p">:</span><span class="s2">"http://demo.netsync.co.kr/download_new2.asp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"enterprise_icon_url"</span><span class="p">:</span><span class="s2">"http://demo.netsync.co.kr/KR2/image/a_logo.png"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"play_type"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"service_manager"</span><span class="p">:</span><span class="s2">"http://demo.netsync.co.kr/LIC/service_manager.asp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"log_type"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_name"</span><span class="p">:</span><span class="s2">"Category"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_person"</span><span class="p">:</span><span class="s2">"Person"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_image"</span><span class="p">:</span><span class="s2">"http://demo.netsync.co.krKR2/image/korean_icon.png"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_assortment"</span><span class="p">:</span><span class="s2">"Assortment"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"content_file"</span><span class="p">:</span><span class="s2">"http://112.136.244.30/1_low_language_basic.mp4.ncg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content_name"</span><span class="p">:</span><span class="s2">"Content"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content_qna"</span><span class="p">:</span><span class="s2">"QnA"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_orderID"</span><span class="p">:</span><span class="s2">"OrderID"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_one"</span><span class="p">:</span><span class="s2">"One"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_two"</span><span class="p">:</span><span class="s2">"Two"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_three"</span><span class="p">:</span><span class="s2">"Three"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_four"</span><span class="p">:</span><span class="s2">"Four"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_play_time"</span><span class="p">:</span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"lms_sections"</span><span class="p">:</span><span class="s2">"0:10"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"lms_percent"</span><span class="p">:</span><span class="s2">"10"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"content_file"</span><span class="p">:</span><span class="s2">"http://112.136.244.30/1_low_language_basic.mp4.ncg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content_name"</span><span class="p">:</span><span class="s2">"Content"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content_qna"</span><span class="p">:</span><span class="s2">"QnA"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_orderID"</span><span class="p">:</span><span class="s2">"OrderID"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_one"</span><span class="p">:</span><span class="s2">"One"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_two"</span><span class="p">:</span><span class="s2">"Two"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_three"</span><span class="p">:</span><span class="s2">"Three"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"info_four"</span><span class="p">:</span><span class="s2">"Four"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_play_time"</span><span class="p">:</span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"lms_sections"</span><span class="p">:</span><span class="s2">"0:10"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"lms_percent"</span><span class="p">:</span><span class="s2">"10"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>user_id</em>
+: 서비스 사이트 사용자 ID로, 반드시 사용해야 하는 parameter입니다. PallyCon Player에서는 웹 페이지 만료시 null로 전달받는 것에 대한 처리가 되어있습니다. </p>
+
+<p><em>current_url</em>
+: Download를 취소하거나 Streaming을 완료하였을 때, 웹페이지로 이동하기 위한 URL으로, parameter는 반드시 사용할 필요는 없습니다. 다만, 사용하지만 값이 없을 경우 빈값(&ldquo;&rdquo;)으로 넣어 주셔야 합니다. </p>
+
+<p><em>enterprise_icon_url</em>
+: PallyCon Player의 업체 리스트에서 보여질 아이콘의 파일 주소로, parameter는 반드시 사용할 필요는 없습니다. 사용할 경우, parameter의 값이 없을 경우 리스트에는 빈 공백/기본 이미지로 보이게 됩니다. </p>
+
+<p><em>play_type</em>
+: PallyCon Player에서 다운로드 받은 콘텐츠를 어떤 조건에서 재생하는지 설정하는 값으로, parameter는 반드시 사용할 필요는 없습니다. 하지만, 사용할 경우 반드시 값을 넣어 주셔야 합니다. 사용하지 않을 경우, 기본값은 &#39;2&#39;로 설정됩니다.   </p>
+
+<ul>
+<li><strong>0:</strong> 온라인 상태에서는 콘텐츠 재생에 대한 유효성 체크(Validity check)를 하고 그 응답값에 따라 재생 여부를 결정하고, 오프라인 상태에서는 무조건 재생<br></li>
+<li><strong>1:</strong> 온라인 상태에서만 콘텐츠 재생에 대한 유효성 체크(Validity check)를 하여 그 응답값에 따라 재생 여부를 결정<br></li>
+<li><strong>2:</strong> 온라인, 오프라인에서 무조건 재생</li>
+</ul>
+
+<p><em>service_manager</em>
+: PallyCon Player에서 웹 서버와 통신할 때 사용하는 Service Manager URL으로, parameter는 반드시 사용해야 합니다. 또한 빈 값은 허용하지 않습니다.  </p>
+
+<p><em>log_type</em>
+: PallyCon Player에서 로그 설정을 할 수 있는 parameter로, 반드시 사용할 필요는 없습니다. 하지만 사용할 경우 반드시 값을 넣어 주셔야합니다. 사용하지 않을 경우, 기본값은 &#39;2&#39;로 설정됩니다.<br>
+연동 테스트나 고객 서포트 시 통신, 재생, 라이선스 정보를 얻기 위해 로그를 활용할 수 있습니다.  </p>
+
+<ul>
+<li><strong>0:</strong> Local DB에 로그를 3000 byte만큼 가지고 있다가 통신이나 라이선스 등 업체에서 수정해야 할 내용이 있는 경우, 웹 서버로 전송하도록 설정 (아직 제공하지 않음)<br></li>
+<li><strong>1:</strong> 서비스 전 PallyCon Player와  연동 테스트를 하기 위해 설정되는 값, Local DB에 길이 제한 없이 로그를 저장. &#39;환경 설정&rsquo; 페이지에서 로그 버튼이 나타나며 로그를 바로 확인 가능</li>
+<li><strong>2:</strong> 로그를 사용하지 않음</li>
+</ul>
+
+<p><em>category_name</em>
+: PallyCon Player의 카테고리 리스트에 보여지는 카테고리 이름으로, parameter는 반드시 사용해야 합니다. 모든 문자를 허용하고, 빈값은 허용하지 않습니다. </p>
+
+<p><em>category_person</em>
+: 카테고리 리스트에 카테고리 이름과 함께 보여지는 카테고리 기타 정보를 넣을 수 있는 값으로, parameter는 반드시 사용해야 합니다. 모든 문자를 허용하고, 빈값은 허용하지 않습니다. </p>
+
+<p><em>category_image</em>
+: 카테고리 리스트에 보여질 카테고리 아이콘의 파일 주소로, parameter는 반드시 사용할 필요는 없습니다. parameter의 값이 없을 경우, 리스트에는 빈 공백/기본 이미지로 보이게 됩니다. </p>
+
+<p><em>category_assortment</em>
+: 카테고리를 구분하기 위한 parameter로, 추후에 리스트 정렬 방식에 사용될 계획입니다. 이 값은 반드시 사용할 필요는 없습니다. 빈값을 허용합니다.</p>
+
+<p><em>contents</em>
+: 다운로드되거나 재생되는 콘텐츠에 대한 정보가 들어있는 parameter입니다. 멀티 다운로드를 진행할 경우, contents에 해당하는 콘텐츠 정보를 배열 형태로 넣어 주셔야 합니다.</p>
+
+<p><strong>Single-download (Streaming)</strong>: <code class="prettyprint">&quot;contents&quot;:[{&quot;content_file&quot;:&quot;&quot;,...}]</code><br>
+<strong>Multi-download</strong>: <code class="prettyprint">&quot;contents&quot;:[{&quot;content_file&quot;:&quot;&quot;,...},{&quot;content_file&quot;:&quot;&quot;,...},...]</code></p>
+
+<p><em>content_file</em>
+: 다운로드 / 재생 될 파일이 있는 서버 주소(URL)로, parameter는 반드시 사용해야 합니다. 빈값은 허용하지 않습니다. </p>
+
+<p><em>content_name</em>
+: PallyCon Player의 콘텐츠 리스트에 보여질 콘텐츠 이름으로, parameter는 반드시 사용해야 합니다. 모든 문자를 허용하고, 빈값은 허용하지 않습니다. </p>
+
+<p><em>content_qna</em>
+: 재생 중 질문을 남기기 위해 브라우저의 웹페이지로 이동하기 위한  URL 주소로, parameter는 반드시 사용할 필요는 없습니다. 빈값은 허용합니다. </p>
+
+<p><em>info_orderID</em>
+: 콘텐츠의 주문 정보입니다. 이 정보는 라이선스를 발급받을 때 구매 확인을 위한 정보로 활용되며, parameter는 필수로 입력해야 합니다. 또한 빈값은 허용하지 않습니다. </p>
+
+<p><em>info_one, info_two, info_three, info_four</em>
+: 다운로드 완료, 유효성 체크 정보 전달시 콘텐츠의 구분을 위한 추가정보로, parameter는 필수로 입력할 필요는 없습니다. 또한 빈값을 허용합니다. </p>
+
+<p><em>last_play_time</em>
+: 콘텐츠의 마지막 재생 시간으로 이전에 사용자가 이 콘텐츠를 재생을 완료한 시점입니다. 사용자가 다시 재생할 때 이 시간 부터 재생하게 됩니다. 단위는 &#39;초&#39;입니다. 단위는 생략하며, 필수로 입력해야하는 parameter입니다. 빈값은 허용하지 않습니다. </p>
+
+<p><em>lms_sections</em>
+: 사용자가 재생했었던 구간에 대한 정보입니다. 단위는 &#39;초&#39;이고, 생략합니다. 필수로 입력하는 parameter입니다. 빈값은 재생한 구간이 없을 경우, 허용합니다. <strong>공백이 포함되어 있으면 안됩니다.</strong><br>
+ex) <strong>&ldquo;lms_sections&rdquo;:&ldquo;0:30,50:100&rdquo;</strong><br>
+사용자는 0초부터 30초, 50초부터 100초를 재생했었습니다. </p>
+
+<aside class="warning">사용한 구간이 있음에도 불구하고 빈값을 넣어줄 경우, 재생을 완료한 시점에서 생성하는 진도 정보에서의 'lms_percent'와 'lms_sections'은 재생을 완료했을 때 발생한 데이터를 기준으로 새롭게 계산되기 때문에 오류가 발생할 수 있습니다. </aside>
+
+<p><em>lms_percent</em>
+: 콘텐츠 전체 시간에 대한 사용자가 재생한 시간의 퍼센트입니다. 이 값은 콘텐츠 리스트에 진도율에 사용되게 됩니다. 단위는 &rsquo;%&#39;이고, 생략합니다. 필수로 입력하는 parameter입니다. 빈값은 허용하지 않습니다. </p>
+<h4 id='device-registration-standard'>Device Registration Standard</h4><h5 id='request-data'>Request data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"Device Register"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"site_id"</span><span class="p">:</span><span class="s2">"Site ID"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"test2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"device_id"</span><span class="p">:</span><span class="s2">"DID01_WZnTQFOHmZiv1vsevtorDtFHRNc="</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"device_model"</span><span class="p">:</span><span class="s2">"iPod5,1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"app_version"</span><span class="p">:</span><span class="s2">"1.0"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>mode</em>
+: 모든 기능에서 웹 서버와 통신은 하나의 Service manager URL을 사용합니다. Service manager URL에서 기능별 분기를 태울 수 있도록 하는 값으로 기기 등록은 &#39;Device Register&#39;입니다. </p>
+
+<p><em>site_id</em>
+: CP Admin 페이지에서 확인이 가능한 업체에게 발급되는 값으로 고정값입니다. </p>
+
+<p><em>user_id</em>
+: 기기 DB에 저장되어 있는 사용자 ID 값입니다. </p>
+
+<p><em>device_id</em>
+: 기기에서 추출한 기기 ID입니다.  </p>
+
+<ul>
+<li><em>iOS</em>: UUID를 이용하여 기기 ID를 생성합니다. PallyCon Player와 웹 서버의 기기 등록 해제 없이 공장 초기화를 하고 다시 PallyCon Player를 설치할 경우, 새로운 기기 ID를 만들기 때문에 기기 등록이 실패됩니다. 이 경우에는 업체에 연락하여 기기 등록 해제를 요청해야 합니다.<br></li>
+<li><em>Android</em>: 기기내의 여러 정보를 조합하여 생성합니다. </li>
+</ul>
+
+<p><em>device_model</em> </p>
+
+<ul>
+<li><em>iOS</em>: 기기 플랫폼을 추출합니다.   <em>ex)</em> iPhone6,1(iPhone5S)<br></li>
+<li><em>Android</em>: 기기의 환경설정에 있는 기기 모델명을 추출합니다. </li>
+</ul>
+
+<p><em>app_version</em>
+: 마켓에 등록되어 표시되고 있는 PallyCon Player 버전입니다. </p>
+<h5 id='response-data'>Response data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"response"</span><span class="p">:</span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"SUCCESS"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message_two"</span><span class="p">:</span><span class="s2">""</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>response</em>
+: 기기 등록 성공 여부로, parameter는 필수로 입력하셔야 합니다. 또한 빈값은 허용하지 않습니다. 값은 &#39;Y | N&#39;으로 내려주셔야 합니다.</p>
+
+<p><em>message</em>
+: 기기 등록 성공 여부에 맞는 메시지로 PallyCon Player 에서 알럿으로 표시됩니다. 이 parameter는 필수로 입력하셔야 합니다. parameter의 값은 빈값을 허용하며, 빈값일 경우 성공 여부에 따라 &#39;기기 등록에 성공하였습니다.&rsquo; 혹은 &#39;기기 등록에 실패하였습니다.&rsquo; 라는 메시지를 기본값으로  설정됩니다. </p>
+
+<p><em>message_two</em>
+: 성공 여부와 메시지 외에 사용할 수 있는 인터페이스 입니다. 이 parameter는 Android에서 &#39;device_id&#39;가 동일하게 추출되는 경우에 &#39;NOT_SUPPORT_DEVICE_MODEL&#39;을 값으로 넣어주면, device_id를 다시 추출하여 등록을 다시 시도합니다. </p>
+<h4 id='download-complete-standard'>Download Complete Standard</h4>
+<aside class="notice"> 다운로드 완료는 웹 서버의 응답데이터를 받아 처리를 하지 않기 때문에 별도의 응답데이터 규격이 존재하지 않습니다.</aside>
+<h5 id='request-data'>Request data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"Download Complete"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"site_id"</span><span class="p">:</span><span class="s2">"Site ID"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"test2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"device_id"</span><span class="p">:</span><span class="s2">"DID01_WZnTQFOHmZiv1vsevtorDtFHRNc="</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"date"</span><span class="p">:</span><span class="s2">"201405191120"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">" download_status"</span><span class="p">:</span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">" info_orderID"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">" info_one"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_two"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_three"</span><span class="p">:</span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_four"</span><span class="p">:</span><span class="s2">"1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>mode</em>
+: 모든 기능에서 웹 서버와 통신은 하나의 Service manager URL을 사용합니다. Service manager URL에서 기능별 분기를 태울 수 있도록 하는 값으로 다운로드 완료는 &#39;Download Complete&#39;입니다. </p>
+
+<p><em>site_id</em>
+: Cloud Admin 페이지에서 확인이 가능한 업체에게 발급되는 값으로 고정값입니다. </p>
+
+<p><em>user_id</em>
+: 기기에 저장되어 있는 사용자 ID 값입니다. </p>
+
+<p><em>device</em>id_ </p>
+
+<ul>
+<li><em>iOS</em>: UUID를 이용하여 기기 ID를 생성합니다. PallyCon Player와 웹 서버의 기기 등록 해제 없이 공장 초기화를 하고 다시 PallyCon Player를 설치할 경우, 새로운 기기 ID를 만들기 때문에 기기 등록이 실패됩니다. 이 경우에는 업체에 연락하여 기기 등록 해제를 요청해야 합니다.<br></li>
+<li><em>Android</em>: 기기내의 여러 정보를 조합하여 생성합니다. </li>
+</ul>
+
+<p><em>date</em>
+: 기기에서 추출한 현재 날짜입니다. <strong>GMT가 아니니 주의하세요.</strong><br>
+<strong>날짜 규격 : yyyyMMddHHmm</strong><br>
+<em>ex)</em> 201412012359      -&gt;      2014년 12월 1일 23시 59분</p>
+
+<p><em>download_status</em>
+: 다운로드 완료 기능에서 다운로드가 완료되었음을 알리는 parameter입니다. 값은 Y | N으로 표시됩니다. </p>
+
+<p><em>info_orderID, info_one, info_two, info_three, info_four</em>
+: Protocol I(URL Scheme)으로 전달받은 값을 기기에 저장하였다가 불러온 parameter와 값들입니다. 웹 서버에서 콘텐츠 구분을 위한 추가 정보로 활용됩니다. </p>
+<h4 id='validity-check-standard'>Validity Check Standard</h4><h5 id='request-data'>Request data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"Validity Check"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"site_id"</span><span class="p">:</span><span class="s2">"Site ID"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"test2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"device_id"</span><span class="p">:</span><span class="s2">"DID01_WZnTQFOHmZiv1vsevtorDtFHRNc="</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_name"</span><span class="p">:</span><span class="s2">"[A사_무료기획]2014국어특강"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"content_name"</span><span class="p">:</span><span class="s2">"1강_저_국어의 기초"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_orderID"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_one"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_two"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_three"</span><span class="p">:</span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_four"</span><span class="p">:</span><span class="s2">"1"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>mode</em>
+: 모든 기능에서 웹 서버와 통신은 하나의 Service manager URL을 사용합니다. Service manager URL에서 기능별 분기를 태울 수 있도록 하는 값으로 유효성 체크은 &#39;Validity Check&#39;입니다. </p>
+
+<p><em>site_id</em>
+: Cloud Admin 페이지에서 확인이 가능한 업체에게 발급되는 값으로 고정값입니다. </p>
+
+<p><em>user_id</em>
+: 기기에 저장되어 있는 사용자 ID 값입니다</p>
+
+<p><em>device_id</em>
+: 기기에서 추출한 기기 ID입니다.  </p>
+
+<ul>
+<li><em>iOS</em>: UUID를 이용하여 기기 ID를 생성합니다. PallyCon Player와 웹 서버의 기기 등록 해제 없이 공장 초기화를 하고 다시 PallyCon Player를 설치할 경우, 새로운 기기 ID를 만들기 때문에 기기 등록이 실패됩니다. 이 경우에는 업체에 연락하여 기기 등록 해제를 요청해야 합니다.<br></li>
+<li><em>Android</em>: 기기내의 여러 정보를 조합하여 생성합니다. </li>
+</ul>
+
+<p><em>category_name</em>
+: 기기 DB에 저장되어 있는 카테고리 이름입니다. </p>
+
+<p>content_name
+: 기기 DB에 저장되어 있는 콘텐츠 이름입니다. </p>
+
+<p>info_orderID, info_one, info_two, info_three, info_four
+: Protocol I(URL Scheme)으로 전달받은 값을 기기에 저장하였다가 불러온 parameter와 값들입니다. 웹 서버에서 콘텐츠 구분을 위한 추가 정보로 활용됩니다.</p>
+<h5 id='response-data'>Response data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"response"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"SUCCESS"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>response</em>
+: 재생하려는 콘텐츠의 유효성을 서버에서 체크하여 결과를 PallyCon Player에 전달해 주는 parameter입니다. 빈값은 허용하지 않습니다. 값은 &#39;0 | 1 | 2 | 3&rsquo; 중 하나를 내려주셔야 합니다.  </p>
+
+<ul>
+<li><em>0</em>: 재생 허가<br></li>
+<li><em>1</em>: 휴강 (해당 콘텐츠의 라이선스를 삭제합니다.)<br></li>
+<li><em>2</em>: 환불 (해당 콘텐츠가 포함되어 있는 카테고리까지 삭제합니다.)<br></li>
+<li><em>3</em>: 재생 제한 </li>
+</ul>
+
+<p><em>message</em>
+: PallyCon Player에서 알럿으로 표시하는데 사용할 서버의 메시지를 넣는 parameter입니다. 필수로 사용해야만 합니다. 재생을 허가하는 경우 (response: 0)에는 빈값을 허용합니다. 그외에는 빈값을 허용하지 않습니다. </p>
+<h4 id='lms-standard'>LMS Standard</h4><h5 id='request-data'>Request data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"LMS"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"site_id"</span><span class="p">:</span><span class="s2">"Site ID"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"test3"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"device_id"</span><span class="p">:</span><span class="s2">"DID01_WZnTQFOHmZiv1vsevtorDtFHRNc="</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"date"</span><span class="p">:</span><span class="s2">"201407170506"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category_name"</span><span class="p">:</span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"content_name"</span><span class="p">:</span><span class="s2">"1강_저_국어의 기초"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_orderID"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_one"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_two"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_three"</span><span class="p">:</span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"info_four"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_play_time"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lms_percent"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lms_sections"</span><span class="p">:</span><span class="s2">"0:10,11:30"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>mode</em>
+: 모든 기능에서 웹 서버와 통신은 하나의 Service manager URL을 사용합니다. Service manager URL에서 기능별 분기를 태울 수 있도록 하는 값으로 유효성 체크은 &#39;Validity Check&#39;입니다. </p>
+
+<p><em>site_id</em>
+: Cloud Admin 페이지에서 확인이 가능한 업체에게 발급되는 값으로 고정값입니다. </p>
+
+<p><em>user_id</em>
+: 기기에 저장되어 있는 사용자 ID 값입니다</p>
+
+<p><em>device_id</em>
+: 기기에서 추출한 기기 ID입니다. </p>
+
+<ul>
+<li><em>iOS</em>: UUID를 이용하여 기기 ID를 생성합니다. PallyCon Player와 웹 서버의 기기 등록 해제 없이 공장 초기화를 하고 다시 PallyCon Player를 설치할 경우, 새로운 기기 ID를 만들기 때문에 기기 등록이 실패됩니다. 이 경우에는 업체에 연락하여 기기 등록 해제를 요청해야 합니다.<br></li>
+<li><em>Android</em>: 기기내의 여러 정보를 조합하여 생성합니다. </li>
+</ul>
+
+<p><em>date</em>
+: 진도 정보를 전달할 때의 날짜 입니다. (YYYYMMDDHHmm)</p>
+
+<p><em>category_name</em>
+: 기기 DB에 저장되어 있는 카테고리 이름입니다. </p>
+
+<p>content_name
+: 기기 DB에 저장되어 있는 콘텐츠 이름입니다. </p>
+
+<p>info_orderID, info_one, info_two, info_three, info_four
+: Protocol I(URL Scheme)으로 전달받은 값을 기기에 저장하였다가 불러온 parameter와 값들입니다. 웹 서버에서 콘텐츠 구분을 위한 추가 정보로 활용됩니다.</p>
+
+<p><em>last_play_time</em>
+: 사용자가 재생을 완료할 때의 시간입니다. 단위는 &#39;초&#39;입니다. 단위는 생략되어 있습니다. </p>
+
+<p><em>lms_percent</em>
+:  진도율로 사용자가 재생했던 부분의 퍼센트입니다. 단위는 &rsquo;%&#39;입니다. 단위는 생략되어 있습니다. </p>
+
+<p><em>lms_sections</em>
+: 재생 구간으로 사용자가 재생했던 부분의 구간들입니다. 단위는 &#39;초&#39;입니다. 단위는 생략되어 있습니다. 
+<aside class="warning"> PallyCon Player에서 생성하는 재생 구간은 가공된 것입니다. 이전 구간과 새로운 구간을 합쳐서 만들어집니다. 합치는 규칙은 다음과 같습니다.<br>
+- 재생한 구간이 겹쳐질 경우 하나의 구간으로 결정 (ex: 이전구간(10:20) + 새로운 구간(15:50) = 결과(10:50))<br>
+- 재생한 구간이 이어질 경우 하나의 구간으로 결정 (ex: 이전구간(10:20) + 새로운 구간(21:50) = 결과(10:50))</aside></p>
+<h5 id='response-data'>Response data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"response"</span><span class="p">:</span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Success"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>response</em>
+: 진도 정보 처리 성공 여부로, parameter는 필수로 입력하셔야 합니다. 또한 빈값은 허용하지 않습니다. 값은 &#39;Y | N&#39;으로 내려주셔야 합니다.</p>
+
+<p><em>message</em>
+: 진도 정보 처리 성공 여부에 맞는 메시지입니다. PallyCon Player 에서는 별도로 처리되지 않습니다. </p>
+<h4 id='device-un-registration-standard'>Device Un-registration Standard</h4><h5 id='request-data'>Request data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"Device Release"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"site_id"</span><span class="p">:</span><span class="s2">"Site ID"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"test3"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"device_id"</span><span class="p">:</span><span class="s2">"DID01_WZnTQFOHmZiv1vsevtorDtFHRNc="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>mode</em>
+: 모든 기능에서 웹 서버와 통신은 하나의 Service manager URL을 사용합니다. Service manager URL에서 기능별 분기를 태울 수 있도록 하는 값으로 기기 등록 해제는 &#39;Device Release&#39;입니다. </p>
+
+<p><em>site_id</em>
+: Cloud Admin 페이지에서 확인이 가능한 업체에게 발급되는 값으로 고정값입니다. </p>
+
+<p><em>user_id</em>
+: 기기에 저장되어 있는 사용자 ID 값입니다</p>
+
+<p><em>device_id</em>
+: 기기에서 추출한 기기 ID입니다.  </p>
+
+<ul>
+<li><em>iOS</em>: UUID를 이용하여 기기 ID를 생성합니다. PallyCon Player와 웹 서버의 기기 등록 해제 없이 공장 초기화를 하고 다시 PallyCon Player를 설치할 경우, 새로운 기기 ID를 만들기 때문에 기기 등록이 실패됩니다. 이 경우에는 업체에 연락하여 기기 등록 해제를 요청해야 합니다.<br></li>
+<li><em>Android</em>: 기기내의 여러 정보를 조합하여 생성합니다. </li>
+</ul>
+<h5 id='response-data'>Response data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"response"</span><span class="p">:</span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Success"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>response</em>
+: 기기 등록 해제 성공 여부로, parameter는 필수로 입력하셔야 합니다. 또한 빈값은 허용하지 않습니다. 값은 &#39;Y | N&#39;으로 내려주셔야 합니다.</p>
+
+<p><em>message</em>
+: 기기 등록 해제 성공 여부에 맞는 메시지로 PallyCon Player 에서 알럿으로 표시됩니다. 이 parameter는 필수로 입력하셔야 합니다. parameter의 값은 빈값을 허용하며, 빈값일 경우 성공 여부에 따라 &#39;기기 등록 해제에 성공하였습니다.&rsquo; 혹은 &#39;기기 등록 해제에 실패하였습니다.&rsquo; 라는 메시지를 기본값으로  설정됩니다. </p>
+<h3 id='log'>Log</h3>
+<p>연동 테스트를 하기 위해 제공하는 ‘로그 보기’ 기능 사용 방법에 대해 설명합니다.  </p>
+
+<p><strong>로그에서 표시되는 내용</strong></p>
+
+<ul>
+<li>PallyCon Player와 웹 서버의 주고 받는 요청/응답 데이터<br></li>
+<li>다운로드 상태/정보<br></li>
+<li>라이선스 확인/발급 정보<br></li>
+<li>콘텐츠 재생 정보<br></li>
+</ul>
+<h4 id='로그-보기-설정'>로그 보기 설정</h4>
+<p>로그는 <strong>URL Scheme의 ‘Download/Streaming’ JSON DATA (log_type)에서 설정</strong>할 수 있으며, <strong>PallyCon Player의 ‘환경설정’ 페이지에서 확인 가능</strong>합니다. 
+환경 설정에서 ‘로그 보기’ 버튼을 터치하면, ‘log_type’이 ‘1’로 설정되어 있는 업체들의 리스트가 표시됩니다. 리스트에서 로그를 보고자 하는 업체를 터치하면 해당 업체의 로그를 볼 수 있습니다. </p>
+<h4 id='로그-내용'>로그 내용</h4>
+<p>로그 내용은 아래의 그림과 같은 형태로 보여지게 됩니다. 
+로그는 우측 상단의 <strong>‘새로고침’</strong> 버튼을 통해 리셋을 할 수 있습니다.</p>
+
+<p><img alt="Mobile_Log" src="../images/Mobile_Log.png" /></p>
+<h3 id='revision-history'>Revision History</h3>
+<p>이 테이블은 PallyCon Player 연동 가이드의 수정사항에 대해 설명한 것입니다.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Date</th>
+<th style="text-align: left">Detail</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">2014.08.19</td>
+<td style="text-align: left">PallyCon Player Mobile 연동 가이드 제작</td>
+</tr>
+<tr>
+<td style="text-align: left">2015.01.13</td>
+<td style="text-align: left">LMS 기능 추가(Detail, Scenario, Standards)</td>
+</tr>
+</tbody></table>
+<h2 id='pc-플레이어-연동'>PC 플레이어 연동</h2><h3 id='introduction'>Introduction</h3>
+<p>이 문서는 PallyCon PC Web Player와 Service Site의 웹 서버와 연동에 도움을 주기 위한 가이드입니다 </p>
+<h4 id='pallycon-pc-web-player에-대하여'>PallyCon PC Web Player에 대하여</h4>
+<aside class="notice">PallyCon Player(Mobile, PC)는 횟수제가 설정된 라이선스에 대한 재생 처리는 지원하지 않습니다. </aside>
+
+<p><strong>PallyCon PC Web Player는 Service Site의 웹 페이지에서 구현되는 Player입니다.</strong> 그렇기 때문에, 사용자가 웹 페이지에서 재생하고자 하는 콘텐츠를 클릭했을 때, 바로 재생하기 위한 Streaming 기능 만을 제공합니다. </p>
+
+<p><strong>PallyCon PC Web Player는 스트리밍 재생만 제공하기 때문에 별도의 기기 대수 체크를 하지 않습니다.</strong> 그 대신 동시 접속에 대한 제어를 통해 기기 대수 제어 기능을 할 수 있습니다. </p>
+
+<p><strong>PallyCon PC Web Player는 원본(non-DRM)/패키징(DRM) 동영상 콘텐츠 재생이 가능합니다.</strong> Streaming은 패키징(DRM) 콘텐츠의 경우 Progressive Download Play만을 지원하고, 원본(non-DRM) 콘텐츠의 경우 Progressive Download Play와 Http Live Streaming을 지원합니다. 영상 지원 포맷은 모바일과의 통합 서비스를 위해 DRM 콘텐츠는 MP4를 권장합니다. 하지만, non-DRM 콘텐츠는 MP4를 비롯하여, WMV, MPEG2-TS, Matroska, AVI, FLV를 지원합니다. </p>
+
+<table><thead>
+<tr>
+<th>Content</th>
+<th>Video Format</th>
+<th>Streaming Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>DRM Contents</td>
+<td>MP4</td>
+<td>Progressive Download Play</td>
+</tr>
+<tr>
+<td>non-DRM Contents</td>
+<td>MP4, WMV, MPEG2-TS, Matroska, AVI, FLV</td>
+<td>Progressive Download Play, Http Live Streaming</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">PallyCon PC Web Player에서는 현재 패키징 콘텐츠만 재생이 가능합니다. 원본 콘텐츠 재생은 추후에 가능하도록 업데이트될 예정입니다. </aside>
+
+<p>*<em>PallyCon PC Web Player는 재생에 관련된 다양한 기능을 제공합니다. *</em></p>
+
+<table><thead>
+<tr>
+<th>Features</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>북마크</td>
+<td>재생 중 원하는 지점을 표시하여 쉽게 이동할 수 있습니다. 메모기능이 제공되고, Service Site와의 연동이 가능합니다.</td>
+</tr>
+<tr>
+<td>진도 정보</td>
+<td>콘텐츠의 재생을 얼만큼 했는지에 재생 구간과 퍼센트로 관리될 수 있습니다. Service Site와의 연동이 가능합니다.</td>
+</tr>
+<tr>
+<td>이어보기</td>
+<td>콘텐츠를 재생할 때, 이전에 재생을 완료한 시점부터 재생할 수 있습니다. Service Site와의 연동이 가능합니다.</td>
+</tr>
+<tr>
+<td>배속</td>
+<td>0.8 배속부터 2.0배속까지 원하는 속도록 콘텐츠를 재생할 수 있습니다.</td>
+</tr>
+<tr>
+<td>강의 재생 목록 제공</td>
+<td>개발자가 원하는 콘텐츠를 리스트 형태로 Player우측에 표시할 수 있습니다.</td>
+</tr>
+</tbody></table>
+<h4 id='이-문서의-활용'>이 문서의 활용</h4>
+<p>이 문서를 통해 
+1. PallyCon PC Web Player를 적용하는 방법
+2. PallyCon PC Web Player와 Service Site의 웹 서버와 주고 받는 데이터의 규격과 PallyCon PC Web Player 시나리오에 대한 세부적인 설명에 대한 정보를 얻을 수 있습니다. </p>
+<h4 id='필요-조건'>필요 조건</h4>
+<p>PallyCon PC Web Player는 원본 콘텐츠와 NCG로 패키징된 콘텐츠를 재생하기 때문에, 각 콘텐츠들이 준비되어 있어야합니다. </p>
+
+<p>DRM 콘텐츠를 재생하기 위해서는 License가 필요합니다. License를 생성하는데 필요한 콘텐츠 사용 권한 정보를 조회하기 위한 Page가 생성되어 CP Admin에 등록되어 있어야 합니다. </p>
+
+<p>PallyCon PC Web Player와 Service Site의 웹 서버와 주고 받는 데이터를 설정할 수 있는 기술적인 이해와 적용이 필요합니다.</p>
+<h4 id='작업-순서'>작업 순서</h4>
+<p>위 &#39;필요조건&#39;을 만족한다면, 아래의 순서대로 PallyCon PC Web Player 연동 작업을 진행합니다.</p>
+
+<table><thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>STEP1</strong></td>
+<td>전체 흐름을 파악하기 위해 최소 한번 정독합니다.</td>
+</tr>
+<tr>
+<td><strong>STEP2</strong></td>
+<td>문서의 규격에 맞게 Service Site와 Service Site의 웹 서버를 구축합니다.</td>
+</tr>
+<tr>
+<td><strong>STEP3</strong></td>
+<td>서비스 시나리오대로 진행을 하면서 연동 테스트를 시작합니다.</td>
+</tr>
+</tbody></table>
+<h3 id='apis'>APIs</h3><h4 id='http-protocol-i-pallycon-pc-web-player-page-호출-post-method'>HTTP Protocol I: PallyCon PC Web Player Page 호출 (POST method)</h4>
+<p>Service Site의 웹 페이지에서 사용자가 재생하고자 하는 콘텐츠를 선택하면, PallyCon PC Web Player를 호출하여 선택한 콘텐츠를 재생합니다. </p>
+
+<p>PallyCon PC Web Player Page의 URL에  재생하고자 하는 콘텐츠의 정보를 JSON으로 생성하여 Base64로 인코딩한 뒤에 POST 방식으로 전달합니다. </p>
+
+<p><em>Format</em></p>
+
+<ul>
+<li><strong>UTF-8 String Encoding</strong> 사용</li>
+<li>POST Method</li>
+<li>URL: http://pcplayer.pallycon.com</li>
+<li>Body<br>
+<strong>Parameter I:</strong> <em>data</em> <strong>Value:</strong> <em>Base64Encoding(JSON DATA)String</em>
+<strong>Parameter II:</strong> <em>lang</em> <strong>Value:</strong> 한글(KR), 영어(EN)
+<code class="prettyprint">http://pcplayer.pallycon.com?data=Base64Encoding(JSON DATA)String&amp;lang=KR</code></li>
+</ul>
+
+<p><em>Security</em><br>
+JSON DATA 중 DRM User ID, File URL, Order ID는 반드시 <strong>AES256</strong>으로 암호화하여 전달하셔야만 합니다. </p>
+
+<p><em>Algorithm</em></p>
+
+<ul>
+<li>Algorithm : AES<br></li>
+<li>Keysize : 256 bit<br></li>
+<li>Mode : CBC</li>
+</ul>
+
+<p><em>Key, Initial vector</em></p>
+
+<ul>
+<li>Key: 32 byte  (CP Admin 페이지에서 서비스 사이트 별 확인 가능)</li>
+<li>Initial vector: 16 byte  (고정값: <strong>123456890abcdef</strong>)</li>
+</ul>
+
+<p><em>Padding</em></p>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/PKCS">PKCS7</a>을 사용합니다.<br></li>
+</ul>
+<h4 id='httphttps-protocol-ii-service-manager-url-post-method'>HTTP/HTTPs Protocol II: Service Manager URL (POST method)</h4>
+<p>PallyCon PC Web Player와 Service Site의 통신은 HTTP/HTTPs를 통해 이루어 집니다.  또한 JSON 포맷으로 세부 데이터를 생성하여 POST 방식으로 전달합니다. </p>
+
+<p>PallyCon PC Web Player와 Service Site의 통신을 통해 데이터를 주고 받는 기능은 아래와 같습니다. </p>
+
+<ul>
+<li>북마크 </li>
+<li>진도 정보 및 이어보기 정보 전달 </li>
+</ul>
+<h5 id='details'>DETAILS</h5>
+<p>HTTP/HTTPs Protocol은 PallyCon PC Web Player에서 Service Site의 웹 서버로 요청하는 데이터 (REQUEST DATA)와 웹 서버에서 PallyCon PC Web Player로 응답하는 데이터(RESPONSE DATA)로 이루어집니다. </p>
+<h6 id='request-data'>REQUEST DATA</h6>
+<p>PallyCon PC Web Player에서 통신을 통해 데이터를 주고 받는 기능은 하나의 URL (Service manager URL)을 사용하게 됩니다. Service manager URL은 PallyCon PC Web Player 페이지를 호출할 때 넘겨주는 JSON 데이터에 포함되어야 합니다. </p>
+
+<p><em>Format</em></p>
+
+<ul>
+<li><strong>UTF-8 String Encoding</strong> 사용</li>
+<li>POST Method</li>
+<li>URL: http(s)://Service manager URL</li>
+<li>Body<br>
+<strong>Parameter</strong>: <em>data</em>
+<strong>Value</strong>: <em>Base64Encoding(JSON DATA)String</em></li>
+</ul>
+
+<p><code class="prettyprint">http(s)://Service_Manager_URL?data=Base64Encoding(JSON DATA)String</code></p>
+
+<p><em>JSON DATA</em><br>
+하나의 URL에서 서로 다른 4개의 데이터를 처리해야 하기 때문에 JSON DATA안에는 각 2개의 <code class="prettyprint">mode</code>를 통해 구분할 수 있도록, parameter를 제공하고 있습니다. </p>
+
+<ul>
+<li>북마크: <strong>{&ldquo;mode&rdquo;:&ldquo;bookmark&rdquo;,&hellip;}</strong></li>
+<li>진도정보 및 이어보기 정보 전달: <strong>{&ldquo;mode&rdquo;:&ldquo;pc_lms&rdquo;,&hellip;}</strong></li>
+</ul>
+<h6 id='response-data'>RESPONSE DATA</h6>
+<p><em>Format</em></p>
+
+<ul>
+<li><em>Base64Encoding(JSON DATA)String</em></li>
+<li><strong>UTF-8 String Encoding</strong> 사용</li>
+</ul>
+
+<p><em>JSON DATA</em></p>
+
+<ul>
+<li>PallyCon PC Web Player의 요청에 대한 응답</li>
+</ul>
+<h3 id='json-standards'>JSON Standards</h3>
+<p>이 섹션에서는 APIs에서 설명한 JSON DATA의 규격에 대하여 상세한 설명을 제공합니다. JSON에서 쓰이는 모든 값은 <strong>String</strong>이기 때문에, <strong>&ldquo;&rdquo;</strong>안에 값을 넣어 주셔야 합니다. </p>
+
+<aside class="warning">JSON String의 가독성을 높이기 위해 Parameter를 줄바꿈으로 구분하였습니다. 하지만, 실제 데이터에서는 줄바꿈이나 Parameter사이에 공백을 허용하지 않으니 주의하세요. 
+
+JSON Data의 모든 Parameter는 필수로 사용하셔야 합니다.</aside>
+<h4 id='pallycon-pc-web-player-호출-standard'>PallyCon PC Web Player 호출 Standard</h4>
+<p>Service Site에서 PallyCon PC Web Player를 POST 방식으로 호출할 때 Body로 설정해야 할 JSON 규격입니다. </p>
+
+<p><em>[PallyCon PC Web Player가 재생할 콘텐츠와 Player 리스트에 두 개의 콘텐츠가 보이도록 설정]</em></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"site_id"</span><span class="p">:</span><span class="s2">"Demo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"testuser"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"drm_user_id"</span><span class="p">:</span><span class="s2">"base64(aes(Demotestuser))"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"service_manager"</span><span class="p">:</span><span class="s2">"http://www.pallycon.com/service_manager.jsp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"play_idx"</span><span class="p">:</span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"continue_play_yn"</span><span class="p">:</span><span class="s2">"y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"view_yn"</span><span class="p">:</span><span class="s2">"y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"multiuser_chk_yn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contents"</span><span class="p">:[{</span><span class="w">
+        </span><span class="s2">"content_file"</span><span class="p">:</span><span class="s2">"http://www.pallycon.com/content/test_content1-1.mp4.ncg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content_name"</span><span class="p">:</span><span class="s2">"pallycon 강좌 1-1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content_type"</span><span class="p">:</span><span class="s2">"mp4"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content_end_date"</span><span class="p">:</span><span class="s2">"2014-08-29"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_play_time"</span><span class="p">:</span><span class="s2">"2477"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"lms_percent"</span><span class="p">:</span><span class="s2">"82"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"lms_section"</span><span class="p">:</span><span class="s2">"0-20, 70-93"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"bookmark_time"</span><span class="p">:</span><span class="s2">"3601;5302;4621;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"bookmark_memo"</span><span class="p">:</span><span class="s2">"북마크1;북마크2;북마크3;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"course_status"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"152"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"list_idx"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"c_idx"</span><span class="p">:</span><span class="s2">"pallycon1-1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"drm_yn"</span><span class="p">:</span><span class="s2">"y"</span><span class="w">
+    </span><span class="p">},{</span><span class="w">
+        </span><span class="s2">"content_file"</span><span class="p">:</span><span class="s2">"http://www.pallycon.com/content/test_content1-2.mp4.ncg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content_name"</span><span class="p">:</span><span class="s2">"pallycon 강좌 1-2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content_type"</span><span class="p">:</span><span class="s2">"mp4"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content_end_date"</span><span class="p">:</span><span class="s2">"2014-08-29"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_play_time"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"lms_percent"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"lms_section"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"bookmark_time"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"bookmark_memo"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"course_status"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"153"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"list_idx"</span><span class="p">:</span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"c_idx"</span><span class="p">:</span><span class="s2">"pallycon1-2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"drm_yn"</span><span class="p">:</span><span class="s2">"y"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>site_id</em>
+: CP Admin 페이지에서 확인 가능한 업체에게 발급되는 값으로 4 byte 고정값입니다. 빈값은 허용하지 않습니다.</p>
+
+<p><em>user_id</em>
+: Service Site에서 로그인한 사용자의 user id입니다. 빈값은 허용하지 않습니다.</p>
+
+<p><em>drm_user_id</em>
+: 재생시 player에 전달되는 user id입니다. 해당 값은 site_id + user_id 값을 aes 암호화하여 base64인코딩한 값을 사용합니다. 빈값은 허용하지 않습니다.</p>
+
+<ul>
+<li>ex)site_id=DEMO, user_id=testuser </li>
+<li>–&gt; base64encode(aes256(DEMOtestuser)) –&gt;320fjs890sdkljw83jf983==</li>
+</ul>
+
+<p><em>service_manager</em>
+: 북마크, LMS 정보를 연동하는데 필요한 URL입니다. 빈값은 허용하지 않습니다.</p>
+
+<p><em>player_idx</em>
+: 사용자가 리스트에서 재생하려고 하는 리스트 인덱스입니다. 빈값은 허용하지 않습니다.</p>
+
+<p><em>continue_play_yn</em>
+: 이어보기를 허용하는지 결정하는 값입니다. 반드시 소문자를 사용하셔야 합니다(허용: y, 비허용:n). 빈값은 허용하지 않습니다.</p>
+
+<p><em>view_yn</em>
+: PallyCon PC Web Player의 오른쪽 사이드 메뉴를 보여주는지 여부를 결정하는 값입니다. 반드시 소문자를 사용해야합니다(허용: y, 비허용: n). 빈값은 허용하지 않습니다.<br>
+<strong>사이드 메뉴가 보여지지 않더라도, 우클릭을 통해 북마트를 추가할 수 있습니다.</strong></p>
+
+<p><em>multiuser_chk_yn</em>
+: 동접 체크 허용을 결정하는 값입니다. 반드시 소문자를 사용하셔야 합니다(허용: y, 비허용: n). 빈값은 허용하지 않습니다.</p>
+
+<p><em>contents</em>
+: 오른쪽 사이드 메뉴를 보여지는 리스트에 들어갈 콘텐츠들의 정보를 배열로 가지고 있는 Parameter입니다. ‘view_yn’ Parameter의 값을 비허용으로 설정하시면, 아무리 값이 있어도 보이지 않습니다. 빈값은 허용하지 않습니다.</p>
+
+<p><em>content_file</em>
+: 스트리밍에 사용될 파일이 있는 서버 주소(URL)입니다. 빈값은 허용하지 않습니다. 
+파일url 주소를 aes암호화하여 base64인코딩한 값을 사용합니다.</p>
+
+<ul>
+<li>ex)url=&ldquo;http://www.test.com/testcontent1.mp4.ncg&rdquo; </li>
+<li>–&gt; base64encode(aes(url)) –&gt;320fjs89fd032ijfd902383jf983==</li>
+</ul>
+
+<aside class="warning"> 콘텐츠 속성을 정의하는 'drm_yn'의 값에 'n'으로 설정하실 경우 원본으로 인식됩니다. 이 경우에는 AES256 암호화와 Base64 인코딩 처리를 하셔서는 안되니 주의 바랍니다. </aside>
+
+<p><em>content_name</em>
+: 오른쪽 사이드 메뉴와 재생되는 플레이어에 표시될 콘텐츠 이름으로, 빈값은 허용하지 않습니다.</p>
+
+<p><em>content_end_date</em>
+: 오른쪽 사이드 메뉴와 재생되는 플레이어에 표시될 콘텐츠 재생완료 날짜입니다.</p>
+
+<p><em>last_play_time</em>
+: 이전 콘텐츠가 마지막에 재생된 시점으로 플레이어가 이 시점부터 재생됩니다.</p>
+
+<p><em>lms_percent</em>
+: 사용자가 얼마나 재생했는지 퍼센트로 보여주는 Parameter입니다. 단위는 생략합니다. 빈값은 허용하지 않습니다.</p>
+
+<p><em>lms_section</em>
+: 사용자가 재생한 구간을 표시하는 Parameter입니다.</p>
+
+<p><strong>LMS Sections 규격</strong><br>
+- &ldquo;시작:종료,시작:종료,…&rdquo;<br>
+- ex) &ldquo;0:20,40:100&rdquo; ⇒ 0부터 20까지 재생하고, 40부터 100까지 재생</p>
+
+<p><em>bookmark_time</em>
+: bookmark time</p>
+
+<p><em>bookmark_memo</em>
+: bookmark memo</p>
+
+<p><em>order_id</em>
+: order id를 aes암호화하여 base64인코딩한 값을 사용합니다.</p>
+
+<ul>
+<li>ex)order_id=&ldquo;352&rdquo; –&gt; base64encode(aes(order_id)) –&gt;320fjs383jf983==</li>
+</ul>
+
+<p><em>course_status</em>
+: 강좌 수강 진행 상황을 나타냅니다. 0= 미수강, 1=수강중, 2=수강완료</p>
+
+<p><em>list_idx</em>
+: list_idx</p>
+
+<p><em>c_idx</em>
+: c idx</p>
+
+<p><em>drm_yn</em>
+: 원본 콘텐츠인지 DRM 콘텐츠 인지를 구분하는 값입니다. </p>
+
+<ul>
+<li>&ldquo;y&rdquo;: DRM 콘텐츠</li>
+<li>&ldquo;n&rdquo;: 원본 콘텐츠, 콘텐츠 파일 경로를  AES256 암호화하여 사용하면 오류가 발생하니 주의 바랍니다.<br></li>
+</ul>
+<h4 id='bookmark-standard'>Bookmark Standard</h4>
+<p>북마크 추가, 업데이트, 삭제에 대한 규격입니다. 북마크에 변경사항이 있을 때 마다 PallyCon PC Web Player에서는 전체의 북마크 정보를 설정하여 서버로 전달됩니다. 그렇기 때문에 추가, 업데이트, 삭제에 대한 규격은 모두 하나로 관리됩니다. </p>
+<h5 id='request-data'>REQUEST DATA</h5>
+<p>PallyCon PC Web Player에서 Service Site의 웹 서버로 전달하는 데이터입니다. </p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"bookmark"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"testuser"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"c_idx"</span><span class="p">:</span><span class="s2">"pallycon1-1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bookmark_time"</span><span class="p">:</span><span class="s2">"10;300;200;"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bookmark_memo"</span><span class="p">:</span><span class="s2">"test1;bookmark1;bookmark2;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>mode</em>
+: mode</p>
+
+<p><em>user_id</em>
+: user id</p>
+
+<p><em>c_idx</em>
+: c idx</p>
+
+<p><em>bookmark_time</em>
+: bookmark time</p>
+
+<p><em>bookmark_memo</em>
+: bookmark memo</p>
+<h6 id='response-data'>RESPONSE DATA</h6><pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="s2">"y"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>result</em>
+: result</p>
+<h4 id='lms-standard'>LMS Standard</h4>
+<p>PallyCon PC Web Player를 재생 종료하면, Servie Site의 웹 서버로 사용자가 재생한 구간이 전달됩니다. </p>
+<h5 id='request-data'>REQUEST DATA</h5>
+<p>PallyCon PC Web Player에서 Service Site로 전달하는 JSON 데이터입니다. </p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"pc_lms"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"testuser"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"c_idx"</span><span class="p">:</span><span class="s2">"pallycon1-1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lms_percent"</span><span class="p">:</span><span class="s2">"50"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lms_section"</span><span class="p">:</span><span class="s2">"10:30,100:300,350:900"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_play_time"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">""</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>mode</em>
+: mode</p>
+
+<p><em>user_id</em>
+: user_id</p>
+
+<p><em>c_idx</em>
+: c_idx</p>
+
+<p><em>lms_percent</em>
+: lms_percent</p>
+
+<p><em>lms_section</em>
+: lms section</p>
+
+<p><em>last_play_time</em>
+: last play time</p>
+
+<p><em>status</em>
+: status</p>
+<h5 id='response-data'>RESPONSE DATA</h5>
+<p>요청한 데이터에 대한 Service Site의 웹 서버의 응답 데이터입니다. </p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="s2">"y"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>result</em>
+: result</p>
+<h3 id='apis-working-scenario'>APIs Working Scenario</h3><h4 id='service-scenario'>Service Scenario</h4>
+<p>PallyCon PC Web Player는 Streaming 서비스로 서버와 연동하여 동작합니다. Streaming 서비스이기 때문에 매우 심플한 동작 시나리오를 가지고 있습니다. </p>
+<h5 id='streaming-service-scenario'>Streaming Service Scenario</h5>
+<p>Streaming 서비스는 Service Site의 웹 페이지에서 재생을 터치하여 PallyCon PC Web Player Page를 호출하는 것부터 시작합니다. 
+재생을 Stop하면, LMS 정보와 Stop시의 재생한 시간(초)을 웹 서버로 전달합니다. 
+사용자가 Bookmark를 추가/업데이트/삭제를 하면, Player에서 가지고 있는 모든 Bookmark정보를 웹 서버로 전달합니다. </p>
+<h4 id='scenario-details'>Scenario Details</h4>
+<p>Streaming Service Scenario에 대한 세부 설명입니다. 여기에서는 개발자가 개발해야 하는 부분에 대한 시나리오의 세부적인 설명을 제공합니다. Player 내부에서 처리되는 내용에 대해서는 설명하지 않습니다. </p>
+<h5 id='lms-정보-전달'>LMS 정보 전달</h5>
+<p>PallyCon PC Web Player의 재생을 Stop할 경우, 사용자가 재생한 구간에 대한 LMS 정보를 설정하여 마지막 재생 시간(초)과 함께 웹 서버로 전달합니다. </p>
+<h5 id='bookmark-추가-업데이트-삭제'>Bookmark 추가, 업데이트, 삭제</h5>
+<p>PallyCon PC Web Player에서 사용자가 Bookmark를 추가하거나, 업데이트 혹은 삭제를 할 수 있습니다. </p>
+
+<p>Bookmark 정보가 수정될 때 마다 PallyCon PC Web Player에서는 가지고 있는 모든 북마크의 정보를 Service Site의 웹 서버로 전달합니다. </p>
+
+<p><em>Bookmark 추가</em>
+: 사용자가 북마크 추가 버튼을 터치하면, 리스트에 추가 버튼을 클릭할 때의 시간으로 설정된 북마크가 표시됩니다. 생성되는 북마크의  데이터를 포함하고 있는 전체 북마크 정보를 생성하여 Service Site의 웹 서버로 전달합니다. </p>
+
+<p><em>Bookmark 업데이트</em>
+: 사용자가 북마크 리스트에서 원하는 북마크의 내용을 수정하고, 업데이트 버튼을 클릭하여 수정된 북마크 내용이 포함된 전체 북마크 리스트를 생성하여 Service Site의 웹 서버로 전달하여 업데이트 할 수 있습니다. </p>
+
+<p><em>Bookmark 삭제</em> 
+: 사용자가 북마크 리스트에서 원하는 북마크의 삭제 버튼을 클릭하여, 리스트에서 삭제하고 삭제된 후의 전체 북마크 리스트를 생성하여 Service Site의 웹 서버에서도 삭제할 수 있습니다. </p>
+<h3 id='revision-history'>Revision History</h3>
+<p>이 테이블은 PallyCon Player 연동 가이드의 수정사항에 대해 설명한 것입니다.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Date</th>
+<th style="text-align: left">Detail</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">2014.12.12</td>
+<td style="text-align: left">PallyCon PC Web Player 연동 가이드 제작</td>
+</tr>
+</tbody></table>
+
+<p><img alt="footer" src="../images/footer.png" /></p>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>

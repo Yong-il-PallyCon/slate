@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation</title>
+
+    <link href="../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+  </head>
+
+  <body class="en en_quickstart">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <a href="#"> <img src="../images/logo.png" /></a>
+      <div id="toc">
+      </div>
++-
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='quickstart-guide'>QuickStart Guide</h1><h2 id='introduction'>Introduction</h2>
+<p><em>Quick Guide</em> is a guide about using the samples provided by PallyCon Service. You can see that a simple Web page can call PallyCon Mobile Player to play video streaming or download a video for local play. </p>
+
+<p>You can download the sample at the following link.</p>
+
+<p><i class="icon-folder-open"></i> <a href="http://www.pallycon.com/developer/PallyCon_QuickStartSample.zip">Sample Download</a></p>
+
+<p>By applying these samples, you can understand which tasks are needed for applying PallyCon Service and how the service is provided. </p>
+<h3 id='necessary-conditions'>Necessary Conditions</h3>
+<p>In order to install the sample, run it, and perform a service query, you must complete <strong>Service Site Request</strong> after joining. If the service site is successfully requested, you can see the Site ID and Site Key of the service site, Packager Key, and the PC Web Player Key. </p>
+
+<p>The sample pages are .jsp files. To modify or use these pages, you need Java and Tomcat. 
+You must install Java Runtime Environment (JRE) that distributes and supports Java in Java 6 (1.6) and Java 7 (1.7) application and server environment.</p>
+
+<p>You can download Java and Tomcat through the following links.</p>
+
+<ul>
+<li>Java: http://www.oracle.com/technetwork/java/javase/downloads/index.html</li>
+<li>Tomcat: http://tomcat.apache.org/ </li>
+</ul>
+<h3 id='opening-the-setup-files'>Opening the Setup Files</h3>
+<p>PallyCon_QuickStartSample.zip contains the below.</p>
+
+<table><thead>
+<tr>
+<th>Folders or Files</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sample.war</td>
+<td>contains sample source codes</td>
+</tr>
+<tr>
+<td>CloudApplicationPackager.zip</td>
+<td>Cloud Application Packager file</td>
+</tr>
+</tbody></table>
+<h4 id='sample-war-structure'>Sample.war Structure</h4>
+<table><thead>
+<tr>
+<th>Folders or Files</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/src/aes/</td>
+<td>This folder contains aes256 and base64encode source sample files.</td>
+</tr>
+<tr>
+<td>/images</td>
+<td>This folder contains image related files used in the content_list.jsp page.</td>
+</tr>
+<tr>
+<td>/js</td>
+<td>This folder contains jquery related files used in the content_list.jsp page.</td>
+</tr>
+<tr>
+<td>/WEB-INF/classes/aes/</td>
+<td>aes256 class sample, base64encode class sample</td>
+</tr>
+<tr>
+<td>/WEB-INF/lib</td>
+<td>jar file required for sample</td>
+</tr>
+<tr>
+<td>/ServiceSite/aes_ok.jsp</td>
+<td>page file for encrypting parameters with aes256</td>
+</tr>
+<tr>
+<td>/ServiceSite/service_manager.jsp</td>
+<td>Service Site page file</td>
+</tr>
+<tr>
+<td>/ServiceSite/service_manager_pc.jsp</td>
+<td>PC Service Site page file(includes Bookmark, LMS management)</td>
+</tr>
+<tr>
+<td>/ServiceSite/config.jsp</td>
+<td>config file for running the trial</td>
+</tr>
+<tr>
+<td>/ServiceSite/content_list.jsp</td>
+<td>Mobile Web sample page file</td>
+</tr>
+<tr>
+<td>/ServiceSite/content_list_pc.jsp</td>
+<td>PC Web sample page file</td>
+</tr>
+<tr>
+<td>/CIDIssue_RightsInfo/CIDIssue.jsp</td>
+<td>CID issue page file</td>
+</tr>
+<tr>
+<td>/CIDIssue_RightsInfo/ContentUsageRightsInfo.jsp</td>
+<td>Content Usage Info page (Content Usage Info gateway) file</td>
+</tr>
+</tbody></table>
+<h4 id='cloudapplicationpackager-zip-structure'>CloudApplicationPackager.zip Structure</h4>
+<table><thead>
+<tr>
+<th>Folders or Files</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Bin/PallyCon_packager.exe</td>
+<td>Application executable file</td>
+</tr>
+<tr>
+<td>Bin/Setting.ini,images</td>
+<td>Data files for application</td>
+</tr>
+<tr>
+<td>Release_Note.txt</td>
+<td>Application change logs</td>
+</tr>
+</tbody></table>
+<h2 id='installation-and-contents-preparation'>Installation and Contents Preparation</h2>
+<p>This document describes the process for developing a sample service using the sample files provided by PallyCon Service. </p>
+<h3 id='installing-files-and-modifying-contents'>Installing Files and Modifying Contents</h3><h4 id='step1-copy-the-web-page-'>Step1: Copy the Web page.</h4>
+<p>Decompress the sample file and <strong>copy the files in the Webcontents folder to $TOMCAT_HOME/webapp/ROOT/</strong>. </p>
+<h4 id='step2-install-bouncycastle-jce-'>Step2: Install bouncycastle JCE.</h4><h5 id='aes256-configuration'>aes256 configuration</h5>
+<p>Decompress the sample file and <strong>copy the files in the Webcontents folder to $TOMCAT_HOME/webapp/ROOT/.</strong><br>
+<strong>You must have installed bouncycastle JCE to run the StringEncrypter.class among the attached class files.</strong></p>
+<h5 id='content-usage-info-page'>Content Usage Info Page</h5>
+<p>Set the information for using DRM-applied contents.
+<strong>PallyCon Player(Mobile, PC) does not support content playback with count-limited license.</strong></p>
+
+<table><thead>
+<tr>
+<th>License Rules</th>
+<th>LIMIT</th>
+<th>PD_START</th>
+<th>PD_END</th>
+<th>COUNT</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Count System</strong></td>
+<td>Y</td>
+<td>Empty</td>
+<td>Empty</td>
+<td>Value greater than 0</td>
+</tr>
+<tr>
+<td><strong>Period System</strong></td>
+<td>Y</td>
+<td>Date before PD_END</td>
+<td>Date after PD_START</td>
+<td>Empty</td>
+</tr>
+<tr>
+<td><strong>Period System+Count System</strong></td>
+<td>Y</td>
+<td>Date before PD_END</td>
+<td>Date after PD_START</td>
+<td>Value greater than 0</td>
+</tr>
+<tr>
+<td><strong>No Limit</strong></td>
+<td>N</td>
+<td>Empty</td>
+<td>Empty</td>
+<td>Empty</td>
+</tr>
+<tr>
+<td>&mdash;&mdash;&mdash;&mdash;&mdash;</td>
+<td>&mdash;-</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>Date: GMT (YYYY-MM-DDThh:mm:ss)</p>
+<h5 id='content_list-configration'>content_list configration</h5>
+<p>Set the information required for playing and downloading DRM contents. 
+- <strong>sSite_ID:</strong> The site ID that has been issued in the PallyCon Admin page.
+- <strong>sSite_Url:</strong> Current server IP and domain
+- <strong>sContent_Url1:</strong> File name of the first content in the list
+- <strong>sContent_Url2:</strong> File name of the second content in the list
+- <strong>sContent_Url3:</strong> File name of the third content in the list</p>
+<h4 id='step4-set-url-in-pallycon-cp-admin-'>Step4: Set URL in PallyCon CP Admin.</h4>
+<p>Set the URL of CIDIssue.jsp to the Content ID Issue Page URL in PallyCon CP Admin, and set the URL of ContentUsageRightsInfo.jsp to the Content Usage Rights Info Page URL. </p>
+
+<ul>
+<li>URL of CIDIssue.jsp: <a href="http://IP:8080/sample/CIDIssue_RightsInfo/CIDIssue.jsp">http://IP:8080/sample/CIDIssue_RightsInfo/CIDIssue.jsp</a></li>
+<li>URL of ContentUsageRightsInfo.jsp: <a href="http://IP:8080/sample/CIDIssue_RightsInfo/ContentUsageRightsInfo.jsp">http://IP:8080/sample/CIDIssue_RightsInfo/ContentUsageRightsInfo.jsp</a></li>
+</ul>
+<h3 id='packaging-and-preparing-drm-contents'>Packaging and Preparing DRM contents</h3>
+<p>You can use Packager to encrypt source contents and package them to an .ncg file.</p>
+<h4 id='step1-run-packager-'>Step1: Run Packager.</h4>
+<ol>
+<li>Decompress the attached packager.zip file.</li>
+<li>Run the NCG_Packager_Cloud.exe file.</li>
+</ol>
+<h4 id='step2-set-packager-'>Step2: Set Packager.</h4>
+<p>Enter the Site Key and Packager Key that you can check in PallyCon CP Admin.</p>
+
+<p><img alt="packaging" src="../images/Packaging_Setting-Packaging.png" /> </p>
+<h4 id='step3-run-packaging-'>Step3: Run packaging.</h4>
+<p>Select three MP4 files to test and click the start packaging button to package the files.(<em>Click Button marked NO.8</em>)</p>
+
+<p><img alt="apppackager" src="../images/Packaging_CloudApplicationPackager_Main.png" /> </p>
+<h4 id='step4--set-the-contents-file-that-has-been-packaged-'>Step4. Set the contents file that has been packaged.</h4>
+<p>When packaging is completed, the source contents (MP4) are changed to DRM contents (NCG). </p>
+
+<ol>
+<li>Store the DRM contents in <code class="prettyprint">/$TOMCAT_HOME/webapp/ROOT/ServiceSite/cont</code>.</li>
+<li><strong>Change the sContent_url1, 2, and 3 values of config.jsp</strong> using the URL information of the corresponding contents.</li>
+</ol>
+<h2 id='running'>Running</h2><h3 id='install-pallycon-mobile-player'>Install PallyCon Mobile Player</h3>
+<p>You can install PallyCon Mobile Player through App Store or Google Play. </p>
+
+<p><a href="https://itunes.apple.com/kr/app/pallycon-player/id918473490?mt=8"><img src="../images/appstore_logo.png" width="200"></a>
+<a href="https://play.google.com/store/apps/details?id=com.inka.pallycon.pallyconplayer"><img src="../images/google_play_logo.png" width="200"></a></p>
+<h3 id='streaming-downloading-and-local-playback'>Streaming, Downloading, and Local Playback</h3>
+<p>You can run PallyCon Mobile Player by calling it from Web browser. </p>
+<h4 id='streaming'>Streaming</h4>
+<p>When you touch the Play button in the Mobile Web sample page, PallyCon Mobile Player is called and streaming begins. </p>
+<h4 id='download'>Download</h4>
+<p>When you touch the Download button in the Mobile Web sample page, PallyCon Mobile Player is called and download starts. </p>
+<h4 id='local-playback'>Local playback</h4>
+<p>You can see the downloaded DRM content in the list. When you touch a desired content in the list, local playback starts. </p>
+<h3 id='checking-details-of-use'>Checking Details of Use:</h3>
+<p>On the PallyConCPAdmin page, you can see information about the licenses that were issued during a simple test, as well as the registered devices and packaged contents. </p>
+
+<aside class="success"><b>Important:</b> If you start with Starter, you can issue up to 100 licenses for free. To issue more licenses, you must change to a paid service. </aside>
+<h2 id='revision-history'>Revision History</h2>
+<p>This table describes the revisions of the Quick Guide.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Date</th>
+<th style="text-align: left">Detail</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">2014.08.28</td>
+<td style="text-align: left">Quick Guide was created</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>

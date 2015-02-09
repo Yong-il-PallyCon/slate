@@ -1,0 +1,383 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation</title>
+
+    <link href="../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+  </head>
+
+  <body class="en en_rest">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <a href="#"> <img src="../images/logo.png" /></a>
+      <div id="toc">
+      </div>
++-
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='rest-api-guide'>ReST API Guide</h1><h2 id='introduction'>Introduction</h2>
+<p>PallyCon Service provides APIs that allow you to directly access the PallyCon Cloud Service Site to see and modify data. The APIs provided by PallyCon Service have the RESTful architecture. </p>
+
+<p>You can use rich references and tools because they use the HTTP protocol standards. </p>
+
+<ul>
+<li>http://wikipedia.org/wiki/REST</li>
+<li>http://wikipedia.org/wiki/HTTP</li>
+<li>http://www.getpostman.com</li>
+</ul>
+<h3 id='who-should-use-39rest_api39'>Who should use &lsquo;REST_API&rsquo;?</h3>
+<p>Vendors using PallyCon Service can access PallyCon CP Admin to perform various tasks such as setting account information, use information, and interconnection setting. However, vendors can also directly see the information through the API provided by PallyCon Service from their own site without accessing PallyCon CP Admin.</p>
+
+<p>Or, in a service structure where one vendor supplies PallyCon Service to multiple subordinate vendors, you can use this API to directly access information about subordinate vendors and show the information to them. However, you can only manage vendors such as adding or deleting them through PallyCon CP Admin.  </p>
+<h2 id='https-protocol'>HTTPs Protocol</h2><h3 id='request-data'>REQUEST DATA</h3>
+<p>Vendors create request data to see contents in PallyCon Cloud Service Site. </p>
+
+<p><em>Format</em></p>
+
+<ul>
+<li>API Server URL: https://tokyo.pallycon.com/api</li>
+<li>Method: <em>Get (see), PUT (update)</em></li>
+<li> <em>In GET method, data are entered as <strong>URI Query</strong>. In PUT method, data are entered as <strong>JSON String</strong> in Payload(Body).</em></li>
+<li><em>UTF-8 Encoding</em> is used.</li>
+<li> Setting the authorization field of HTTP Header: <em>Enter Site ID and Site Key</em> using <a href="http://wikipedia.org/wiki/Basic_access_authentication">basic authentication</a>.</li>
+</ul>
+
+<p><em>Site ID and Site Key input format</em>: <strong>&#39;SiteID:SiteKey&rsquo;</strong> is encoded with Base64.</p>
+<h3 id='response-data'>RESPONSE DATA</h3>
+<p>The response data to the request data are classified by <a href="http://wikipedia.org/wiki/HTTP_status_code">HTTP status code</a>. PallyCon Cloud Service Site processes the request data in a few ways. </p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Status Code</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">200</td>
+<td style="text-align: left">This code is generated when the request data has been normally processed.</td>
+</tr>
+<tr>
+<td style="text-align: left">400</td>
+<td style="text-align: left">This code is generated when the JSON syntax is violated.</td>
+</tr>
+<tr>
+<td style="text-align: left">401</td>
+<td style="text-align: left">This code is generated when the correct account information is not entered in the authorization field of HTTP Header or there is no permission.</td>
+</tr>
+<tr>
+<td style="text-align: left">404</td>
+<td style="text-align: left">This code is generated when there is no value to return, or a parameter in URI or JSON is incorrect.</td>
+</tr>
+<tr>
+<td style="text-align: left">405</td>
+<td style="text-align: left">This code is generated when the method is not supported.</td>
+</tr>
+</tbody></table>
+
+<p><em>Format</em></p>
+
+<ul>
+<li><strong>JSON String</strong></li>
+<li><strong>UTF-8 Encoding</strong> is used.</li>
+</ul>
+
+<p><em>JSON String</em>
+: This syntax is used when there is information to send in the response data. </p>
+<h2 id='standards'>Standards</h2>
+<p>This document describes the standards for request data and response data with different URI paths depending on the queried data type. </p>
+
+<p>If GET method is used for sending request data, data must be set in URI Query format. If PUT method is used, data must be set in JSON format in Payload. 
+<aside class="notice"> Parameter can be omitted in the request data. However, if you use Parameter, you must enter a value. (<strong>Empty value is not allowed.</strong>)</aside></p>
+<h3 id='accounts-strongaccountstrong'>ACCOUNTS <strong>(~/account)</strong></h3>
+<p>Query or update the Site ID information.  </p>
+<h4 id='request-data'>Request Data</h4>
+<p><strong>GET method:</strong> Query the Site ID information in the authorization field of HTTP Header. 
+<code class="prettyprint">https://tokyo.pallycon.com/api/my/account</code></p>
+
+<ul>
+<li>NO URI Query </li>
+</ul>
+
+<p><strong>PUT method:</strong> Update the Site ID information in the authorization field of HTTP Header with the JSON information in Payload. </p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+</span><span class="s2">"service_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="p">,</span><span class="w"> 
+</span><span class="s2">"cid_issue_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"content_usage_info_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"pc_limit"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w"> 
+</span><span class="s2">"pd_limit"</span><span class="p">:</span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>service_url</em>
+: Service URL, Web player authorization URL</p>
+
+<p><em>cid_issue_url</em>
+: Content ID issue page address</p>
+
+<p><em>content_usage_info_url</em>
+: Address of the page for showing content use information</p>
+
+<p><em>pc_limit, pd_limit</em>
+: Number of PCs and devices that users can register</p>
+<h4 id='response-data'>Response Data</h4>
+<p><strong>Result of the query for Site ID: <em>HTTP Status Code + JSON</em></strong></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"site_id"</span><span class="p">:</span><span class="s2">"DKE2"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"service_use"</span><span class="p">:</span><span class="s2">"U"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"service_url"</span><span class="p">:</span><span class="s2">"www.PallyCon.com"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"reg_date"</span><span class="p">:</span><span class="s2">"201408282156"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pack_key"</span><span class="p">:</span><span class="s2">"keidh2345erdfg32efs"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"site_key"</span><span class="p">:</span><span class="s2">"keidh2345erdfg32efs"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"web_player_key"</span><span class="p">:</span><span class="s2">"keidh2345erdfg32efs"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cid_issue_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"content_usage_info_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pc_limit"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pd_limit"</span><span class="p">:</span><span class="mi">3</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>site_id</em>
+: A four-character ID for identifying a site </p>
+
+<p><em>service_use</em>
+: Whether or not to activate a service  </p>
+
+<ul>
+<li><strong>U</strong>: using </li>
+<li><strong>F</strong>: free </li>
+<li><strong>S</strong>: stopped</li>
+</ul>
+
+<p><em>service_url</em>
+: Service URL and name</p>
+
+<p><em>reg_date</em>
+: Creation date. GMT standard (+0), in the format <strong>yyyyMMddHHmmss</strong></p>
+
+<p><em>pack_key, site_key, web_player_key</em>
+: Passwords to be entered in Packager, Gateway, and Web Player, respectively</p>
+<h3 id='drm-content-strongpackstrong'>DRM Content <strong>(~/pack?~)</strong></h3>
+<p>Query the DRM content in PallyCon Cloud Service Site. </p>
+<h4 id='request-data'>Request Data</h4>
+<p><strong>GET Method:</strong> Verify the Site ID in the authorization field of HTTP Header, and query the DRM content corresponding to the URI Query in the PallyCon Cloud Service Site.  </p>
+
+<p><code class="prettyprint">https://tokyo.pallycon.com/api/my/pack?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;cid=3k12&amp;file_name=sky&amp;sorting=reg_date</code> </p>
+
+<p><em>page, size</em>
+: Page number and the number of columns to show once. The default value is ‘1’ for page and ‘20’ for size. The maximum size is 100. The defaults are set if Parameter is not used. </p>
+
+<p><em>from, to</em>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+ If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
+
+<p><em>cid, file_name</em>
+: CID(32-byte) or file name to search</p>
+
+<p><em>sorting</em>
+: The default is ‘reg_date’. ‘cid’ or ‘file_name&rsquo; can be used as well.</p>
+<h4 id='response-data'>Response Data</h4>
+<p><strong>Query result of DRM contents: <em>HTTP Status Code + JSON</em></strong></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> 
+        </span><span class="p">[{</span><span class="w">
+            </span><span class="s2">"file_name"</span><span class="p">:</span><span class="s2">"fileName.mp4.ncg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cid"</span><span class="p">:</span><span class="s2">"def3dfa"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cek"</span><span class="p">:</span><span class="s2">"erewer23sdfzchy"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reg_date"</span><span class="p">:</span><span class="s2">"201408282158"</span><span class="w">
+        </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>count</em>
+: Total number of data to be searched</p>
+
+<p><em>data</em>
+: Used together with count. The actually requested data are in data as an array. </p>
+
+<p><em>file_name</em>
+: File name of the content</p>
+
+<p><em>cid</em>
+: Content ID (32-byte)</p>
+
+<p><em>cek</em>
+: Key of the content</p>
+
+<p><em>reg_date</em>
+: Creation date. GMT standard (+0), in the format <strong>yyyyMMddHHmmss</strong></p>
+<h3 id='issued-license-info-stronglicensestrong'>Issued License Info <strong>(~/license?~)</strong></h3>
+<p>Query the issued license information in the PallyCon Cloud Service Site. </p>
+<h4 id='request-data'>Request Data</h4>
+<p><strong>GET Method:</strong> Verify the Site ID in the authorization field of HTTP Header, and query the License information corresponding to the URI Query in the PallyCon Cloud Service Site.  </p>
+
+<p><code class="prettyprint">https://tokyo.pallycon.com/api/my/license?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;status=success&amp;cid=3k12&amp;user_id=dese&amp;device_id=DKEOWK234KE&amp;device_model=iPhone&amp;sorting=reg_date</code></p>
+
+<p><em>page, size</em>
+: Page number and the number of columns to show once. The default value is ‘1’ for page and ‘20’ for size. The maximum size is 100. The defaults are set if Parameter is not used. </p>
+
+<p><em>from, to</em>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
+
+<p><em>status</em>
+: Result of license issuance: ‘success’ or ‘fail’. If Parameter is not used, the License is queried regardless of issuance. </p>
+
+<p><em>cid, user_id, device_id</em>
+: CID(32-byte), User_ID, or Device_ID to be searched</p>
+
+<p><em>sorting</em>
+: The default is ‘reg_date’. ‘cid’, ‘user_id’, or ‘device_id’ can be used as well.</p>
+<h4 id='response-data'>Response Data</h4>
+<p><strong>Query result of License information: <em>HTTP Status Code + JSON</em></strong></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="s2">"144"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> 
+        </span><span class="p">[{</span><span class="w">
+            </span><span class="s2">"cid"</span><span class="p">:</span><span class="s2">"SDE3"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"success"</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"device_id"</span><span class="p">:</span><span class="s2">"DFEJHKJGYHBJ123"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"device_model"</span><span class="p">:</span><span class="s2">"iPhone"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ro_start"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ro_end"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ro_cnt"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reg_date"</span><span class="p">:</span><span class="s2">""</span><span class="w">
+        </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>count</em>
+: The sum of all data when multiple data are returned.</p>
+
+<p><em>data</em>
+: Used together with count. The actually requested data are in data as an array. </p>
+
+<p><em>cid</em>
+: Content ID(32 byte)</p>
+
+<p><em>status</em>
+: Result of license issuance: ‘success’ or ‘fail’.</p>
+
+<p><em>user_id</em>
+: ID of the user</p>
+
+<p><em>device_id, device_model</em>
+: ID and model of the user device</p>
+
+<p><em>ro_start, ro_end</em>
+: This is copyright information (start date and end date during which play is possible), and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.</p>
+
+<p><em>ro_cnt</em>
+: Play count</p>
+
+<p><em>reg_date</em>
+: Creation date which is written in GMT standard (+0). The format is ‘yyyyMMddHHmmss’.</p>
+<h3 id='device-strongdevicestrong'>Device <strong>(~/device?~)</strong></h3>
+<p>Query the device information registered in the PallyCon Cloud Service Site. </p>
+<h4 id='request-data'>Request Data</h4>
+<p><strong>GET Method:</strong> Verify the Site ID in the authorization field of HTTP Header, and query the License information corresponding to the URI Query in the PallyCon Cloud Service Site.  </p>
+
+<p><code class="prettyprint">https://tokyo.pallycon.com/api/my/device?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;user_id=dese&amp;device_id=DKEOWK234KE&amp;device_model=iPhone&amp;sorting=reg_date</code></p>
+
+<p><em>page, size</em>
+: Page number and the number of columns to show once. The default value is ‘1’ for page and ‘20’ for size. The maximum size is 100. The defaults are set if Parameter is not used. </p>
+
+<p><em>from, to</em>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
+
+<p><em>user_id, device_id, device_model</em>
+: User_ID, Device_ID, or Device_Model to be searched</p>
+
+<p><em>sorting</em>
+: The default is ‘reg_date’. ‘&#39;user_id’, ‘device_id’, or ‘device_model’ can be used as well.</p>
+<h4 id='response-data'>Response Data</h4>
+<p><strong>Query result of the registered device information: <em>HTTP Status Code + JSON</em></strong></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> 
+        </span><span class="p">[{</span><span class="w">
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"device_id"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"device_model"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reg_date"</span><span class="p">:</span><span class="s2">""</span><span class="w">
+        </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>count</em>
+: The sum of all data when multiple data are returned.</p>
+
+<p><em>data</em>
+: Used together with count. The actually requested data are in data as an array.</p>
+
+<p><em>user_id</em>
+: ID of the user</p>
+
+<p><em>device_id, device_model</em>
+: ID and model of the user device</p>
+
+<p><em>reg_date</em>
+: Creation date which is written in GMT standard (+0). The format is ‘yyyyMMddHHmmss’.</p>
+<h3 id='statistics-strongstatisticsstrong'>Statistics <strong>(~/statistics?~)</strong></h3>
+<p>This is used to see the general service status. </p>
+<h4 id='request-data'>Request Data</h4>
+<p><strong>GET Method:</strong> Verify the Site ID in the authorization field of HTTP Header, and query the service status information corresponding to the URI Query of the Site ID in the PallyCon Cloud Service Site.  </p>
+
+<p><code class="prettyprint">https://tokyo.pallycon.com/api/my/statistics?from=201409071209&amp;to=201409081522</code> </p>
+
+<p><em>from, to</em>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
+<h4 id='response-data'>Response Data</h4>
+<p><strong>Query result of service status information: <em>HTTP Status Code + JSON</em></strong></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"license_count"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"device_count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_count"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pc_count"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ios_count"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"android_count"</span><span class="p">:</span><span class="mi">7</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em>
+: Number of issued licenses, number of registered devices, number of users, number of PCs, number of iOS devices, and number of Android devices</p>
+<h2 id='revision-history'>Revision History</h2>
+<p>This table describes the revisions of the REST API Guide.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Date</th>
+<th style="text-align: left">Detail</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">2014.08.27</td>
+<td style="text-align: left">REST API Guide was created</td>
+</tr>
+</tbody></table>
+
+<p><img alt="footer" src="../images/footer.png" /></p>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>

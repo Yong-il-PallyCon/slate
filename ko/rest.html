@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation</title>
+
+    <link href="../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+  </head>
+
+  <body class="ko ko_rest">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <a href="#"> <img src="../images/logo.png" /></a>
+      <div id="toc">
+      </div>
++-
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='rest-api-가이드'>ReST API 가이드</h1><h2 id='introduction'>Introduction</h2>
+<p>PallyCon Cloud 서비스 사이트에 직접 접근하여 데이터를 조회하고 수정할 수 있도록 PallyCon Service에서는 API를 제공하고 있습니다. PallyCon Service에서 제공하는 API는 RESTful architecture로 구성됩니다. </p>
+
+<p>HTTP Protocol의 표준규격을 이용하기 때문에 풍부한 레퍼런스와 툴을 이용할 수 있습니다. </p>
+
+<ul>
+<li>http://wikipedia.org/wiki/REST</li>
+<li>http://wikipedia.org/wiki/HTTP</li>
+<li>http://www.getpostman.com</li>
+</ul>
+<h3 id='who-should-use-39rest_api39-'>Who should use &lsquo;REST_API&rsquo; ?</h3>
+<p>PallyCon Service를 사용하는 업체는 계정 정보, 사용 정보, 연동 정보 설정 등 다양한 작업을 PallyCon CP Admin에 접근하여 확인할 수 있습니다. 하지만, PallyCon CP Admin의 접근 없이 업체 자신의 사이트에서 PallyCon Service에서 제공하는 API를 통해 직접 조회할 수 있습니다.</p>
+
+<p>또는, PallyCon Service를 하나의 업체가 여러 하위 업체에게 공급하는 서비스 구조에서 이 API를 이용하여 하위 업체에 대한 정보를 직접 조회하여 하위 업체에게 정보를 보여 줄 수도 있습니다. 하지만, 업체를 추가하거나 삭제하는 등의 관리는 PallyCon CP Admin을 통해서만 가능합니다.  </p>
+<h2 id='https-protocol'>HTTPs Protocol</h2><h3 id='request-data'>REQUEST DATA</h3>
+<p>업체가 PallyCon Cloud Service Site에 내용을 조회하기 위하여 요청 데이터를 생성합니다. </p>
+
+<p><em>Format</em></p>
+
+<ul>
+<li><strong>API Server URL:</strong> https://tokyo.pallycon.com/api</li>
+<li><strong>Method:</strong> GET (조회), PUT (업데이트)</li>
+<li> <strong>GET 방식에서는 URI Query 형태로 입력, PUT에서는 Payload(Body)에 JSON String으로 입력</strong></li>
+<li><strong>UTF-8 Encoding</strong>사용</li>
+<li><strong>HTTP Header의 authorization 필드 설정:</strong> <a href="http://wikipedia.org/wiki/Basic_access_authentication">basic authentication</a>를 사용하여 <strong>Site ID와 Site Key를 입력</strong><br></li>
+</ul>
+
+<p><em>Site ID와 Site Key 입력 형태</em>: <strong>SiteID:SiteKey</strong>를 Base64로 인코딩 </p>
+<h3 id='response-data'>RESPONSE DATA</h3>
+<p>요청 데이터에 대한 응답은 <a href="http://wikipedia.org/wiki/HTTP_status_code">HTTP status code</a>에 의하여 분류됩니다. PallyCon Cloud Service Site에서는 요청 데이터에 대하여 몇가지 처리가 되어 있습니다. </p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Status Code</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">200</td>
+<td style="text-align: left">요청데이터에 대하여 정상적으로 처리되었을 경우에 발생되는 코드</td>
+</tr>
+<tr>
+<td style="text-align: left">400</td>
+<td style="text-align: left">JSON 문법에 어긋났을 경우에 발생되는 코드</td>
+</tr>
+<tr>
+<td style="text-align: left">401</td>
+<td style="text-align: left">HTTP Header에 authorization 필드에 올바른 계정정보를 입력하지 않거나 권한이 없는 경우에 발생되는 코드</td>
+</tr>
+<tr>
+<td style="text-align: left">404</td>
+<td style="text-align: left">리턴할 값이 없거나, URI나 JSON에 들어있는 Parameter가 틀렸을 경우에 발생되는 코드</td>
+</tr>
+<tr>
+<td style="text-align: left">405</td>
+<td style="text-align: left">지원하지 않는 Method인 경우에 발생되는 코드</td>
+</tr>
+</tbody></table>
+
+<p><em>Format</em></p>
+
+<ul>
+<li><strong>JSON String</strong></li>
+<li><strong>UTF-8 Encoding</strong> 사용</li>
+</ul>
+
+<p><em>JSON String</em>
+: 응답 데이터 중 전달할 정보가 있을 때 사용하는 문법입니다. </p>
+<h2 id='standards'>Standards</h2>
+<p>조회하고자 하는 데이터 종류에 따라 URI Path를 구분하여 요청 데이터와 응답 데이터에 대한 규격을 설명합니다. </p>
+
+<p>요청 데이터를 전달할 때의 Method가 GET방식일 경우에는 URI Query 형태로 데이터를 설정해야 하고, PUT방식일 경우에는 Payload에 JSON 형태로 데이터를 설정해야 합니다. 
+<aside class="notice">요청 데이터에서의 Parameter는 생략이 가능합니다. 하지만 Parameter를 사용하게 되면 반드시 값을 넣으셔야 합니다. (빈값을 허용하지 않습니다.)</aside></p>
+<h3 id='accounts-strongaccountstrong'>ACCOUNTS <strong>(~/account)</strong></h3>
+<p>Site ID 정보에 대한 조회나 업데이트입니다.  </p>
+<h4 id='site-id-정보-조회'>Site ID 정보 조회</h4><h5 id='request-data'>Request Data</h5>
+<p><strong>GET 방식:</strong> HTTP Header의 authorization필드의 Site ID에 대한 정보를 조회합니다. </p>
+
+<p><code class="prettyprint">https://tokyo.pallycon.com/api/my/account</code></p>
+
+<ul>
+<li>NO URI Query </li>
+</ul>
+<h5 id='response-data'>Response Data</h5>
+<p><strong>Site ID에 대한 정보 조회에 대한 결과: <em>HTTP Status Code + JSON</em></strong></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"site_id"</span><span class="p">:</span><span class="s2">"DKE2"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"service_use"</span><span class="p">:</span><span class="s2">"U"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"service_url"</span><span class="p">:</span><span class="s2">"www.PallyCon.com"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"reg_date"</span><span class="p">:</span><span class="s2">"201408282156"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pack_key"</span><span class="p">:</span><span class="s2">"keidh2345erdfg32efs"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"site_key"</span><span class="p">:</span><span class="s2">"keidh2345erdfg32efs"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cid_issue_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"content_usage_Rights_info_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>site_id</em>
+: 사이트를 구분하는 ID, 알파벳과 숫자로 이루어진 4글자</p>
+
+<p><em>service_use</em>
+: 서비스 활성화 여부. </p>
+
+<ul>
+<li><strong>U</strong>: using </li>
+<li><strong>F</strong>: free </li>
+<li><strong>S</strong>: stopped</li>
+</ul>
+
+<p><em>service_url</em>
+: 서비스 URL과 이름</p>
+
+<p><em>reg_date</em>
+: 생성일자. GMT 표준(+0), 규격은<strong>yyyyMMddHHmmss</strong></p>
+
+<p>_pack_key, site_key
+: 각 각 패키저, 게이트웨이에 입력해야 할 비밀번호</p>
+<h4 id='site-id-정보-업데이트'>Site ID 정보 업데이트</h4><h5 id='request-data'>Request Data</h5>
+<p><strong>PUT 방식:</strong> HTTP Header의 authorization필드의 Site ID에 대한 정보를 Payload에 있는 JSON에 대한 정보로 업데이트하게 됩니다. </p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"service_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"cid_issue_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"content_usage_Rights_info_url"</span><span class="p">:</span><span class="s2">"http://test.test.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>service_url</em>
+: 서비스 URL, Web player 인증 URL</p>
+
+<p><em>cid_issue_url</em>
+: Content ID 발급 페이지 주소</p>
+
+<p><em>content_usage_Rights_info_url</em>
+: 콘텐츠 사용 권한 정보를 조회하는 페이지 주소</p>
+<h5 id='response-data'>Response Data</h5>
+<p>Site ID에 JSON 정보로 업데이트에 대한 결과는 &#39;HTTP Status Code&#39;로 확인이 가능합니다. </p>
+<h3 id='drm-content-strongpackstrong'>DRM Content <strong>(~/pack?~)</strong></h3>
+<p>PallyCon Cloud 서비스 사이트에 가지고 있는 DRM Content에 대한 정보를 조회합니다. </p>
+<h4 id='drm-content-정보-조회'>DRM Content 정보 조회</h4><h5 id='request-data'>Request Data</h5>
+<p>*<em>GET 방식: *</em>  HTTP Header의 authorization필드의 Site ID를 인증한 후, URI Query 해당하는 DRM 콘텐츠의 정보를 PallyCon Cloud Service Site에서 조회합니다.  </p>
+
+<p><code class="prettyprint">https://tokyo.pallycon.com/api/my/pack?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;cid=3k12&amp;file_name=sky&amp;sorting=reg_date</code></p>
+
+<p><em>page, size</em>
+: 페이지 번호와 한번에 보여줄 컬럼의 수. default로 page : ‘1’, size : ‘20’, size는 최대 100으로 제한됩니다. Parameter를 사용하지 않을 경우, default 로 설정됩니다. </p>
+
+<p><em>from, to</em>
+: 조회 범위이고,  규격은 <strong>GMT 표준(+0)</strong>으로 ‘yyyyMMddHHmmss’<br>
+from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시간을 기준으로 무제한 시간으로 조회됩니다. </p>
+
+<p><em>cid, file_name</em>
+: 검색할 CID(32byte) 혹은 file name</p>
+
+<p><em>sorting</em>
+: default는 ‘reg_date’. ‘cid’, ‘file_name&#39;도 가능.</p>
+<h5 id='response-data'>Response Data</h5>
+<p><strong>DRM 콘텐츠 정보 조회 결과: <em>HTTP Status Code + JSON</em></strong></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"file_name"</span><span class="p">:</span><span class="s2">"fileName.mp4.ncg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cid"</span><span class="p">:</span><span class="s2">"def3dfa"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cek"</span><span class="p">:</span><span class="s2">"erewer23sdfzchy"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reg_date"</span><span class="p">:</span><span class="s2">"201408282158"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>count</em>
+: 검색 대상의 전체 수</p>
+
+<p><em>data</em>
+: count와 함께 쓰이는 Parameter로, 실제로 요청한 데이터가 data 안에 배열로 들어가있습니다. </p>
+
+<p><em>file_name</em>
+: content’s file name</p>
+
+<p><em>cid</em>
+: content’s ID(32 byte)</p>
+
+<p><em>cek</em>
+: content’s key</p>
+
+<p><em>reg_date</em>
+: 생성일자. <strong>GMT 표준(+0)</strong>으로, 규격은<strong>yyyyMMddHHmmss</strong></p>
+<h3 id='issued-license-info-stronglicensestrong'>Issued License Info <strong>(~/license?~)</strong></h3>
+<p>PallyCon Cloud Service Site에서 발급된 License에 대한 정보를 조회합니다. </p>
+<h4 id='발급된-license-정보-조회'>발급된 License 정보 조회</h4><h5 id='request-data'>Request Data</h5>
+<p>*<em>GET 방식: *</em>  HTTP Header의 authorization필드의 Site ID를 인증한 후, URI Query 해당하는 License의 정보를 PallyCon Cloud Service Site에서 조회합니다.  </p>
+
+<p><code class="prettyprint">https://tokyo.pallycon.com/api/my/license?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;status=success&amp;cid=3k12&amp;user_id=dese&amp;device_id=DKEOWK234KE&amp;device_model=iPhone&amp;sorting=reg_date</code></p>
+
+<p><em>page, size</em>
+: 페이지 번호와 한번에 보여줄 컬럼의 수. default로 page : ‘1’, size : ‘20’, size는 최대 100으로 제한됩니다. Parameter를 사용하지 않을 경우, default 로 설정됩니다. </p>
+
+<p><em>from, to</em>
+: 조회 범위이고,  규격은 GMT 표준(+0)으로 ‘yyyyMMddHHmmss’ 
+from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시간을 기준으로 무제한 시간으로 조회됩니다. </p>
+
+<p><em>status</em>
+: License 발급 성공여부. ‘success’ 혹은 ‘fail’이 가능. Parameter를 사용하지 않을 경우, 발급 여부와 상관없이 License가 조회됩니다. </p>
+
+<p><em>cid, user_id, device_id</em>
+: 검색할 CID 혹은 User_ID, Device_ID</p>
+
+<p><em>sorting</em>
+: default는 ‘reg_date’. ‘cid’, ‘user_id’, ‘device_id’도 가능</p>
+<h5 id='response-data'>Response Data</h5>
+<p><strong>License 정보 조회 결과: <em>HTTP Status Code + JSON</em></strong></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="s2">"144"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:[</span><span class="w"> 
+        </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"cid"</span><span class="p">:</span><span class="s2">"SDE3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"success"</span><span class="p">,</span><span class="w"> 
+        </span><span class="s2">"user_id"</span><span class="p">:</span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"device_id"</span><span class="p">:</span><span class="s2">"DFEJHKJGYHBJ123"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"device_model"</span><span class="p">:</span><span class="s2">"iPhone"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ro_start"</span><span class="p">:</span><span class="s2">"201409081522"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ro_end"</span><span class="p">:</span><span class="s2">"201409091522"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ro_cnt"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"reg_date"</span><span class="p">:</span><span class="s2">"201409081522"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>count</em>
+: 리턴하는 데이터가 복수일 때, 그 모든 합.</p>
+
+<p><em>data</em>
+: count와 함께 쓰이는 Parameter로, 실제로 요청한 데이터가 data 안에 배열로 들어가있습니다. </p>
+
+<p><em>cid</em>
+: 32 byte의 Content ID</p>
+
+<p><em>status</em>
+: 라이센스 발급 성공여부. ‘success’ 혹은 ‘fail’</p>
+
+<p><em>user_id</em>
+: 사용자 ID</p>
+
+<p><em>device_id, device_model</em>
+: 사용자 기기의 ID와 모델명</p>
+
+<p><em>ro_start, ro_end</em>
+: 저작권 정보(재생가능한 시작일과 종료일) 규격은 <strong>GMT 표준(+0)</strong>시간으로  ‘yyyyMMddHHmmss’.</p>
+
+<p><em>ro_cnt</em>
+: 재생 횟수</p>
+
+<p><em>reg_date</em>
+: 생성일자. GMT 표준(+0)으로 작성한다. 규격은 ‘yyyyMMddHHmmss’.</p>
+<h3 id='statistics-strongstatisticsstrong'>Statistics <strong>(~/statistics?~)</strong></h3>
+<p>전반적인 서비스 현황을 조회하기 위해 사용합니다. </p>
+<h4 id='request-data'>Request Data</h4>
+<p>*<em>GET 방식: *</em>  HTTP Header의 authorization필드의 Site ID를 인증한 후, Site ID의 URI Query 해당하는 서비스  현황 정보를 PallyCon Cloud Service Site에서 조회합니다.  </p>
+
+<p><code class="prettyprint">https://tokyo.pallycon.com/api/my/statistics?from=201409071209&amp;to=201409081522</code></p>
+
+<p><em>from, to</em>
+: 조회 범위이고,  규격은 GMT 표준(+0)으로 ‘yyyyMMddHHmmss’ 
+from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시간을 기준으로 무제한 시간으로 조회됩니다. </p>
+<h4 id='response-data'>Response Data</h4>
+<p><strong>서비스 현황 정보 조회 결과: <em>HTTP Status Code + JSON</em></strong></p>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"license_count"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"device_count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_count"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pc_count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ios_count"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"android_count"</span><span class="p">:</span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em>
+: 발급된 License 수, 등록된 기기 대수, 사용자수, PC 수, iOS 기기 수, Android 기기 수</p>
+<h2 id='revision-history'>Revision History</h2>
+<p>이 테이블은 REST API 가이드의 수정사항에 대해 설명한 것입니다.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Date</th>
+<th style="text-align: left">Detail</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">2014.08.27</td>
+<td style="text-align: left">REST API Guide 제작</td>
+</tr>
+<tr>
+<td style="text-align: left">2014.09.21</td>
+<td style="text-align: left">Method에 DELETE 추가 및 Standards의 Device에 등록해제 추가</td>
+</tr>
+<tr>
+<td style="text-align: left">2014.12.15</td>
+<td style="text-align: left">Method에 DELETE 삭제 및 Standards의 Device에 등록해제 삭제</td>
+</tr>
+</tbody></table>
+
+<p><img alt="footer" src="../images/footer.png" /></p>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>
