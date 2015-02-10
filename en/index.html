@@ -25,8 +25,8 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='/slate/ko'>IN KOREAN</a></li>
-            <li><a href='http://www.pallycon.com'>PALLYCON HOME</a></li>
+            <li><a href='/ko'>▶ IN KOREAN</a></li>
+            <li><a href='http://www.pallycon.com'>▶ PALLYCON HOME</a></li>
         </ul>
       +-
     </div>
@@ -39,7 +39,7 @@
 
 <p>PallyCon service consists with cloud-based DRM license server, PallyCon Player for DRM content playback, and PallyCon Packager for content encryption. To use PallyCon service, each modules must be integrated with your content service. You can apply DRM without SDK development or server preparation.</p>
 
-<p><img alt="overview" src="../images/overview_diagram_eng.jpg" /></p>
+<p><img alt="overview" src="images/overview_diagram_eng.jpg" /></p>
 <h2 id='guides'>Guides</h2>
 <p>You can integrate PallyCon service with your content service site using the below guide documents.</p>
 
@@ -261,11 +261,11 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
 <h4 id='step2-set-packager-'>Step2: Set Packager.</h4>
 <p>Enter the Site Key and Packager Key that you can check in PallyCon CP Admin.</p>
 
-<p><img alt="packaging" src="../images/Packaging_Setting-Packaging.png" /> </p>
+<p><img alt="packaging" src="images/Packaging_Setting-Packaging.png" /> </p>
 <h4 id='step3-run-packaging-'>Step3: Run packaging.</h4>
 <p>Select three MP4 files to test and click the start packaging button to package the files.(<em>Click Button marked NO.8</em>)</p>
 
-<p><img alt="apppackager" src="../images/Packaging_CloudApplicationPackager_Main.png" /> </p>
+<p><img alt="apppackager" src="images/Packaging_CloudApplicationPackager_Main.png" /> </p>
 <h4 id='step4--set-the-contents-file-that-has-been-packaged-'>Step4. Set the contents file that has been packaged.</h4>
 <p>When packaging is completed, the source contents (MP4) are changed to DRM contents (NCG). </p>
 
@@ -308,7 +308,7 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
           <h1 id='integration-guide'>Integration Guide</h1><h2 id='integraion-overview'>Integraion Overview</h2><h3 id='about-pallycon-service'>About PallyCon Service</h3>
 <p>The PallyCon Service is provided to allow vendors to service secured (DRM) contents or source (non-DRM) contents that they have. </p>
 
-<p><img alt="overview_building" src="../images/Overview_Building.png" /></p>
+<p><img alt="overview_building" src="images/Overview_Building.png" /></p>
 
 <p>The DRM solution used in PallyCon Service can be applied to all files. However, PallyCon Service only services video contents. To apply DRM to other types of files, you must implement it using the SDK. </p>
 
@@ -319,11 +319,11 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
 <li>Player: This player plays DRM contents.</li>
 </ul>
 
-<p><img alt="overview_composition" src="../images/Overview_Composition.png" /></p>
+<p><img alt="overview_composition" src="images/Overview_Composition.png" /></p>
 
 <p>For packaging, PallyCon Service provides Packager. Furthermore, Player provides PC Web Player and Mobile (iOS, Android) Player. </p>
 
-<p><img alt="overview_tool" src="../images/Overview_Tool.png" />&gt;</p>
+<p><img alt="overview_tool" src="images/Overview_Tool.png" />&gt;</p>
 
 <p>PallyCon Service must be provided by reflecting the service policy of the vendor. The service policy of the vendor is reflected as follows:</p>
 
@@ -333,7 +333,7 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
 <li>The policy is reflected by <strong>setting Player in line with the service policy</strong>. You can set the policy in Player by interconnecting the <strong>Service Site Page and the Player</strong>. </li>
 </ul>
 
-<p><img alt="overview_workingpage" src="../images/Overview_WorkingPage.png" /></p>
+<p><img alt="overview_workingpage" src="images/Overview_WorkingPage.png" /></p>
 <h3 id='pallycon-service-scenario'>PallyCon Service Scenario</h3>
 <p>This document explains the PallyCon Service Scenario through the content flow when a vendor services DRM contents.</p>
 <h4 id='packaging'>Packaging</h4>
@@ -364,15 +364,15 @@ You can set up only one PallyCon Service for one site ID. You may not set up mul
 <h4 id='packaging-guide'>Packaging Guide</h4>
 <p>This guide is for <strong>STEP1 ~ STEP4</strong>. This guide document describes the packaging method, the CID issue page development procedure, and cautions. </p>
 
-<p><img alt="overview_packagingguide" src="../images/Overview_PackagingGuide.png" /></p>
+<p><img alt="overview_packagingguide" src="images/Overview_PackagingGuide.png" /></p>
 <h4 id='license-issue-guide'>License Issue Guide</h4>
 <p>This guide is for <strong>STEP5</strong>. This guide document provides information and cautions about the license required for using DRM contents, the creation and issuance of license, and the development of the content usage information page. </p>
 
-<p><img alt="overview_licenseissueguide" src="../images/Overview_LicenseIssueGuide.png" /></p>
+<p><img alt="overview_licenseissueguide" src="images/Overview_LicenseIssueGuide.png" /></p>
 <h4 id='web-working-guide-mobile-working-guide'>Web Working Guide, Mobile Working Guide</h4>
 <p>This guide is for <strong>STEP6</strong>. This guide document explains the interconnection tasks required for using Web Player and Mobile Player provided by PallyCon Service. </p>
 
-<p><img alt="overview_playerworking" src="../images/Overview_PlayerWorkingGuide.png" /></p>
+<p><img alt="overview_playerworking" src="images/Overview_PlayerWorkingGuide.png" /></p>
 <h3 id='revision-history'>Revision History</h3>
 <p>This table describes the revisions of the Overview Guide.</p>
 
@@ -470,7 +470,7 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 <h5 id='direct-input-of-cid-contents-id'>Direct Input of CID (Contents ID)</h5>
 <p>Only Cloud CLI Packager has the CID interface for receiving the input of CID.  </p>
 
-<p><img alt="Packaging_Packaging_CID" src="../images/Packaging_Packaging_CID.png" /></p>
+<p><img alt="Packaging_Packaging_CID" src="images/Packaging_Packaging_CID.png" /></p>
 
 <p>When <strong>a CID is inputted in Cloud CLI Packager, the Packager checks if the PallyCon Cloud Service Site has the CID</strong>. </p>
 
@@ -484,7 +484,7 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 <h5 id='issuing-cid-through-the-cid-issue-page'>Issuing CID through the CID Issue Page</h5>
 <p>*<em>If no CID is inputted to the CID interface in Cloud CLI Packager, or if Cloud Application Packager is used, you must issue the CID from the CID issue page. *</em></p>
 
-<p><img alt="Packaging_Packaging_NoCID" src="../images/Packaging_Packaging_NoCID.png" /></p>
+<p><img alt="Packaging_Packaging_NoCID" src="images/Packaging_Packaging_NoCID.png" /></p>
 
 <p>Packager <strong>requests the issuance of CID from the PallyCon Cloud Service Site</strong> and <strong>the PallyCon Cloud Service Site requests the issuance of CID from the CID issue page of the Content ID Issue Page URL</strong>. <strong>The CID Issue Page creates a CID(28-byte) and sends it to the PallyCon Cloud Service Site</strong>. </p>
 
@@ -500,17 +500,17 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 
 <p>The following figure illustrates the preparation of DRM contents for HLS service. </p>
 
-<p><img alt="Packaging_Scenario_HSL" src="../images/Packaging_Scenario_HSL.png" /></p>
+<p><img alt="Packaging_Scenario_HSL" src="images/Packaging_Scenario_HSL.png" /></p>
 <h5 id='service-scenario'>Service Scenario</h5>
 <p><strong>License is required</strong> for servicing DRM contents. License contains the <strong>Content ID</strong> and <strong>CEK</strong> of DRM contents, as well as the <strong>content usage period and count</strong>. </p>
 
-<p><img alt="Packaging_Scenario_License" src="../images/Packaging_Scenario_License.png" /></p>
+<p><img alt="Packaging_Scenario_License" src="images/Packaging_Scenario_License.png" /></p>
 
 <p><strong>Licenses are issued from the PallyCon Cloud Service Site.</strong> To issue a license, you need user, device, and content information. Among them, the content contains the CID(32-byte, <em>including the site ID</em>) extracted from the DRM contents. </p>
 
 <aside class="notice">Content Usage Rights Info Page: In addition to the CID issue page, this page must be developed by developer and show the content usage rights information. </aside>
 
-<p><img alt="Packaging_Scenario_DRMService" src="../images/Packaging_Scenario_DRMService.png" /></p>
+<p><img alt="Packaging_Scenario_DRMService" src="images/Packaging_Scenario_DRMService.png" /></p>
 
 <p>When a user attempts to use DRM contents, Player <strong>extracts the content ID from DRM contents</strong>. Furthermore, it also <strong>extracts device and user information and other content information</strong> and sends the data for requesting a license to the PallyCon Cloud Service Site together with the CID(32-byte). </p>
 
@@ -522,15 +522,15 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 <h3 id='content-id-policy'>Content ID Policy</h3>
 <p><strong>Content IDs are linked to Licenses one to one</strong>. Therefore, <strong>depending on the CID setting when packaging contents, you can manage multiple contents with one license, or manage each content with a different license.</strong></p>
 
-<p><img alt="Packaging_CID_1vs1" src="../images/Packaging_CID_1vs1.png" /></p>
+<p><img alt="Packaging_CID_1vs1" src="images/Packaging_CID_1vs1.png" /></p>
 
 <p>If you service multiple contents as a group, it is more effective to manage them with one lincense rather than to manage each content with a different license. To manage multiple contents with one license, use the same CID for the contents to be grouped when packging contents. </p>
 
-<p><img alt="Packaging_CID_Package" src="../images/Packaging_CID_Package.png" /></p>
+<p><img alt="Packaging_CID_Package" src="images/Packaging_CID_Package.png" /></p>
 
 <p>If you service each content separately, you must manage each content with a different license. In this case, use a different CID for each content when packaging contents.</p>
 
-<p><img alt="Packaging_CID_NoPackage" src="../images/Packaging_CID_NoPackage.png" /></p>
+<p><img alt="Packaging_CID_NoPackage" src="images/Packaging_CID_NoPackage.png" /></p>
 <h3 id='content-id-issue-page'>Content ID Issue Page</h3>
 <p>This document describes the protocol and standard for developing the CID Issue Page when receiving CID by communicating with the CID Issue Page rather than directly inputting the CID.   </p>
 <h4 id='https-protocol-post-method-requestresponse-data'>Http(s) Protocol (POST Method, REQUEST/RESPONSE Data)</h4>
@@ -672,7 +672,7 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 
 <p><strong>STEP6:</strong> Click the &ldquo;Packaging&rdquo; button in the main window to start packaging. </p>
 <h4 id='window-descriptions'>Window Descriptions</h4><h5 id='main-window'>Main window</h5>
-<p><img alt="Packaging_CloudApplicationPackager_Main" src="../images/Packaging_CloudApplicationPackager_Main.png" /></p>
+<p><img alt="Packaging_CloudApplicationPackager_Main" src="images/Packaging_CloudApplicationPackager_Main.png" /></p>
 
 <p><em>(1) Input</em>
 : This folder contains source video files that need to be packaged. </p>
@@ -733,7 +733,7 @@ If there is any file in the list that you don&rsquo;t want to package, you can d
 <h5 id='settings-window'>Settings window</h5>
 <p>The top of the Settings window is divided into &#39;Common&rsquo; section and &#39;Packaging&rsquo; section. </p>
 
-<p><img alt="Packaging_Setting-Common" src="../images/Packaging_Setting-Common.png" /></p>
+<p><img alt="Packaging_Setting-Common" src="images/Packaging_Setting-Common.png" /></p>
 
 <p><em>(1) Packaging Type</em></p>
 
@@ -742,7 +742,7 @@ If there is any file in the list that you don&rsquo;t want to package, you can d
 <p><strong>Unit Pack:</strong> You can continuously add a folder to be packaged through the Add Input Folder button as individual job. However the subfolder cannot be maintained in the output folder.
 You can also continuously add individual files with the Add Input File button.</p>
 
-<p><img alt="Packaging_Setting-Packaging" src="../images/Packaging_Setting-Packaging.png" /></p>
+<p><img alt="Packaging_Setting-Packaging" src="images/Packaging_Setting-Packaging.png" /></p>
 
 <p><em>(1) Supported Extensions</em>
 : This shows the list of supported extensions. When you try to add a file using Input Folder in the main window, files of unsupported extensions cannot be added. You can add or delete extensions using the Add and Remove buttons.</p>
@@ -751,7 +751,7 @@ You can also continuously add individual files with the Add Input File button.</
 - <strong>Site ID:</strong> This is the site ID issued in PallyCon CP Admin.
 - <strong>Packager Key:</strong> This is the Packager Key issued in PallyCon CP Admin.</p>
 <h5 id='progress-bar-window'>Progress Bar window</h5>
-<p><img alt="Packaging_CloudApplicationPackager_ProgressBar" src="../images/Packaging_CloudApplicationPackager_ProgressBar.png" /></p>
+<p><img alt="Packaging_CloudApplicationPackager_ProgressBar" src="images/Packaging_CloudApplicationPackager_ProgressBar.png" /></p>
 
 <p><em>(1) File Name</em>
 : This shows the name of the file that is being processed in real time.</p>
@@ -938,7 +938,7 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 <h4 id='license'>License</h4>
 <p>License contains <strong>the content IDs and CEKs of DRM contents, the service term and usage count of contents</strong>. It is generated in the PallyCon Cloud Service Site and issued to clients. </p>
 
-<p><img alt="Packaging_Scenario_License" src="../images/Packaging_Scenario_License.png" /></p>
+<p><img alt="Packaging_Scenario_License" src="images/Packaging_Scenario_License.png" /></p>
 
 <p>Therefore, developers do not have to write codes for license issuance. Developers just need to write a page for retrieving the <strong>content usage information</strong> for the PallyCon Cloud Service Site to generate a license. </p>
 <h4 id='use-of-this-document'>Use of this Document</h4>
@@ -966,7 +966,7 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 
 <p><strong>STEP4:</strong> Register the content usage Info Page address as the Content Usage Rights Info URL of PallyCon CP Admin.</p>
 <h3 id='scenario'>Scenario</h3><h4 id='license-issue-scenario'>License Issue Scenario</h4>
-<p><img alt="Packaging_Scenario_DRMService" src="../images/Packaging_Scenario_DRMService.png" /></p>
+<p><img alt="Packaging_Scenario_DRMService" src="images/Packaging_Scenario_DRMService.png" /></p>
 
 <p>When a user attempts to use DRM contents, Player <strong>extracts the content ID(32-byte) from the DRM contents</strong>. Furthermore, it also <strong>extracts device and user information and other content information</strong> and sends the data for requesting a license to the PallyCon Cloud Service Site together with the CID. </p>
 
@@ -980,7 +980,7 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 <h5 id='interconnection-of-content-usage-info'>Interconnection of Content Usage Info</h5>
 <p>The PallyCon Cloud Service Site sends the user, content, and device information to the Content Usage Rights Info Page and requests the content usage rights information to create a license of the contents to be used. </p>
 
-<p><img alt="LicenseIssue_Scenario_ContentUsageInfoPage" src="../images/LicenseIssue_Scenario_ContentUsageInfoPage.png" /></p>
+<p><img alt="LicenseIssue_Scenario_ContentUsageInfoPage" src="images/LicenseIssue_Scenario_ContentUsageInfoPage.png" /></p>
 
 <p>The Content Usage Rights Info Page sets the information in line with the policy for using contents determined by the vendor and sends it to the PallyCon Cloud Service Site. </p>
 <h3 id='content-usage-rights-info-page'>Content Usage Rights Info Page</h3>
@@ -1303,7 +1303,7 @@ The following functions use communication between PallyCon Player and Web server
 <li>Device Release </li>
 </ul>
 <h5 id='details'>DETAILS</h5>
-<p><img alt="Mobile_ProtocolII" src="../images/Mobile_ProtocolII.png" /></p>
+<p><img alt="Mobile_ProtocolII" src="images/Mobile_ProtocolII.png" /></p>
 
 <p>HTTP/HTTPs communication consists of the data requested by PallyCon Player to the Web server (REQUEST DATA) and the data responded by the Web server to PallyCon Player (RESPONSE DATA).</p>
 <h6 id='strongrequest-datastrong'><strong>REQUEST DATA</strong></h6>
@@ -1388,15 +1388,15 @@ The following functions use communication between PallyCon Player and Web server
 <h5 id='scenario'>Scenario</h5>
 <p>Download and Streaming services have the same structure of calling PallyCon Player from a Web page. Therefore, as shown in the figure, they have the same process consisting of ‘<a href="#checking-the-status-of-app-pallycon-player">Check the status of the app (PallyCon Player)</a>’, ‘<a href="#vendor-authentication">Vendor Authentication</a>’, ‘<a href="#device-register">Device Register</a>’, etc. </p>
 
-<p><img alt="Mobile_Scenario_URLScheme" src="../images/Mobile_Scenario_URLScheme.png" /></p>
+<p><img alt="Mobile_Scenario_URLScheme" src="images/Mobile_Scenario_URLScheme.png" /></p>
 
 <p>Furthermore, they both include the ‘<a href="#device-release">Device Release</a>’ function as the both have the &#39;Device Register&rsquo;. The device release scenario is described below. </p>
 
-<p><img alt="Mobile_Scenario_Unregister" src="../images/Mobile_Scenario_Unregister.png" /></p>
+<p><img alt="Mobile_Scenario_Unregister" src="images/Mobile_Scenario_Unregister.png" /></p>
 
 <p>You can see the downloaded contents in the Contents List of PallyCon Player. You can also see them in ‘Favorites List’, ‘Bookmark List’, and ‘Recently Played Contents List’ when you play the contents or add them to bookmark and favorites. The scenario for selecting contents to play in each list is described below. </p>
 
-<p><img alt="Mobile_Scenario_Localplay" src="../images/Mobile_Scenario_Localplay.png" /></p>
+<p><img alt="Mobile_Scenario_Localplay" src="images/Mobile_Scenario_Localplay.png" /></p>
 <h4 id='checking-the-status-of-app-pallycon-player'>Checking the Status of App (PallyCon Player)</h4>
 <p>When you run PallyCon Player through URL Scheme, check the status of PallyCon Player for running each function. 
 Access to URL Scheme is blocked if the status of PallyCon Player is **‘Download’, ‘Playing’, or ‘Device Release Request’.</p>
@@ -1405,7 +1405,7 @@ Access to URL Scheme is blocked if the status of PallyCon Player is **‘Downloa
 
 <p><strong>Vendor authentication does not need to be developed by developers because it is done by communication with the RI Cloud server of INKA.</strong> What developers need to know is that when vendor authentication is successful, the key and IV for decrypting the encrypted vendor name corresponding to &#39;site_id&rsquo; and &#39;info&rsquo; value of URL Scheme are sent as the response data. </p>
 
-<p><img alt="Mobile_Scenario_EnterpriseCertificate" src="../images/Mobile_Scenario_EnterpriseCertificate.png" /></p>
+<p><img alt="Mobile_Scenario_EnterpriseCertificate" src="images/Mobile_Scenario_EnterpriseCertificate.png" /></p>
 
 <p><strong>AES 256 encryption/decryption Key, IV(Initial vector):</strong></p>
 
@@ -1417,13 +1417,13 @@ Access to URL Scheme is blocked if the status of PallyCon Player is **‘Downloa
 <h4 id='decryption'>Decryption</h4>
 <p>Encryption and decryption are applied to all data communicated between the Web server and PallyCon Player. This section describes the decryption scenario after vendor authentication in each service scenario.</p>
 
-<p><img alt="Mobile_Scenario_Decryption" src="../images/Mobile_Scenario_Decryption.png" /></p>
+<p><img alt="Mobile_Scenario_Decryption" src="images/Mobile_Scenario_Decryption.png" /></p>
 
 <p>The value corresponding to ‘info’ of URL Scheme is decrypted through AES256 Key/IV that has been received from the RI Cloud server. When decryption is successful, the JSON string that has all information required for download and streamingis obtained. The vendor information is extracted from the JSON string and saved in the DB.</p>
 <h4 id='device-register'>Device Register</h4>
 <p>To register a device, extract user information from the decrypted JSON string, device information from the user device, and app information from PallyCon Player. Convert the extracted information into a JSON string and request device registration to the Web server. </p>
 
-<p><img alt="Mobile_Scenario_DeviceRegister" src="../images/Mobile_Scenario_DeviceRegister.png" /></p>
+<p><img alt="Mobile_Scenario_DeviceRegister" src="images/Mobile_Scenario_DeviceRegister.png" /></p>
 
 <p>When response data to the device registration request is received from the Web server, the data is decrypted and success or failure is checked. Then the message is extracted from the response data from the Web server and displayed as alert in PallyCon Player. When device registration is successful, the user information is saved in the DB. </p>
 <h4 id='streaming'>Streaming</h4>
@@ -1431,13 +1431,13 @@ Access to URL Scheme is blocked if the status of PallyCon Player is **‘Downloa
 
 <p><strong><a href="https://developer.apple.com/appstore/resources/approval/guidelines.html">Apple Regulations (9.4)</a> prescribe the use of HLS (HTTP Live Stream) for streaming in cellular mode.</strong> However, PallyCon Player uses <strong>Progressive Download Play</strong> for streaming. Therefore, streaming in iOS is only possible in Wifi mode. </p>
 
-<p><img alt="Mobile_Scenario_Streaming" src="../images/Mobile_Scenario_Streaming.png" /></p>
+<p><img alt="Mobile_Scenario_Streaming" src="images/Mobile_Scenario_Streaming.png" /></p>
 
 <p>To start streaming, you must receive a license from the RI Cloud server of INKA using the &#39;user information&rsquo; and &#39;content information&rsquo; from PallyCon Player and check if the license is valid. </p>
 <h4 id='download'>Download</h4>
 <p>There are two types of download: Single-Download and Multi-Download. In general, Single-Download is performed by a user touching the download button of the desired contents list in the Web page, and Multi-Download is performed by a user selecting the desired contents in the Web page and touching the Multi-Download button. </p>
 
-<p><img alt="Mobile_Scenario_Download" src="../images/Mobile_Scenario_Download.png" /></p>
+<p><img alt="Mobile_Scenario_Download" src="images/Mobile_Scenario_Download.png" /></p>
 
 <p>To download the selected contents, PallyCon Player <strong>creates a download list</strong>. The download list has one item for Single-Download and n items for Multi-Download.<br>
 <strong>Download begins from line 0 of the download list</strong>. When the download is completed, <strong>the information of the download list is saved in the DB</strong>.
@@ -1451,7 +1451,7 @@ Whether or not to perform validity check is determined by the play_type.  </p>
 <p><strong>If validity check is required,</strong>
 The &#39;user information&rsquo;, &#39;device information&rsquo;, and &#39;content information&rsquo; are extracted and validity check for the contents is requested to the Web server. As a response, the Web server returns validity and message. </p>
 
-<p><img alt="Mobile_Scenario_ValidityCheck" src="../images/Mobile_Scenario_ValidityCheck.png" /></p>
+<p><img alt="Mobile_Scenario_ValidityCheck" src="images/Mobile_Scenario_ValidityCheck.png" /></p>
 
 <p><strong>There are four types of content validity status.</strong></p>
 
@@ -1464,7 +1464,7 @@ The &#39;user information&rsquo;, &#39;device information&rsquo;, and &#39;conte
 <h4 id='device-release'>Device Release</h4>
 <p>Device release is requested by sending the device information and user information to the Web server. As a response, the Web server returns success or failure of device release and a message. If device release is successful, PallyCon Player deletes vendors, categories, contents, and licenses. </p>
 
-<p><img alt="Mobile_Scenario_DeviceRelease" src="../images/Mobile_Scenario_DeviceRelease.png" /></p>
+<p><img alt="Mobile_Scenario_DeviceRelease" src="images/Mobile_Scenario_DeviceRelease.png" /></p>
 <h3 id='json-standards'>JSON Standards</h3>
 <p>This section provides detailed descriptions about the specifications of JSON Data that was explained in APIs. Because the type of all the values used in JSON is <strong>String</strong>, you must enclose the value with <strong>quotation marks (&ldquo;&rdquo;)</strong>.    </p>
 
@@ -1814,7 +1814,7 @@ When you touch the &#39;Log View&rsquo; button in Environment Settings, the vend
 <p>The content of logs is shown in the format illustrated in the following figure. 
 You can reset the logs by touching the <strong>‘Refresh’</strong> button at top right.</p>
 
-<p><img alt="Mobile_Scenario_DeviceRelease" src="../images/Mobile_Log.png" /></p>
+<p><img alt="Mobile_Scenario_DeviceRelease" src="images/Mobile_Log.png" /></p>
 <h3 id='revision-history'>Revision History</h3>
 <p>This table describes the revisions of the PallyCon Player Interconnection Guide.</p>
 
@@ -2602,7 +2602,7 @@ If only from or to parameter is used, the query range is unlimited from or to th
 </tr>
 </tbody></table>
 
-<p><img alt="footer" src="../images/footer.png" /></p>
+<p><img alt="footer" src="images/footer.png" /></p>
 
       </div>
       <div class="dark-box">
