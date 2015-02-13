@@ -95,17 +95,17 @@
 <li><strong>UTF-8 Encoding</strong> is used.</li>
 </ul>
 
-<p><em>JSON String</em>
+<p><em>JSON String</em><br>
 : This syntax is used when there is information to send in the response data. </p>
 <h2 id='standards'>Standards</h2>
 <p>This document describes the standards for request data and response data with different URI paths depending on the queried data type. </p>
 
-<p>If GET method is used for sending request data, data must be set in URI Query format. If PUT method is used, data must be set in JSON format in Payload. 
+<p>If GET method is used for sending request data, data must be set in URI Query format. If PUT method is used, data must be set in JSON format in Payload. <br>
 <aside class="notice"> Parameter can be omitted in the request data. However, if you use Parameter, you must enter a value. (<strong>Empty value is not allowed.</strong>)</aside></p>
 <h3 id='accounts-strongaccountstrong'>ACCOUNTS <strong>(~/account)</strong></h3>
 <p>Query or update the Site ID information.  </p>
 <h4 id='request-data'>Request Data</h4>
-<p><strong>GET method:</strong> Query the Site ID information in the authorization field of HTTP Header. 
+<p><strong>GET method:</strong> Query the Site ID information in the authorization field of HTTP Header. <br>
 <code class="prettyprint">https://tokyo.pallycon.com/api/my/account</code></p>
 
 <ul>
@@ -122,16 +122,16 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>service_url</em>
+<p><em>service_url</em><br>
 : Service URL, Web player authorization URL</p>
 
-<p><em>cid_issue_url</em>
+<p><em>cid_issue_url</em><br>
 : Content ID issue page address</p>
 
-<p><em>content_usage_info_url</em>
+<p><em>content_usage_info_url</em><br>
 : Address of the page for showing content use information</p>
 
-<p><em>pc_limit, pd_limit</em>
+<p><em>pc_limit, pd_limit</em><br>
 : Number of PCs and devices that users can register</p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Result of the query for Site ID: <em>HTTP Status Code + JSON</em></strong></p>
@@ -150,10 +150,10 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>site_id</em>
+<p><em>site_id</em><br>
 : A four-character ID for identifying a site </p>
 
-<p><em>service_use</em>
+<p><em>service_use</em><br>
 : Whether or not to activate a service  </p>
 
 <ul>
@@ -162,13 +162,13 @@
 <li><strong>S</strong>: stopped</li>
 </ul>
 
-<p><em>service_url</em>
+<p><em>service_url</em><br>
 : Service URL and name</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : Creation date. GMT standard (+0), in the format <strong>yyyyMMddHHmmss</strong></p>
 
-<p><em>pack_key, site_key, web_player_key</em>
+<p><em>pack_key, site_key, web_player_key</em><br>
 : Passwords to be entered in Packager, Gateway, and Web Player, respectively</p>
 <h3 id='drm-content-strongpackstrong'>DRM Content <strong>(~/pack?~)</strong></h3>
 <p>Query the DRM content in PallyCon Cloud Service Site. </p>
@@ -177,17 +177,17 @@
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/pack?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;cid=3k12&amp;file_name=sky&amp;sorting=reg_date</code> </p>
 
-<p><em>page, size</em>
+<p><em>page, size</em><br>
 : Page number and the number of columns to show once. The default value is ‘1’ for page and ‘20’ for size. The maximum size is 100. The defaults are set if Parameter is not used. </p>
 
-<p><em>from, to</em>
-: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+<p><em>from, to</em><br>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.<br>
  If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
 
-<p><em>cid, file_name</em>
+<p><em>cid, file_name</em><br>
 : CID(32-byte) or file name to search</p>
 
-<p><em>sorting</em>
+<p><em>sorting</em><br>
 : The default is ‘reg_date’. ‘cid’ or ‘file_name&rsquo; can be used as well.</p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Query result of DRM contents: <em>HTTP Status Code + JSON</em></strong></p>
@@ -203,22 +203,22 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>count</em>
+<p><em>count</em><br>
 : Total number of data to be searched</p>
 
-<p><em>data</em>
+<p><em>data</em><br>
 : Used together with count. The actually requested data are in data as an array. </p>
 
-<p><em>file_name</em>
+<p><em>file_name</em><br>
 : File name of the content</p>
 
-<p><em>cid</em>
+<p><em>cid</em><br>
 : Content ID (32-byte)</p>
 
-<p><em>cek</em>
+<p><em>cek</em><br>
 : Key of the content</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : Creation date. GMT standard (+0), in the format <strong>yyyyMMddHHmmss</strong></p>
 <h3 id='issued-license-info-stronglicensestrong'>Issued License Info <strong>(~/license?~)</strong></h3>
 <p>Query the issued license information in the PallyCon Cloud Service Site. </p>
@@ -227,20 +227,20 @@
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/license?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;status=success&amp;cid=3k12&amp;user_id=dese&amp;device_id=DKEOWK234KE&amp;device_model=iPhone&amp;sorting=reg_date</code></p>
 
-<p><em>page, size</em>
+<p><em>page, size</em><br>
 : Page number and the number of columns to show once. The default value is ‘1’ for page and ‘20’ for size. The maximum size is 100. The defaults are set if Parameter is not used. </p>
 
-<p><em>from, to</em>
-: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+<p><em>from, to</em><br>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.<br>
 If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
 
-<p><em>status</em>
+<p><em>status</em><br>
 : Result of license issuance: ‘success’ or ‘fail’. If Parameter is not used, the License is queried regardless of issuance. </p>
 
-<p><em>cid, user_id, device_id</em>
+<p><em>cid, user_id, device_id</em><br>
 : CID(32-byte), User_ID, or Device_ID to be searched</p>
 
-<p><em>sorting</em>
+<p><em>sorting</em><br>
 : The default is ‘reg_date’. ‘cid’, ‘user_id’, or ‘device_id’ can be used as well.</p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Query result of License information: <em>HTTP Status Code + JSON</em></strong></p>
@@ -261,31 +261,31 @@ If only from or to parameter is used, the query range is unlimited from or to th
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>count</em>
+<p><em>count</em><br>
 : The sum of all data when multiple data are returned.</p>
 
-<p><em>data</em>
+<p><em>data</em><br>
 : Used together with count. The actually requested data are in data as an array. </p>
 
-<p><em>cid</em>
+<p><em>cid</em><br>
 : Content ID(32 byte)</p>
 
-<p><em>status</em>
+<p><em>status</em><br>
 : Result of license issuance: ‘success’ or ‘fail’.</p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : ID of the user</p>
 
-<p><em>device_id, device_model</em>
+<p><em>device_id, device_model</em><br>
 : ID and model of the user device</p>
 
-<p><em>ro_start, ro_end</em>
+<p><em>ro_start, ro_end</em><br>
 : This is copyright information (start date and end date during which play is possible), and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.</p>
 
-<p><em>ro_cnt</em>
+<p><em>ro_cnt</em><br>
 : Play count</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : Creation date which is written in GMT standard (+0). The format is ‘yyyyMMddHHmmss’.</p>
 <h3 id='device-strongdevicestrong'>Device <strong>(~/device?~)</strong></h3>
 <p>Query the device information registered in the PallyCon Cloud Service Site. </p>
@@ -294,17 +294,17 @@ If only from or to parameter is used, the query range is unlimited from or to th
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/device?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;user_id=dese&amp;device_id=DKEOWK234KE&amp;device_model=iPhone&amp;sorting=reg_date</code></p>
 
-<p><em>page, size</em>
+<p><em>page, size</em><br>
 : Page number and the number of columns to show once. The default value is ‘1’ for page and ‘20’ for size. The maximum size is 100. The defaults are set if Parameter is not used. </p>
 
-<p><em>from, to</em>
-: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+<p><em>from, to</em><br>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.<br>
 If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
 
-<p><em>user_id, device_id, device_model</em>
+<p><em>user_id, device_id, device_model</em><br>
 : User_ID, Device_ID, or Device_Model to be searched</p>
 
-<p><em>sorting</em>
+<p><em>sorting</em><br>
 : The default is ‘reg_date’. ‘&#39;user_id’, ‘device_id’, or ‘device_model’ can be used as well.</p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Query result of the registered device information: <em>HTTP Status Code + JSON</em></strong></p>
@@ -320,19 +320,19 @@ If only from or to parameter is used, the query range is unlimited from or to th
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>count</em>
+<p><em>count</em><br>
 : The sum of all data when multiple data are returned.</p>
 
-<p><em>data</em>
+<p><em>data</em><br>
 : Used together with count. The actually requested data are in data as an array.</p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : ID of the user</p>
 
-<p><em>device_id, device_model</em>
+<p><em>device_id, device_model</em><br>
 : ID and model of the user device</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : Creation date which is written in GMT standard (+0). The format is ‘yyyyMMddHHmmss’.</p>
 <h3 id='statistics-strongstatisticsstrong'>Statistics <strong>(~/statistics?~)</strong></h3>
 <p>This is used to see the general service status. </p>
@@ -341,8 +341,8 @@ If only from or to parameter is used, the query range is unlimited from or to th
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/statistics?from=201409071209&amp;to=201409081522</code> </p>
 
-<p><em>from, to</em>
-: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+<p><em>from, to</em><br>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.<br>
 If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Query result of service status information: <em>HTTP Status Code + JSON</em></strong></p>
@@ -356,7 +356,7 @@ If only from or to parameter is used, the query range is unlimited from or to th
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em>
+<p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em><br>
 : Number of issued licenses, number of registered devices, number of users, number of PCs, number of iOS devices, and number of Android devices</p>
 
 <p><strong>Revision History</strong></p>

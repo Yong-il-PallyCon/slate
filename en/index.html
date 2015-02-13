@@ -56,7 +56,7 @@
 
 <p>If you want to develop your own service application for customization, <a href="#sdk-guide">PallyCon Client SDK</a>s can be provided by separated contract. The below guide explain how to use the SDKs for each platform. For more details please check the API reference included in the SDK after signing contract.</p>
 <h2 id='downloads'>Downloads</h2>
-<p>For Quick Start, please download the below sample and refer to Quick Start Guide page.
+<p>For Quick Start, please download the below sample and refer to Quick Start Guide page.<br>
 For CMS integration, please download &lsquo;Packager&rsquo; which includes Application and CLI packager for Windows and Linux.</p>
 
 <ul>
@@ -75,7 +75,7 @@ For CMS integration, please download &lsquo;Packager&rsquo; which includes Appli
 <h3 id='necessary-conditions'>Necessary Conditions</h3>
 <p>In order to install the sample, run it, and perform a service query, you must complete <strong>Service Site Request</strong> after joining. If the service site is successfully requested, you can see the Site ID and Site Key of the service site, Packager Key, and the PC Web Player Key. </p>
 
-<p>The sample pages are .jsp files. To modify or use these pages, you need Java and Tomcat. 
+<p>The sample pages are .jsp files. To modify or use these pages, you need Java and Tomcat. <br>
 You must install Java Runtime Environment (JRE) that distributes and supports Java in Java 6 (1.6) and Java 7 (1.7) application and server environment.</p>
 
 <p>You can download Java and Tomcat through the following links.</p>
@@ -187,10 +187,10 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
 <h3 id='installing-files-and-modifying-contents'>Installing Files and Modifying Contents</h3><h4 id='step1-copy-the-web-page-'>Step1: Copy the Web page.</h4>
 <p>Decompress the sample file and <strong>copy the files in the Webcontents folder to $TOMCAT_HOME/webapp/ROOT/</strong>. </p>
 <h4 id='step2-install-bouncycastle-jce-'>Step2: Install bouncycastle JCE.</h4><h5 id='aes256-configuration'>aes256 configuration</h5>
-<p>Decompress the sample file and <strong>copy the files in the Webcontents folder to $TOMCAT_HOME/webapp/ROOT/.</strong><br>
+<p>Decompress the sample file and <strong>copy the files in the Webcontents folder to $TOMCAT_HOME/webapp/ROOT/.</strong><br><br>
 <strong>You must have installed bouncycastle JCE to run the StringEncrypter.class among the attached class files.</strong></p>
 <h5 id='content-usage-info-page'>Content Usage Info Page</h5>
-<p>Set the information for using DRM-applied contents.
+<p>Set the information for using DRM-applied contents.<br>
 <strong>PallyCon Player(Mobile, PC) does not support content playback with count-limited license.</strong></p>
 
 <table><thead>
@@ -275,7 +275,7 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
 <h2 id='running'>Running</h2><h3 id='install-pallycon-mobile-player'>Install PallyCon Mobile Player</h3>
 <p>You can install PallyCon Mobile Player through App Store or Google Play. </p>
 
-<p><a href="https://itunes.apple.com/kr/app/pallycon-player/id918473490?mt=8"><img src="../images/appstore_logo.png" width="200"></a>
+<p><a href="https://itunes.apple.com/kr/app/pallycon-player/id918473490?mt=8"><img src="../images/appstore_logo.png" width="200"></a><br>
 <a href="https://play.google.com/store/apps/details?id=com.inka.pallycon.pallyconplayer"><img src="../images/google_play_logo.png" width="200"></a></p>
 <h3 id='streaming-downloading-and-local-playback'>Streaming, Downloading, and Local Playback</h3>
 <p>You can run PallyCon Mobile Player by calling it from Web browser. </p>
@@ -353,12 +353,12 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
 <aside class="notice">You must have a site ID before setting up the PallyCon Service. You can manage site IDs in CP Admin. 
 You can set up only one PallyCon Service for one site ID. You may not set up multiple PallyCon Services with one site ID. </aside>
 
-<p><strong>STEP1:</strong> Select Packager to prepare for packaging.<br>
-<strong>STEP2:</strong> Develop the Content ID Issue Page and register the URL in CP Admin.<br>
-<strong>STEP3:</strong> Package the source contents.<br>
-<strong>STEP4:</strong> Upload the packaged DRM contents to the donwload server.<br>
-<strong>STEP5:</strong> Develop the Content Usage Rights Info Page and register the URL in CP Admin.<br>
-<strong>STEP6:</strong> Develop the Service Site for linking with the player.<br>
+<p><strong>STEP1:</strong> Select Packager to prepare for packaging.<br><br>
+<strong>STEP2:</strong> Develop the Content ID Issue Page and register the URL in CP Admin.<br><br>
+<strong>STEP3:</strong> Package the source contents.<br><br>
+<strong>STEP4:</strong> Upload the packaged DRM contents to the donwload server.<br><br>
+<strong>STEP5:</strong> Develop the Content Usage Rights Info Page and register the URL in CP Admin.<br><br>
+<strong>STEP6:</strong> Develop the Service Site for linking with the player.<br><br>
 <strong>STEP7:</strong> Start the service. </p>
 
 <p>PallyCon Service provides the Guide documents for the setting up procedure. </p>
@@ -438,13 +438,13 @@ You can set up only one PallyCon Service for one site ID. You may not set up mul
 
 <p><strong>STEP5:</strong> Register the CID issue page address as the Content ID Issue URL of CP Admin.        </p>
 
-<p><strong>STEP6-Cloud CLI Packager</strong>
+<p><strong>STEP6-Cloud CLI Packager</strong><br>
 :  Develop the interconnection with the Cloud CLI Packager so that CIDs will not be inputted to the CMS solution. </p>
 
-<p><strong>STEP6-Cloud Application Packager</strong><br>
- <strong>STEP6-1:</strong> Run Cloud Application Packager.<br>
- <strong>STEP6-2:</strong> Enter the site ID and packager key in the Environment Settings Window.<br>
- <strong>STEP6-3:</strong> Enter the file path for packaging and start Packaging.<br>
+<p><strong>STEP6-Cloud Application Packager</strong><br><br>
+ <strong>STEP6-1:</strong> Run Cloud Application Packager.<br><br>
+ <strong>STEP6-2:</strong> Enter the site ID and packager key in the Environment Settings Window.<br><br>
+ <strong>STEP6-3:</strong> Enter the file path for packaging and start Packaging.<br><br>
  <strong>STEP6-4:</strong> Upload the packaged DRM contents to the download server.  </p>
 <h3 id='scenario'>Scenario</h3>
 <p>This document describes the source contents packaging scenario and how the packaged DRM contents are serviced. </p>
@@ -454,7 +454,7 @@ You can set up only one PallyCon Service for one site ID. You may not set up mul
 <aside class="notice">CEK (Content Encryption Key): This key is used for packaging/un-packaging DRM contents. </aside>
  
 <h4 id='packaging-scenario'>Packaging Scenario</h4>
-<p>Packaging scenario varies by whether the CID is directly inputted or issued from the content ID issue page. 
+<p>Packaging scenario varies by whether the CID is directly inputted or issued from the content ID issue page. <br>
 Both packagers used for packaging receives the input of Site ID, Packager Key, Source Path, and Destination Path. For the Cloud CLI Packager, you can directly input the CID. </p>
 
 <ul>
@@ -539,7 +539,7 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 <h4 id='https-protocol-post-method-requestresponse-data'>Http(s) Protocol (POST Method, REQUEST/RESPONSE Data)</h4>
 <p>Through the development of the CID Issue Page, developers must create a content ID (CID, 28-byte) in line with the data requested by Cloud CLI Packager or Cloud Application Packager.</p>
 <h5 id='request-data'>REQUEST DATA</h5><h6 id='details'>Details</h6>
-<p>These data must be parsed in the CID Issue Page. 
+<p>These data must be parsed in the CID Issue Page. <br>
 <code class="prettyprint">http(s)://ContentIDIssuePageURL&amp;data=Base64Encoding(AES256Encyption(XML DATA))String</code></p>
 
 <p><em>Format</em></p>
@@ -565,16 +565,16 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 <span class="nt">&lt;/RES&gt;</span>
 </code></pre>
 
-<p><em>FILEPATH</em>
+<p><em>FILEPATH</em><br>
 : This is the total path of the file sent from Packager.</p>
 
-<p><em>FILENAME</em>
+<p><em>FILENAME</em><br>
 : This is the file name of the FilePath sent from Packager. </p>
 
-<p><em>NONCE</em>
+<p><em>NONCE</em><br>
 : This value is for validating the communication data from the PallyCon Cloud Service to the CID Issue Page.</p>
 <h5 id='response-data'>RESPONSE DATA</h5><h6 id='details'>Details</h6>
-<p>This data must be created in the CID Issue Page. 
+<p>This data must be created in the CID Issue Page. <br>
 <code class="prettyprint">Base64Encoding(AES256Encyption(XML DATA)) String</code></p>
 
 <p><em>Format</em> </p>
@@ -639,7 +639,7 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 <li>Initial vector: 16 byte (a fixed value:  <strong>1234567890abcdef</strong>)</li>
 </ul>
 
-<p><em>Padding</em>
+<p><em>Padding</em><br>
 - <a href="http://en.wikipedia.org/wiki/PKCS">PKCS7</a> is used.</p>
 <h3 id='how-to-use-cloud-application-packager'>How to Use Cloud Application Packager</h3><h4 id='installation'>Installation</h4>
 <p>The Cloud Application Packager can be used right after decompressing the .zip file without any installation process.</p>
@@ -677,60 +677,60 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 <h4 id='window-descriptions'>Window Descriptions</h4><h5 id='main-window'>Main window</h5>
 <p><img alt="Packaging_CloudApplicationPackager_Main" src="../images/Packaging_CloudApplicationPackager_Main.png" /></p>
 
-<p><em>(1) Input</em>
+<p><em>(1) Input</em><br>
 : This folder contains source video files that need to be packaged. </p>
 
-<p><em>(2) Ouput</em>
+<p><em>(2) Ouput</em><br>
 : After packaging, the packed files are stored in this folder.</p>
 
-<p><em>(3) Input Folder</em>
+<p><em>(3) Input Folder</em><br>
 : You can specify the folder in Explorer by pressing this button.</p>
 
-<p><em>(4) Output Folder</em>
-: This button can be used only if the Pack type in Settings is Batch.<br>
-: You can specify the folder in Explorer by pressing this button.<br>
+<p><em>(4) Output Folder</em><br>
+: This button can be used only if the Pack type in Settings is Batch.<br><br>
+: You can specify the folder in Explorer by pressing this button.<br><br>
 : When the folder is changed, the file list is initialized.  </p>
 
-<p><em>(5) Add Input Folder</em>
-: This button can be used only if the Pack type in Settings is Unit.<br>
+<p><em>(5) Add Input Folder</em><br>
+: This button can be used only if the Pack type in Settings is Unit.<br><br>
 : You can add continuously desired folders without specifying any folder.</p>
 
-<p><em>(6) Add Input False</em>
-: This button can be used only if the Pack type in Settings is Batch.<br>
+<p><em>(6) Add Input False</em><br>
+: This button can be used only if the Pack type in Settings is Batch.<br><br>
 : You can continuously add unit files.</p>
 
-<p><em>(7) Settings</em>
+<p><em>(7) Settings</em><br>
 : The Settings window appears.</p>
 
-<p><em>(8) Packaging</em>
+<p><em>(8) Packaging</em><br>
 : The files in the list are packaged.</p>
 
-<p><em>(9) File List</em>
+<p><em>(9) File List</em><br>
 : This list has two columns: File Name Column and Result Column. </p>
 
 <ul>
-<li><p><strong>File Name Column</strong><br>
-This is the list of files to be packaged. This list can be specified as input folder.
-You can add an input folder with Add Input Folder.
+<li><p><strong>File Name Column</strong><br><br>
+This is the list of files to be packaged. This list can be specified as input folder.<br>
+You can add an input folder with Add Input Folder.<br>
 If there is any file in the list that you don&rsquo;t want to package, you can delete the file by clicking it and pressing the Delete key. You can also delete multiple files in the list.</p></li>
-<li><p><strong>Result Column</strong> 
-<strong>Ready:</strong> This appears before packaging.
-<strong>Success:</strong> This appears when packaging is successful. 
+<li><p><strong>Result Column</strong> <br>
+<strong>Ready:</strong> This appears before packaging.<br>
+<strong>Success:</strong> This appears when packaging is successful. <br>
 <strong>Fail:</strong> This appears when packaging fails.</p></li>
 </ul>
 
-<p><em>(10) Log List</em>
+<p><em>(10) Log List</em><br>
 : This list has two columns: Log Type Column and Contents Column. </p>
 
 <ul>
-<li><p><strong>Log Type Column</strong><br>
-<strong>Error:</strong> This appears when an unexpected error occurs during packaging.<br>
-<strong>Work:</strong> The normal work situations during packaging are recorded.<br>
+<li><p><strong>Log Type Column</strong><br><br>
+<strong>Error:</strong> This appears when an unexpected error occurs during packaging.<br><br>
+<strong>Work:</strong> The normal work situations during packaging are recorded.<br><br>
 <strong>Settings:</strong> Information about environment settings is recorded.  </p></li>
-<li><p><strong>Contents Column</strong><br>
-<strong>Work:</strong> &rsquo;[Work File Name] + Work Result&rsquo; is displayed.<br>
-<strong>Error:</strong> &rsquo;[Work File Name] + Work Failed Location + Code Number&rsquo; is displayed. When an error actually occurs, these logs are automatically saved in a file, and the log file must be sent to Help Desk for analysis.<br>
-<strong>Settings:</strong> Settings at the time of packaging are shown.<br>
+<li><p><strong>Contents Column</strong><br><br>
+<strong>Work:</strong> &rsquo;[Work File Name] + Work Result&rsquo; is displayed.<br><br>
+<strong>Error:</strong> &rsquo;[Work File Name] + Work Failed Location + Code Number&rsquo; is displayed. When an error actually occurs, these logs are automatically saved in a file, and the log file must be sent to Help Desk for analysis.<br><br>
+<strong>Settings:</strong> Settings at the time of packaging are shown.<br><br>
 <strong>Result:</strong> The Total, Success, and Fail counts agree with the Result Column in the File List window. The packaging results are summarized.</p></li>
 </ul>
 <h5 id='settings-window'>Settings window</h5>
@@ -742,33 +742,33 @@ If there is any file in the list that you don&rsquo;t want to package, you can d
 
 <p><strong>Batch Pack:</strong> This is a batch job and only one folder can be specified with the Input Folder button. However, the output folder is created with the same subfolder structure. If a different folder is specified, the list in File List disappears.</p>
 
-<p><strong>Unit Pack:</strong> You can continuously add a folder to be packaged through the Add Input Folder button as individual job. However the subfolder cannot be maintained in the output folder.
+<p><strong>Unit Pack:</strong> You can continuously add a folder to be packaged through the Add Input Folder button as individual job. However the subfolder cannot be maintained in the output folder.<br>
 You can also continuously add individual files with the Add Input File button.</p>
 
 <p><img alt="Packaging_Setting-Packaging" src="../images/Packaging_Setting-Packaging.png" /></p>
 
-<p><em>(1) Supported Extensions</em>
+<p><em>(1) Supported Extensions</em><br>
 : This shows the list of supported extensions. When you try to add a file using Input Folder in the main window, files of unsupported extensions cannot be added. You can add or delete extensions using the Add and Remove buttons.</p>
 
-<p><em>(2) Integration Info</em>
-- <strong>Site ID:</strong> This is the site ID issued in PallyCon CP Admin.
+<p><em>(2) Integration Info</em><br>
+- <strong>Site ID:</strong> This is the site ID issued in PallyCon CP Admin.<br>
 - <strong>Packager Key:</strong> This is the Packager Key issued in PallyCon CP Admin.</p>
 <h5 id='progress-bar-window'>Progress Bar window</h5>
 <p><img alt="Packaging_CloudApplicationPackager_ProgressBar" src="../images/Packaging_CloudApplicationPackager_ProgressBar.png" /></p>
 
-<p><em>(1) File Name</em>
+<p><em>(1) File Name</em><br>
 : This shows the name of the file that is being processed in real time.</p>
 
-<p><em>(2) Timer</em>
+<p><em>(2) Timer</em><br>
 : The total time that has progressed. Paused time is excluded.</p>
 
-<p><em>(3) Percentage</em>
+<p><em>(3) Percentage</em><br>
 : This shows the packaging progress rate of one file.</p>
 
-<p><em>(4) Total Number</em>
+<p><em>(4) Total Number</em><br>
 : The total number of files to be packaged and the number of files that have been completed are shown.</p>
 
-<p><em>(5) Pause &amp; Cancel</em>
+<p><em>(5) Pause &amp; Cancel</em><br>
 : You can pause during a job, and this time is not added. You can restart the job by pressing the Continue button. Furthermore, you can press the Cancel button to cancel the job. Because a job is cancelled in file unit, the job stops after the currently working file is completed.</p>
 <h4 id='log-analysis'>Log Analysis</h4>
 <p>Log File location: The log file is <strong>automatically created as &#39;execution folder/LogList_mmddhhmm.txt&rsquo;</strong> where &#39;mm = month , dd = day , hh = hours , and mm = minutes&rsquo; mean.</p>
@@ -785,7 +785,7 @@ You can also continuously add individual files with the Add Input File button.</
 </ul></li>
 </ul>
 <h4 id='input--output-standards'>Input / Output Standards</h4><h5 id='input'>Input</h5>
-<p><em>Format</em><br>
+<p><em>Format</em><br><br>
 <code class="prettyprint">ncgpackager pack Site_ID Packager_Key &quot;SourceFilePath&quot; &quot;DestinationFilePath&quot; (Content_ID)</code></p>
 <pre><code class="highlight shell">// When cid is entered
 ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</span><span class="se">\c</span><span class="s2">ontent</span><span class="se">\O</span><span class="s2">T.mp4"</span> <span class="s2">"d:</span><span class="se">\N</span><span class="s2">CGcontent</span><span class="se">\O</span><span class="s2">T.mp4.ncg"</span> 
@@ -794,16 +794,16 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</span><span class="se">\c</span><span class="s2">ontent</span><span class="se">\O</span><span class="s2">T.mp4"</span> <span class="s2">"d:</span><span class="se">\N</span><span class="s2">CGcontent</span><span class="se">\O</span><span class="s2">T.mp4.ncg"</span> 1234
 </code></pre>
 
-<p><em>pack</em>
+<p><em>pack</em><br>
 : This fixed 4 byte value means to perform packaging of the contents. Use only small letters.</p>
 
-<p><em>Site_ID, Packager_Key</em>
+<p><em>Site_ID, Packager_Key</em><br>
 : This value is assigned in the PallyCon Cloud Service Site. </p>
 
-<p><em>SourceFilePath, DestinationFilePath</em>
+<p><em>SourceFilePath, DestinationFilePath</em><br>
 : These are the total path of the source file and the total path (the absolute path) of the DRM file creation. If there is a space, it must be enclosed by &ldquo;&rdquo;. </p>
 
-<p><em>Content_ID</em>
+<p><em>Content_ID</em><br>
 : This is the Content ID. If you enter it directly, it must be entered at the end. Its length must be 32 bytes or less and only English alphabets, numbers, and some special characters ( &rsquo;, &rsquo; , &rsquo; _ &rsquo; ) can be used. </p>
 <h5 id='output'>Output</h5><pre><code class="highlight xml">**Success**
 <span class="cp">&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;</span>
@@ -826,22 +826,22 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 <span class="nt">&lt;/ncgpackager&gt;</span>
 </code></pre>
 
-<p><em>RESULT</em>
+<p><em>RESULT</em><br>
 : Required  Packaging result code value, Success – 0 / Fail – Error Code</p>
 
-<p><em>ERRORMSG</em>
+<p><em>ERRORMSG</em><br>
 : Required  Message corresponding to RESULT</p>
 
-<p><em>SRCFILE</em>
+<p><em>SRCFILE</em><br>
 : App Error The path set for the source file</p>
 
-<p><em>DSTFILE</em>
+<p><em>DSTFILE</em><br>
 : App Error The path of DestFile</p>
 
-<p><em>ELAPSETIME</em>
+<p><em>ELAPSETIME</em><br>
 : Success   Elapsed time for packaging</p>
 
-<p><em>CID</em>
+<p><em>CID</em><br>
 : Success   Content ID(32-byte) inputted in the content header</p>
 <h4 id='error-code'>Error Code</h4>
 <table><thead>
@@ -1007,7 +1007,7 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 <strong>Parameter :</strong> <em>data</em> <strong>Value II:</strong> <em>XML DATA</em></li>
 </ul>
 
-<p><em>XML DATA</em>
+<p><em>XML DATA</em><br>
 : This data contains the content, user, and device information for which to check the content usage rights information. This data is encrypted with <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES256</a> and then encoded again with Base64 before being delivered. </p>
 <h6 id='xml-standards'>XML Standards</h6>
 <p>The request data which is sent from the PallyCon Cloud Service Site is sent to the Content Usage Rights Info page with no empty value. </p>
@@ -1022,22 +1022,22 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 <span class="nt">&lt;/RES&gt;</span>
 </code></pre>
 
-<p><em>CID</em>
+<p><em>CID</em><br>
 : This content ID (32-byte, <em>including a Site ID</em>) is extracted from the content to be used and it has been used in packaging. </p>
 
-<p><em>USERID</em>
+<p><em>USERID</em><br>
 : This is the ID of the user who wants to use the content. </p>
 
-<p><em>DEVICEID</em>
+<p><em>DEVICEID</em><br>
 : This is the ID of the device that wants to use the content. </p>
 
-<p><em>DEVICEMODEL</em>
+<p><em>DEVICEMODEL</em><br>
 : This is the model name of the device.</p>
 
-<p><em>OID</em>
+<p><em>OID</em><br>
 : This is the order ID of the content. </p>
 
-<p><em>NONCE</em>
+<p><em>NONCE</em><br>
 : This value is used to authenticate the data that is communicated between the PallyCon Cloud Service Site and the Content Usage Info page.</p>
 <h5 id='response-data'>RESPONSE DATA</h5><h6 id='details'>Details</h6>
 <p>This data must be created by the CID issue page. </p>
@@ -1046,10 +1046,10 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 
 <p><em>Format</em> </p>
 
-<p>Base64Encoding(AES256Encyption(XML DATA)) String<br>
+<p>Base64Encoding(AES256Encyption(XML DATA)) String<br><br>
 - Use the UTF-8 String Encoding </p>
 
-<p><em>XML DATA</em>
+<p><em>XML DATA</em><br>
 : Response to a request from the PallyCon Cloud service</p>
 <h6 id='xml-standards'>XML Standards</h6><pre><code class="highlight xml"><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</span>
 <span class="nt">&lt;RES&gt;</span>
@@ -1063,38 +1063,38 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 <span class="nt">&lt;/RES&gt;</span>
 </code></pre>
 
-<p><em>ERROR</em>
+<p><em>ERROR</em><br>
 : This is a defined error code, which is a required parameter. It must have the fixed length of 4 bytes, and no empty value is allowed. Set this to <code class="prettyprint">0000</code> if successful; if failed, set this to a 4-byte error code defined by the vendor. </p>
 
-<p><em>ERRORMSG</em>
+<p><em>ERRORMSG</em><br>
 : This is a message related to the <code class="prettyprint">ERROR</code> value in the event of failure. This is a required parameter, and empty value is only allowed when it is not an error. Up to 255 bytes can be used. </p>
 
-<p><em>LIMIT</em>
+<p><em>LIMIT</em><br>
 : This parameter determines whether contents will be played with no limit. Only &#39;Y&rsquo; and &#39;N&rsquo; are allowed. Other characters are processed as errors. </p>
 
-<p><em>PD_COUNT</em>
+<p><em>PD_COUNT</em><br>
 : This is a count that must be used in the count type. You must select a value larger than zero when selecting the count type. </p>
 
-<p><em>PD_START</em>
+<p><em>PD_START</em><br>
 : This is the start date and time in the period that must be used in the period type. You must set a corresponding value to this parameter when selecting the period type. Set the date and time in GMT.  </p>
 
-<p><em>PD_END</em>
+<p><em>PD_END</em><br>
 : This is the CID generated by the CID policy on the CID issue page. This parameter must be used in the event of success. Empty value is not allowed and up to 32 bytes can be used. For CID, only English alphabets, numbers, and some special characters (&rsquo; _ &rsquo;, &rsquo; . &rsquo;) are allowed. </p>
 
-<p><em>NONCE</em>
+<p><em>NONCE</em><br>
 : This is a value used by the PallyCon Cloud service to validate the data that communicate with the CID issue page. This is a required parameter. Empty value is not allowed, and <strong>this must be identical to the &#39;NONCE&rsquo; value in Request Data.</strong></p>
 <h4 id='a-hrefhttpen-wikipedia-orgwikiadvanced_encryption_standardaes256a-encryptiondecryption'><a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES256</a> Encryption/Decryption</h4>
 <p>The communication data (REQUEST / RESPONSE DATA) between Cloud Packager and DRM is protected by the <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES256</a> encryption. </p>
 <h6 id='details'>Details</h6>
 <p><em>Algorithm</em></p>
 
-<p>: - Algorithm : AES<br>
-- Keysize : 256 bit<br>
+<p>: - Algorithm : AES<br><br>
+- Keysize : 256 bit<br><br>
 - Mode : CBC</p>
 
 <p><em>Key, Initial vector</em></p>
 
-<p>: - Key: 32 byte  (This can be checked in PallyCon CP Admin pageCloud-Admin)
+<p>: - Key: 32 byte  (This can be checked in PallyCon CP Admin pageCloud-Admin)<br>
 - Initial vector: 16 byte (a fixed value: <strong>1234567890abcdef</strong>)  </p>
 
 <p><em>Padding</em></p>
@@ -1157,7 +1157,7 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 </tr>
 </tbody></table>
 <h4 id='content-id-user-id-device-id-order-id'>CONTENT ID, USER ID, DEVICE ID, ORDER ID</h4>
-<p>The content usage rights information created by the vendor must use the Content ID, User ID, Device ID, Order ID that have been extracted from PallyCon Player. 
+<p>The content usage rights information created by the vendor must use the Content ID, User ID, Device ID, Order ID that have been extracted from PallyCon Player. <br>
 The content usage rights information can be created in various ways by using these four data. To use these four data, you must know details about them. </p>
 <h5 id='content-id'>Content ID</h5>
 <p>This is the content ID received when the source content was packaged.</p>
@@ -1168,7 +1168,7 @@ The content usage rights information can be created in various ways by using the
 
 <p><strong>Device Check</strong>: This function is used by the vendor to control the number of devices per Site ID in CP Admin.</p>
 
-<p>PallyCon Mobile Player offers the <strong>Device Registration</strong> feature in addition to Device Check in the Pallycon Cloud Service Site. 
+<p>PallyCon Mobile Player offers the <strong>Device Registration</strong> feature in addition to Device Check in the Pallycon Cloud Service Site. <br>
 This feature is provided together with the <strong>Device Release</strong>. You can <strong>manage the play of the contents downloaded to mobile devices</strong> with these two features.  </p>
 
 <p>In the case of PallyCon PC Player, <strong>Device Registration&quot; is not necessary because contents are played through streaming, and playback can be managed by **Device Check</strong> in the Pallycon Cloud Service Site. </p>
@@ -1265,10 +1265,10 @@ This feature is provided together with the <strong>Device Release</strong>. You 
 </tr>
 </tbody></table>
 
-<p><strong>Download scenario</strong><br>
+<p><strong>Download scenario</strong><br><br>
 Download (URL Scheme) -&gt; Vendor Authentication (RI Cloud)] -&gt; Device Register (Service Manager URL) -&gt; Download Complete (Service Manager URL)  -&gt; Validity Check (Service Manager URL)  -&gt; Device Release (Service Manager URL) </p>
 
-<p><strong>Streaming scenario</strong><br>
+<p><strong>Streaming scenario</strong><br><br>
 Download (URL Scheme) -&gt; Vendor Authentication (RI Cloud) -&gt; Device Register (Service Manager URL)  -&gt; Device Release (Service Manager URL)</p>
 <h3 id='apis'>APIs</h3>
 <p>Communication between PallyCon Player and Web server is carried out through <strong>URL Scheme (Protocol I)</strong> and <strong>HTTP/HTTPs(Protocol II)</strong>. </p>
@@ -1300,7 +1300,7 @@ Download (URL Scheme) -&gt; Vendor Authentication (RI Cloud) -&gt; Device Regist
 <li>Service site ID (this can be checked in the PallyCon CP Admin Page)</li>
 </ul>
 <h4 id='protocol-ii-a-hrefhttpen-wikipedia-orgwikihypertext_transfer_protocolhttpaa-hrefhttpen-wikipedia-orgwikihttp_securehttpsa-protocol-post-method'>Protocol II: <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a>/<a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPs</a> protocol (POST method)</h4>
-<p>Communication between PallyCon Player and Web server is carried out through HTTP/HTTPs. Data are sent by using the <strong>POST method</strong>. 
+<p>Communication between PallyCon Player and Web server is carried out through HTTP/HTTPs. Data are sent by using the <strong>POST method</strong>. <br>
 The following functions use communication between PallyCon Player and Web server: </p>
 
 <ul>
@@ -1329,7 +1329,7 @@ The following functions use communication between PallyCon Player and Web server
 
 <p><code class="prettyprint">http(s)://Service_Manager_URL&amp;data=Base64Encoding(AES256Encryption(JSON DATA))String</code></p>
 
-<p><em>JSON DATA</em>
+<p><em>JSON DATA</em><br>
 : Because one URL must process four different data, a parameter for distinguishing four modes is provided in the JSON data.</p>
 
 <ul>
@@ -1356,13 +1356,13 @@ The following functions use communication between PallyCon Player and Web server
 <h5 id='details'>DETAILS</h5>
 <p><em>Algorithm</em></p>
 
-<p>: - Algorithm : AES<br>
-- Keysize : 256 bit<br>
+<p>: - Algorithm : AES<br><br>
+- Keysize : 256 bit<br><br>
 - Mode : CBC</p>
 
 <p><em>Key, Initial vector</em></p>
 
-<p>: - Key: 32 byte  (The key for each service site can be checked in the PallyCon CP Admin Page)
+<p>: - Key: 32 byte  (The key for each service site can be checked in the PallyCon CP Admin Page)<br>
 - Initial vector: 16 byte  (a fixed value: <strong>1234567890abcdef</strong>)</p>
 
 <p><em>Padding</em></p>
@@ -1405,7 +1405,7 @@ The following functions use communication between PallyCon Player and Web server
 
 <p><img alt="Mobile_Scenario_Localplay" src="../images/Mobile_Scenario_Localplay.png" /></p>
 <h4 id='checking-the-status-of-app-pallycon-player'>Checking the Status of App (PallyCon Player)</h4>
-<p>When you run PallyCon Player through URL Scheme, check the status of PallyCon Player for running each function. 
+<p>When you run PallyCon Player through URL Scheme, check the status of PallyCon Player for running each function. <br>
 Access to URL Scheme is blocked if the status of PallyCon Player is **‘Download’, ‘Playing’, or ‘Device Release Request’.</p>
 <h4 id='vendor-authentication'>Vendor Authentication</h4>
 <p><strong>You can start vendor authentication by extracting ‘site_id’ from the data accessing URL Scheme.</strong> ‘site_id’ is one of the information issued when contracting with INKA and does not require encryption.</p>
@@ -1446,16 +1446,16 @@ Access to URL Scheme is blocked if the status of PallyCon Player is **‘Downloa
 
 <p><img alt="Mobile_Scenario_Download" src="../images/Mobile_Scenario_Download.png" /></p>
 
-<p>To download the selected contents, PallyCon Player <strong>creates a download list</strong>. The download list has one item for Single-Download and n items for Multi-Download.<br>
-<strong>Download begins from line 0 of the download list</strong>. When the download is completed, <strong>the information of the download list is saved in the DB</strong>.
-The <strong>license of the downloaded file is issued</strong> from the Cloud server of INKA using the user information and contents information. Even if no license is issued, it is not determined as download failure. The reason is that when you attempt local play and the license is checked, if there is no license and it is online, an attempt is made to issue a license. 
-A user sends <strong>to the Web server the information that contents download has been completed</strong>. You can save this information in the Web server and use it later for refund or statistics. 
+<p>To download the selected contents, PallyCon Player <strong>creates a download list</strong>. The download list has one item for Single-Download and n items for Multi-Download.<br><br>
+<strong>Download begins from line 0 of the download list</strong>. When the download is completed, <strong>the information of the download list is saved in the DB</strong>.<br>
+The <strong>license of the downloaded file is issued</strong> from the Cloud server of INKA using the user information and contents information. Even if no license is issued, it is not determined as download failure. The reason is that when you attempt local play and the license is checked, if there is no license and it is online, an attempt is made to issue a license. <br>
+A user sends <strong>to the Web server the information that contents download has been completed</strong>. You can save this information in the Web server and use it later for refund or statistics. <br>
 If there are contents to download in the download list, the download of the next items in the list is attempted. If there is none, <strong>PallyCon Player moves to the top list in the storage box</strong>. </p>
 <h4 id='validity-check'>Validity Check</h4>
-<p><strong>The first thing to do before playing contents is to check the play_type in the vendor information of Local DB.</strong>
+<p><strong>The first thing to do before playing contents is to check the play_type in the vendor information of Local DB.</strong><br>
 Whether or not to perform validity check is determined by the play_type.  </p>
 
-<p><strong>If validity check is required,</strong>
+<p><strong>If validity check is required,</strong><br>
 The &#39;user information&rsquo;, &#39;device information&rsquo;, and &#39;content information&rsquo; are extracted and validity check for the contents is requested to the Web server. As a response, the Web server returns validity and message. </p>
 
 <p><img alt="Mobile_Scenario_ValidityCheck" src="../images/Mobile_Scenario_ValidityCheck.png" /></p>
@@ -1553,16 +1553,16 @@ The &#39;user information&rsquo;, &#39;device information&rsquo;, and &#39;conte
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : This is a service site user ID which is a required parameter. In PallyCon Player, <code class="prettyprint">null</code> in user ID is received when a Web page expires. </p>
 
-<p><em>current_url</em>
+<p><em>current_url</em><br>
 : This URL is used to go to the Web page when download is cancelled or streaming is completed. This parameter is not required. However, this must be set to empty value (&ldquo;&rdquo;) if there is no value even though it is used. </p>
 
-<p><em>enterprise_icon_url</em>
+<p><em>enterprise_icon_url</em><br>
 : This is the file address of the icon to be shown in the vendor list of PallyCon Player. This parameter is not required. When this is used, a space/default image is displayed in the list when this parameter has no value. </p>
 
-<p><em>play_type</em>
+<p><em>play_type</em><br>
 : This value is the condition for playing the contents downloaded from PallyCon Player. This parameter is not required. However, if this is used, a value must be set. If this is not used, the default is &#39;2&rsquo;. </p>
 
 <ul>
@@ -1571,11 +1571,11 @@ The &#39;user information&rsquo;, &#39;device information&rsquo;, and &#39;conte
 <li><strong>2:</strong> Contents are played unconditionally in online or offline state.</li>
 </ul>
 
-<p><em>service_manager</em>
+<p><em>service_manager</em><br>
 : This is the Service Manager URL used by PallyCon Player to communicate with the Web server. This parameter is required and empty value is not allowed.  </p>
 
-<p><em>log_type</em>
-: This parameter is used for log type setting in PallyCon Player. This is not required. However, if this is used, a value must be set. If this is not used, the default is &#39;2&rsquo;.<br>
+<p><em>log_type</em><br>
+: This parameter is used for log type setting in PallyCon Player. This is not required. However, if this is used, a value must be set. If this is not used, the default is &#39;2&rsquo;.<br><br>
 Logs can be used to get communication, play, and license information during interconnection test or customer support. </p>
 
 <ul>
@@ -1584,37 +1584,37 @@ Logs can be used to get communication, play, and license information during inte
 <li><strong>2:</strong> Logs are not used.</li>
 </ul>
 
-<p><em>category_name</em>
+<p><em>category_name</em><br>
 : This category name appears in the category list of PallyCon Player. This parameter is required. All characters are allowed, but empty value is not allowed. </p>
 
-<p><em>category_person</em>
+<p><em>category_person</em><br>
 : This value is for entering other information that is shown together with the category name in the category list. This is a required parameter. All characters are allowed, but empty value is not allowed. </p>
 
-<p><em>category_image</em>
+<p><em>category_image</em><br>
 : This is the file address of the icon to be shown in the category list. This parameter is not required. When this parameter has no value, a space/default image is displayed in the list. </p>
 
-<p><em>category_assortment</em>
+<p><em>category_assortment</em><br>
 : This parameter is for category assortment, which will be used later in list sorting method. This parameter is not required and empty value is allowed.</p>
 
-<p><em>contents</em>
+<p><em>contents</em><br>
 : This parameter contains information about the downloaded or played contents. When multi-download is performed, the contents must be entered as an array.</p>
 
-<p><strong>Single-download (Streaming)</strong>: &ldquo;contents&rdquo;:[{&ldquo;content_file&rdquo;:&ldquo;&rdquo;,&hellip;}]<br>
+<p><strong>Single-download (Streaming)</strong>: &ldquo;contents&rdquo;:[{&ldquo;content_file&rdquo;:&ldquo;&rdquo;,&hellip;}]<br><br>
 <strong>Multi-download</strong>: &ldquo;contents&rdquo;:[{&ldquo;content_file&rdquo;:&ldquo;&rdquo;,&hellip;},{&ldquo;content_file&rdquo;:&ldquo;&rdquo;,&hellip;},&hellip;]</p>
 
-<p><em>content_file</em>
+<p><em>content_file</em><br>
 : This is the server URL where the downloaded/played file exists. This parameter is required. Empty value is not allowed. </p>
 
-<p><em>content_name</em>
+<p><em>content_name</em><br>
 : This is the name of content to be displayed in the contents list of PallyCon Player. This parameter is required. All characters are allowed, but empty value is not allowed. </p>
 
-<p><em>content_qna</em>
+<p><em>content_qna</em><br>
 : This is a URL used to go to the Web page of the browser to leave a question while playing a content. This parameter is not required. Empty value is allowed. </p>
 
-<p><em>info_orderID</em>
+<p><em>info_orderID</em><br>
 : This is the order information of contents. This information is used to verify purchasing when a license is issued. This is a required parameter and empty value is not allowed. </p>
 
-<p><em>info_one, info_two, info_three, info_four</em>
+<p><em>info_one, info_two, info_three, info_four</em><br>
 : This is additional information for distinguishing contents when download complete or validity check information is sent. This parameter is not required and empty value is allowed. </p>
 <h4 id='device-registration-standard'>Device Registration Standard</h4><h5 id='request-data'>Request data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
     </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"Device Register"</span><span class="p">,</span><span class="w">
@@ -1626,13 +1626,13 @@ Logs can be used to get communication, play, and license information during inte
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>mode</em>
+<p><em>mode</em><br>
 : In every function, only one Service Manager URL is used for communication with the Web server. This value allows branching by function in Service manager URL. The mode for device registration is &#39;Device Register&rsquo;. </p>
 
-<p><em>site_id</em>
+<p><em>site_id</em><br>
 : This fixed value is issued to vendors and can be checked in Cloud Admin page. </p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : This is the user ID stored in the device DB. </p>
 
 <p><em>device</em>id_</p>
@@ -1649,7 +1649,7 @@ Logs can be used to get communication, play, and license information during inte
 <li><em>Android</em>: The device model name in the device environment settings is extracted. </li>
 </ul>
 
-<p><em>app_version</em>
+<p><em>app_version</em><br>
 : This is the version of PallyCon Player that is registered and displayed in the market. </p>
 <h5 id='response-data'>Response data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
     </span><span class="s2">"response"</span><span class="p">:</span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
@@ -1658,13 +1658,13 @@ Logs can be used to get communication, play, and license information during inte
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>response</em>
+<p><em>response</em><br>
 : This is success or failure of device registration. This is a required parameter that must be entered. Empty value is not allowed. This value must be set as &#39;Y | N&rsquo;.</p>
 
-<p><em>message</em>
+<p><em>message</em><br>
 : This is a message corresponding to the success or failure of device registration, which is displayed as alert in PallyCon Player. This parameter is required and allows empty value. If this is empty value, &#39;Succeeded in registering the device.’ or ‘Failed to register the device.’ is set as the default message. </p>
 
-<p><em>message_two</em>
+<p><em>message_two</em><br>
 : This is an interface that can be used for other uses than success or failure, and message. In case the same &#39;device_id&rsquo; is extracted in Android, if &#39;NOT_SUPPORT_DEVICE_MODEL&rsquo; is set to this parameter, device_id is extracted and registration is attempted again. </p>
 <h4 id='download-complete-standard'>Download Complete Standard</h4>
 <p>No separate response data standard exists for download complete, because the response data of the Web server is not received.</p>
@@ -1683,16 +1683,16 @@ Logs can be used to get communication, play, and license information during inte
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>mode</em>
+<p><em>mode</em><br>
 : In every function, only one Service Manager URL is used for communication with the Web server. This value allows branching by function in Service Manager URL. The mode for download complete is &#39;Download Complete&rsquo;. </p>
 
-<p><em>site_id</em>
+<p><em>site_id</em><br>
 : This fixed value is issued to vendors and can be checked in Cloud Admin page. </p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : This is the user ID stored in the device. </p>
 
-<p><em>device_id</em>
+<p><em>device_id</em><br>
 : This is a device ID extracted from the device. </p>
 
 <ul>
@@ -1700,15 +1700,15 @@ Logs can be used to get communication, play, and license information during inte
 <li><em>Android</em>: The device ID is created by combining various pieces of information in the device. </li>
 </ul>
 
-<p><em>date</em>
-: Current date extracted from the device 
-<strong>Date standard : yyyyMMddHHmm</strong>
+<p><em>date</em><br>
+: Current date extracted from the device <br>
+<strong>Date standard : yyyyMMddHHmm</strong><br>
 <em>ex)</em> 201412012359      -&gt;      December 1, 2014, 23::59</p>
 
-<p><em>download_status</em>
+<p><em>download_status</em><br>
 : This parameter informs whether or not download has been completed. This value is displayed as Y|N. </p>
 
-<p><em>info_orderID, info_one, info_two, info_three, info_four</em>
+<p><em>info_orderID, info_one, info_two, info_three, info_four</em><br>
 : These parameters and values had been received through Protocol I (URL Scheme) and saved, and then were called. These are used as additional information for distinguishing contents by the Web server. </p>
 <h4 id='validity-check-standard'>Validity Check Standard</h4><h5 id='request-data'>Request data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
     </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"Validity Check"</span><span class="p">,</span><span class="w">
@@ -1725,16 +1725,16 @@ Logs can be used to get communication, play, and license information during inte
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>mode</em>
+<p><em>mode</em><br>
 : In every function, only one Service Manager URL is used for communication with the Web server. This value allows branching by function in Service Manager URL. The mode for validity check is &#39;Validity Check&rsquo;. </p>
 
-<p><em>site_id</em>
+<p><em>site_id</em><br>
 : This fixed value is issued to vendors and can be checked in Cloud Admin page. </p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : This is the user ID stored in the device.</p>
 
-<p><em>device_id</em>
+<p><em>device_id</em><br>
 : This is a device ID extracted from the device.</p>
 
 <ul>
@@ -1742,13 +1742,13 @@ Logs can be used to get communication, play, and license information during inte
 <li><em>Android</em>: The device ID is created by combining various pieces of information in the device. </li>
 </ul>
 
-<p><em>category_name</em>
+<p><em>category_name</em><br>
 : This is the category name stored in the device DB. </p>
 
-<p>content_name
+<p>content_name<br>
 : This is the content name stored in the device DB. </p>
 
-<p>info_orderID, info_one, info_two, info_three, info_four
+<p>info_orderID, info_one, info_two, info_three, info_four<br>
 : These parameters and values had been received through Protocol I (URL Scheme) and saved, and then were called. These are used as additional information for distinguishing contents by the Web server.</p>
 <h5 id='response-data'>Response data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
     </span><span class="s2">"response"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
@@ -1756,7 +1756,7 @@ Logs can be used to get communication, play, and license information during inte
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>response</em>
+<p><em>response</em><br>
 : This parameter is used for sending the validity check result for the content to be played from the server to PallyCon Player. Empty value is not allowed. This value must be set as one of &#39;0 | 1 | 2 | 3&rsquo;. </p>
 
 <ul>
@@ -1766,7 +1766,7 @@ Logs can be used to get communication, play, and license information during inte
 <li><em>3</em>: Play Limited</li>
 </ul>
 
-<p><em>message</em>
+<p><em>message</em><br>
 : This parameter is used to enter a server message to be displayed as alert in PallyCon Player. This parameter is required. Empty value is allowed when play is allowed (response: 0). Empty value is not allowed for other cases. </p>
 <h4 id='device-un-registration-standard'>Device Un-registration Standard</h4><h5 id='request-data'>Request data</h5><pre><code class="highlight json"><span class="p">{</span><span class="w">
     </span><span class="s2">"mode"</span><span class="p">:</span><span class="s2">"Device Release"</span><span class="p">,</span><span class="w">
@@ -1776,16 +1776,16 @@ Logs can be used to get communication, play, and license information during inte
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>mode</em>
+<p><em>mode</em><br>
 : In every function, only one Service Manager URL is used for communication with the Web server. This value allows branching by function in Service manager URL. The mode for device release is &#39;Device Release&rsquo;. </p>
 
-<p><em>site_id</em>
+<p><em>site_id</em><br>
 : This fixed value is issued to vendors and can be checked in Cloud Admin page. </p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : This is the user ID stored in the device.</p>
 
-<p><em>device_id</em>
+<p><em>device_id</em><br>
 : This is a device ID extracted from the device. </p>
 
 <ul>
@@ -1798,10 +1798,10 @@ Logs can be used to get communication, play, and license information during inte
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>response</em>
+<p><em>response</em><br>
 : This is success or failure of device release. This is a required parameter that must be entered. Empty value is not allowed. This value must be set as &#39;Y | N&rsquo;.</p>
 
-<p><em>message</em>
+<p><em>message</em><br>
 : This is a message corresponding to the success or failure of device release, which is displayed as alert in PallyCon Player. This parameter is required and allows empty value. If this is empty value, &#39;Succeeded in releasing the device.’ or ‘Failed to release the device.’ is set as the default message. </p>
 <h3 id='log'>Log</h3>
 <p>This document describes how to use the &#39;Log View&rsquo; function which is provided for interconnection test.  </p>
@@ -1815,10 +1815,10 @@ Logs can be used to get communication, play, and license information during inte
 <li>Content play information</li>
 </ul>
 <h4 id='log-view-settings'>Log View Settings</h4>
-<p>Logs can be set in <strong>‘Download/Streaming’ JSON DATA (log_type) of URL Scheme</strong>, and can be checked in the <strong>&#39;Environment Settings&rsquo; page of PallyCon Player</strong>. 
+<p>Logs can be set in <strong>‘Download/Streaming’ JSON DATA (log_type) of URL Scheme</strong>, and can be checked in the <strong>&#39;Environment Settings&rsquo; page of PallyCon Player</strong>. <br>
 When you touch the &#39;Log View&rsquo; button in Environment Settings, the vendors whose ‘log_type’ is ‘1’ are listed. Touching a vendor in the list whose logs you want to see shows the logs of the vendor. </p>
 <h4 id='content-of-logs'>Content of Logs</h4>
-<p>The content of logs is shown in the format illustrated in the following figure. 
+<p>The content of logs is shown in the format illustrated in the following figure. <br>
 You can reset the logs by touching the <strong>‘Refresh’</strong> button at top right.</p>
 
 <p><img alt="Mobile_Scenario_DeviceRelease" src="../images/Mobile_Log.png" /></p>
@@ -1843,7 +1843,7 @@ You can reset the logs by touching the <strong>‘Refresh’</strong> button at 
 <h4 id='about-pallycon-pc-web-player'>About PallyCon PC Web Player</h4>
 <aside class="notice">PallyCon Player (Mobile, PC) does not support playing for a license based on the count system.</aside>
 
-<p><strong>PallyCon PC Web Player is designed for Web pages of the Service Site.</strong> Therefore, it only provides streaming feature for playing contents on a Web page when users click the contents to play. 
+<p><strong>PallyCon PC Web Player is designed for Web pages of the Service Site.</strong> Therefore, it only provides streaming feature for playing contents on a Web page when users click the contents to play. <br>
 <strong>PallyCon PC Web Player does not check the number of devices because it only provides streaming play.</strong> Instead, it can control the number of devices by controlling simultaneous connections. </p>
 
 <p><strong>PallyCon PC Web Player can play non-DRM/DRM video contents.</strong> For DRM contents, only Progressive Download Play is supported; for non-DRM contents, both Progressive Download Play and Http Live Streaming are supported. For supported video formats, MP4 is recommended in the case of DRM contents for integrated services with mobile. However, in the case of non-DRM contents, WMV, MPEG2-TS, Matroska, AVI, and FLV are supported as well as MP4. </p>
@@ -1899,8 +1899,8 @@ You can reset the logs by touching the <strong>‘Refresh’</strong> button at 
 </tr>
 </tbody></table>
 <h4 id='use-of-this-document'>Use of this Document</h4>
-<p>This document gives the following information:
-1. How to apply PallyCon PC Web Player
+<p>This document gives the following information:<br>
+1. How to apply PallyCon PC Web Player<br>
 2. Detailed explanation about the specifications of data exchanged between PallyCon PC Web Player and the Web server of the Service Site and about the scenarios of PallyCon PC Web Player.</p>
 <h4 id='prerequisites'>Prerequisites</h4>
 <p>You must prepare original contents and NCG-packaged contents to play them in PallyCon PC Web Player. </p>
@@ -2069,13 +2069,13 @@ Every parameter of JSON data must be used.</aside>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>site_id</em>
+<p><em>site_id</em><br>
 : This is a 4-byte fixed value that is issued to vendors and can be checked on the CP Admin page. Empty value is not allowed.</p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : This is the user ID of the user logged in the Service Site. Empty value is not allowed.</p>
 
-<p><em>drm_user_id</em>
+<p><em>drm_user_id</em><br>
 : This user ID is transferred to the player during playback. For this value, &ldquo;site_id + user_id&rdquo; is encrypted with AES and encoded with base64. Empty value is not allowed.</p>
 
 <ul>
@@ -2083,27 +2083,27 @@ Every parameter of JSON data must be used.</aside>
 <li>–&gt; base64encode(aes256(DEMOtestuser)) –&gt;320fjs890sdkljw83jf983==</li>
 </ul>
 
-<p><em>service_manager</em>
+<p><em>service_manager</em><br>
 : This URL is required for interconnecting Bookmark and LMS information. Empty value is not allowed.</p>
 
-<p><em>player_idx</em>
+<p><em>player_idx</em><br>
 : This is the list index that a user wants to play in a list. Empty value is not allowed.</p>
 
-<p><em>continue_play_yn</em>
+<p><em>continue_play_yn</em><br>
 : This value determines whether or not to permit resume. You must use lower case letters only (permitted: y, not permitted: n). Empty value is not allowed.</p>
 
-<p><em>view_yn</em>
+<p><em>view_yn</em><br>
 : This value determines whether or not to show the right-side menu in PallyCon PC Web Player. You must use lower case letters only (permitted: y, not permitted: n). Empty value is not allowed.</p>
 
 <p><strong>Even if the side menu is not shown, you can add a bookmark by right-clicking your mouse.</strong></p>
 
-<p><em>multiuser_chk_yn</em>
+<p><em>multiuser_chk_yn</em><br>
 : This value determines whether or not to permit multiuser check. You must use lower case letters only (permitted: y, not permitted: n). Empty value is not allowed.</p>
 
-<p><em>contents</em>
+<p><em>contents</em><br>
 : This parameter has the contents in the list displayed in the right-side menu as an array. If you set the ‘view_yn’ parameter as not permitted, this value is not displayed even if there is a value. Empty value is not allowed.</p>
 
-<p><em>content_file</em>
+<p><em>content_file</em><br>
 : This is the server URL at which the files used for streaming exist. Empty value is not allowed. The file URL is encrypted with AES and encoded with base64.</p>
 
 <ul>
@@ -2111,45 +2111,45 @@ Every parameter of JSON data must be used.</aside>
 <li>–&gt; base64encode(aes(url)) –&gt;320fjs89fd032ijfd902383jf983==</li>
 </ul>
 
-<p><em>content_name</em>
+<p><em>content_name</em><br>
 : This is the name of the content displayed in the right-side menu and the player. Empty value is not allowed.</p>
 
-<p><em>content_end_date</em>
+<p><em>content_end_date</em><br>
 : This is the content display end date to be displayed in the right-side menu and player.</p>
 
-<p><em>last_play_time</em>
+<p><em>last_play_time</em><br>
 : This the time when the content was played last and the player resumes to play the content from this point.</p>
 
-<p><em>lms_percent</em>
+<p><em>lms_percent</em><br>
 : The parameter shows the progress of playing the content as a percent. The unit is omitted. Empty value is not allowed.</p>
 
-<p><em>lms_section</em>
+<p><em>lms_section</em><br>
 : This parameter shows the section that the user played.</p>
 
-<p><strong>LMS Sections Standard</strong><br>
-- &ldquo;Start:End,Start:End, …&rdquo;<br>
+<p><strong>LMS Sections Standard</strong><br><br>
+- &ldquo;Start:End,Start:End, …&rdquo;<br><br>
 - example) &ldquo;0:20,40:100&rdquo; ⇒ Plays from 0 to 20 and from 40 to 100.</p>
 
-<p><em>bookmark_time</em>
+<p><em>bookmark_time</em><br>
 : bookmark time</p>
 
-<p><em>bookmark_memo</em>
+<p><em>bookmark_memo</em><br>
 : bookmark memo</p>
 
-<p><em>order_id</em>
+<p><em>order_id</em><br>
 : The order ID is encrypted with AES and encoded with base64.</p>
 
 <ul>
 <li>ex)order_id=&ldquo;352&rdquo; –&gt; base64encode(aes(order_id)) –&gt;320fjs383jf983==</li>
 </ul>
 
-<p><em>course_status</em>
+<p><em>course_status</em><br>
 : This is the progress of course registration status: 0=Not registered, 1=In course, 2=Completed</p>
 
-<p><em>list_idx</em>
+<p><em>list_idx</em><br>
 : list_idx</p>
 
-<p><em>c_idx</em>
+<p><em>c_idx</em><br>
 : c idx</p>
 <h5 id='bookmark-standard'>Bookmark Standard</h5>
 <p>This is the standard for adding, updating, and deleting bookmarks. Whenever bookmarks are changed, PallyCon PC Web Player sets all the bookmark information and transfers it to the server. Therefore, there is only one standard for adding, updating, and deleting. </p>
@@ -2164,26 +2164,26 @@ Every parameter of JSON data must be used.</aside>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>mode</em>
+<p><em>mode</em><br>
 : mode</p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : user id</p>
 
-<p><em>c_idx</em>
+<p><em>c_idx</em><br>
 : c idx</p>
 
-<p><em>bookmark_time</em>
+<p><em>bookmark_time</em><br>
 : bookmark time</p>
 
-<p><em>bookmark_memo</em>
+<p><em>bookmark_memo</em><br>
 : bookmark memo</p>
 <h6 id='response-data'>RESPONSE DATA</h6><pre><code class="highlight json"><span class="p">{</span><span class="w">
     </span><span class="s2">"result"</span><span class="p">:</span><span class="s2">"y"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>result</em>
+<p><em>result</em><br>
 : result</p>
 <h5 id='lms-standard'>LMS Standard</h5>
 <p>When PallyCon PC Web Player stops playing, the section played by a user is transferred to the Web server of the Service Site. </p>
@@ -2200,25 +2200,25 @@ Every parameter of JSON data must be used.</aside>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>mode</em>
+<p><em>mode</em><br>
 : mode</p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : user_id</p>
 
-<p><em>c_idx</em>
+<p><em>c_idx</em><br>
 : c_idx</p>
 
-<p><em>lms_percent</em>
+<p><em>lms_percent</em><br>
 : lms_percent</p>
 
-<p><em>lms_section</em>
+<p><em>lms_section</em><br>
 : lms section</p>
 
-<p><em>last_play_time</em>
+<p><em>last_play_time</em><br>
 : last play time</p>
 
-<p><em>status</em>
+<p><em>status</em><br>
 : status</p>
 <h6 id='response-data'>RESPONSE DATA</h6>
 <p>This is the response data to the requested data from the Web server of the Service Site. </p>
@@ -2227,13 +2227,13 @@ Every parameter of JSON data must be used.</aside>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>result</em>
+<p><em>result</em><br>
 : result</p>
 <h3 id='apis-working-scenario'>APIs Working Scenario</h3><h4 id='service-scenario'>Service Scenario</h4>
 <p>PallyCon PC Web Player interacts with the server through streaming service. This service has a very simple operation scenario because it is a streaming service. </p>
 <h5 id='streaming-service-scenario'>Streaming Service Scenario</h5>
-<p>The streaming service starts when the PallyCon PC Web Player Page is called by touching Play on a Web page of the Service Site. 
-When you stop playing, the LMS information and the played time (seconds) until the stop is transferred to the Web server. 
+<p>The streaming service starts when the PallyCon PC Web Player Page is called by touching Play on a Web page of the Service Site. <br>
+When you stop playing, the LMS information and the played time (seconds) until the stop is transferred to the Web server. <br>
 When a user adds, updates, or deletes a bookmark, the player sends all the bookmark data that it has to the Web server. </p>
 <h4 id='scenario-details'>Scenario Details</h4>
 <p>This is a detailed explanation about the Streaming Service Scenario. This section provides detailed information about the scenario that must be written by developer. The process inside the player is not explained in detail here. </p>
@@ -2244,13 +2244,13 @@ When a user adds, updates, or deletes a bookmark, the player sends all the bookm
 
 <p>Whenever the bookmark information is updated, PallyCon PC Web Player transfers all the bookmark data that it has to the Web server of the Service Site. </p>
 
-<p><em>Add Bookmark</em> 
+<p><em>Add Bookmark</em> <br>
 : When a user touches the Add Bookmark button, the bookmarks that were set at the time when the Add button was clicked are displayed in the list. The total bookmark data including the created bookmark data are transferred to the Web server of the Service Site. </p>
 
-<p><em>Update Bookmark</em>
+<p><em>Update Bookmark</em><br>
 : A user can edit the bookmark details in the bookmark list, click the Update button. Then the total bookmark list including the modified bookmarks is transferred to the Web server of the Service Site. </p>
 
-<p><em>Delete Bookmark</em>
+<p><em>Delete Bookmark</em><br>
 : A user can click the Delete button for bookmarks in the bookmark list to delete them. Then the total bookmark list after the deletion is transferred to the Web server of the Service Site. </p>
 
 <p><strong>Revision History</strong></p>
@@ -2335,17 +2335,17 @@ When a user adds, updates, or deletes a bookmark, the player sends all the bookm
 <li><strong>UTF-8 Encoding</strong> is used.</li>
 </ul>
 
-<p><em>JSON String</em>
+<p><em>JSON String</em><br>
 : This syntax is used when there is information to send in the response data. </p>
 <h2 id='standards'>Standards</h2>
 <p>This document describes the standards for request data and response data with different URI paths depending on the queried data type. </p>
 
-<p>If GET method is used for sending request data, data must be set in URI Query format. If PUT method is used, data must be set in JSON format in Payload. 
+<p>If GET method is used for sending request data, data must be set in URI Query format. If PUT method is used, data must be set in JSON format in Payload. <br>
 <aside class="notice"> Parameter can be omitted in the request data. However, if you use Parameter, you must enter a value. (<strong>Empty value is not allowed.</strong>)</aside></p>
 <h3 id='accounts-strongaccountstrong'>ACCOUNTS <strong>(~/account)</strong></h3>
 <p>Query or update the Site ID information.  </p>
 <h4 id='request-data'>Request Data</h4>
-<p><strong>GET method:</strong> Query the Site ID information in the authorization field of HTTP Header. 
+<p><strong>GET method:</strong> Query the Site ID information in the authorization field of HTTP Header. <br>
 <code class="prettyprint">https://tokyo.pallycon.com/api/my/account</code></p>
 
 <ul>
@@ -2362,16 +2362,16 @@ When a user adds, updates, or deletes a bookmark, the player sends all the bookm
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>service_url</em>
+<p><em>service_url</em><br>
 : Service URL, Web player authorization URL</p>
 
-<p><em>cid_issue_url</em>
+<p><em>cid_issue_url</em><br>
 : Content ID issue page address</p>
 
-<p><em>content_usage_info_url</em>
+<p><em>content_usage_info_url</em><br>
 : Address of the page for showing content use information</p>
 
-<p><em>pc_limit, pd_limit</em>
+<p><em>pc_limit, pd_limit</em><br>
 : Number of PCs and devices that users can register</p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Result of the query for Site ID: <em>HTTP Status Code + JSON</em></strong></p>
@@ -2390,10 +2390,10 @@ When a user adds, updates, or deletes a bookmark, the player sends all the bookm
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>site_id</em>
+<p><em>site_id</em><br>
 : A four-character ID for identifying a site </p>
 
-<p><em>service_use</em>
+<p><em>service_use</em><br>
 : Whether or not to activate a service  </p>
 
 <ul>
@@ -2402,13 +2402,13 @@ When a user adds, updates, or deletes a bookmark, the player sends all the bookm
 <li><strong>S</strong>: stopped</li>
 </ul>
 
-<p><em>service_url</em>
+<p><em>service_url</em><br>
 : Service URL and name</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : Creation date. GMT standard (+0), in the format <strong>yyyyMMddHHmmss</strong></p>
 
-<p><em>pack_key, site_key, web_player_key</em>
+<p><em>pack_key, site_key, web_player_key</em><br>
 : Passwords to be entered in Packager, Gateway, and Web Player, respectively</p>
 <h3 id='drm-content-strongpackstrong'>DRM Content <strong>(~/pack?~)</strong></h3>
 <p>Query the DRM content in PallyCon Cloud Service Site. </p>
@@ -2417,17 +2417,17 @@ When a user adds, updates, or deletes a bookmark, the player sends all the bookm
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/pack?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;cid=3k12&amp;file_name=sky&amp;sorting=reg_date</code> </p>
 
-<p><em>page, size</em>
+<p><em>page, size</em><br>
 : Page number and the number of columns to show once. The default value is ‘1’ for page and ‘20’ for size. The maximum size is 100. The defaults are set if Parameter is not used. </p>
 
-<p><em>from, to</em>
-: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+<p><em>from, to</em><br>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.<br>
  If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
 
-<p><em>cid, file_name</em>
+<p><em>cid, file_name</em><br>
 : CID(32-byte) or file name to search</p>
 
-<p><em>sorting</em>
+<p><em>sorting</em><br>
 : The default is ‘reg_date’. ‘cid’ or ‘file_name&rsquo; can be used as well.</p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Query result of DRM contents: <em>HTTP Status Code + JSON</em></strong></p>
@@ -2443,22 +2443,22 @@ When a user adds, updates, or deletes a bookmark, the player sends all the bookm
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>count</em>
+<p><em>count</em><br>
 : Total number of data to be searched</p>
 
-<p><em>data</em>
+<p><em>data</em><br>
 : Used together with count. The actually requested data are in data as an array. </p>
 
-<p><em>file_name</em>
+<p><em>file_name</em><br>
 : File name of the content</p>
 
-<p><em>cid</em>
+<p><em>cid</em><br>
 : Content ID (32-byte)</p>
 
-<p><em>cek</em>
+<p><em>cek</em><br>
 : Key of the content</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : Creation date. GMT standard (+0), in the format <strong>yyyyMMddHHmmss</strong></p>
 <h3 id='issued-license-info-stronglicensestrong'>Issued License Info <strong>(~/license?~)</strong></h3>
 <p>Query the issued license information in the PallyCon Cloud Service Site. </p>
@@ -2467,20 +2467,20 @@ When a user adds, updates, or deletes a bookmark, the player sends all the bookm
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/license?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;status=success&amp;cid=3k12&amp;user_id=dese&amp;device_id=DKEOWK234KE&amp;device_model=iPhone&amp;sorting=reg_date</code></p>
 
-<p><em>page, size</em>
+<p><em>page, size</em><br>
 : Page number and the number of columns to show once. The default value is ‘1’ for page and ‘20’ for size. The maximum size is 100. The defaults are set if Parameter is not used. </p>
 
-<p><em>from, to</em>
-: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+<p><em>from, to</em><br>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.<br>
 If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
 
-<p><em>status</em>
+<p><em>status</em><br>
 : Result of license issuance: ‘success’ or ‘fail’. If Parameter is not used, the License is queried regardless of issuance. </p>
 
-<p><em>cid, user_id, device_id</em>
+<p><em>cid, user_id, device_id</em><br>
 : CID(32-byte), User_ID, or Device_ID to be searched</p>
 
-<p><em>sorting</em>
+<p><em>sorting</em><br>
 : The default is ‘reg_date’. ‘cid’, ‘user_id’, or ‘device_id’ can be used as well.</p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Query result of License information: <em>HTTP Status Code + JSON</em></strong></p>
@@ -2501,31 +2501,31 @@ If only from or to parameter is used, the query range is unlimited from or to th
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>count</em>
+<p><em>count</em><br>
 : The sum of all data when multiple data are returned.</p>
 
-<p><em>data</em>
+<p><em>data</em><br>
 : Used together with count. The actually requested data are in data as an array. </p>
 
-<p><em>cid</em>
+<p><em>cid</em><br>
 : Content ID(32 byte)</p>
 
-<p><em>status</em>
+<p><em>status</em><br>
 : Result of license issuance: ‘success’ or ‘fail’.</p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : ID of the user</p>
 
-<p><em>device_id, device_model</em>
+<p><em>device_id, device_model</em><br>
 : ID and model of the user device</p>
 
-<p><em>ro_start, ro_end</em>
+<p><em>ro_start, ro_end</em><br>
 : This is copyright information (start date and end date during which play is possible), and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.</p>
 
-<p><em>ro_cnt</em>
+<p><em>ro_cnt</em><br>
 : Play count</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : Creation date which is written in GMT standard (+0). The format is ‘yyyyMMddHHmmss’.</p>
 <h3 id='device-strongdevicestrong'>Device <strong>(~/device?~)</strong></h3>
 <p>Query the device information registered in the PallyCon Cloud Service Site. </p>
@@ -2534,17 +2534,17 @@ If only from or to parameter is used, the query range is unlimited from or to th
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/device?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;user_id=dese&amp;device_id=DKEOWK234KE&amp;device_model=iPhone&amp;sorting=reg_date</code></p>
 
-<p><em>page, size</em>
+<p><em>page, size</em><br>
 : Page number and the number of columns to show once. The default value is ‘1’ for page and ‘20’ for size. The maximum size is 100. The defaults are set if Parameter is not used. </p>
 
-<p><em>from, to</em>
-: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+<p><em>from, to</em><br>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.<br>
 If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
 
-<p><em>user_id, device_id, device_model</em>
+<p><em>user_id, device_id, device_model</em><br>
 : User_ID, Device_ID, or Device_Model to be searched</p>
 
-<p><em>sorting</em>
+<p><em>sorting</em><br>
 : The default is ‘reg_date’. ‘&#39;user_id’, ‘device_id’, or ‘device_model’ can be used as well.</p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Query result of the registered device information: <em>HTTP Status Code + JSON</em></strong></p>
@@ -2560,19 +2560,19 @@ If only from or to parameter is used, the query range is unlimited from or to th
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>count</em>
+<p><em>count</em><br>
 : The sum of all data when multiple data are returned.</p>
 
-<p><em>data</em>
+<p><em>data</em><br>
 : Used together with count. The actually requested data are in data as an array.</p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : ID of the user</p>
 
-<p><em>device_id, device_model</em>
+<p><em>device_id, device_model</em><br>
 : ID and model of the user device</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : Creation date which is written in GMT standard (+0). The format is ‘yyyyMMddHHmmss’.</p>
 <h3 id='statistics-strongstatisticsstrong'>Statistics <strong>(~/statistics?~)</strong></h3>
 <p>This is used to see the general service status. </p>
@@ -2581,8 +2581,8 @@ If only from or to parameter is used, the query range is unlimited from or to th
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/statistics?from=201409071209&amp;to=201409081522</code> </p>
 
-<p><em>from, to</em>
-: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.
+<p><em>from, to</em><br>
+: This is the query range, and the format is GMT standard (+0) &#39;yyyyMMddHHmmss&rsquo;.<br>
 If only from or to parameter is used, the query range is unlimited from or to the given time. </p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>Query result of service status information: <em>HTTP Status Code + JSON</em></strong></p>
@@ -2596,7 +2596,7 @@ If only from or to parameter is used, the query range is unlimited from or to th
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em>
+<p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em><br>
 : Number of issued licenses, number of registered devices, number of users, number of PCs, number of iOS devices, and number of Android devices</p>
 
 <p><strong>Revision History</strong></p>
@@ -2618,7 +2618,7 @@ If only from or to parameter is used, the query range is unlimited from or to th
           <h1 id='sdk-guide'>SDK Guide</h1>
 <p>PallyCon SDK is an SDK to apply DRM service to all types of content using NCG DRM.</p>
 <h2 id='who-should-use-39pallycon-sdk39'>Who should use &lsquo;PallyCon SDK&rsquo;?</h2>
-<p><strong>PallyCon SDK is the easiest and simplest DRM solution to apply DRM to the Apps that providers have already had them in service.</strong> 
+<p><strong>PallyCon SDK is the easiest and simplest DRM solution to apply DRM to the Apps that providers have already had them in service.</strong> <br>
 In addition, <strong>PallyCon SDK is a solution most appropriate for the properties of PallyCon which can apply NCG DRM technology to all contents.</strong>  </p>
 
 <p>The providers who should use PallyCon SDK are as follows: </p>
@@ -2629,7 +2629,7 @@ In addition, <strong>PallyCon SDK is a solution most appropriate for the propert
 <li>A provider who desires to use PallyCon On-premise Server</li>
 </ul>
 
-<p>PallyCon SDK is compatible with both PallyCon Cloud Service and PallyCon On-premise Server.<br>
+<p>PallyCon SDK is compatible with both PallyCon Cloud Service and PallyCon On-premise Server.<br><br>
 However, PallyCon PC/Mobile Player is compatible only with PallyCon Cloud Service; thus, a provider who desires to use PallyCon On-premise Server must use PallyCon SDK.</p>
 
 <table><thead>
@@ -2700,7 +2700,7 @@ However, PallyCon PC/Mobile Player is compatible only with PallyCon Cloud Servic
 <li><p>STEP6. Apply DRM Service to the App.</p></li>
 </ul>
 
-          <p><img alt="footer" src="../images/footer.png" /> 
+          <p><img alt="footer" src="../images/footer.png" /> <br>
 <p style="text-align: center;">Copyright 2014 INKA ENTWORKS. All Rights Reserved.</p></p>
 
       </div>

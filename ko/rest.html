@@ -95,12 +95,12 @@
 <li><strong>UTF-8 Encoding</strong> 사용</li>
 </ul>
 
-<p><em>JSON String</em>
+<p><em>JSON String</em><br>
 : 응답 데이터 중 전달할 정보가 있을 때 사용하는 문법입니다. </p>
 <h2 id='standards'>Standards</h2>
 <p>조회하고자 하는 데이터 종류에 따라 URI Path를 구분하여 요청 데이터와 응답 데이터에 대한 규격을 설명합니다. </p>
 
-<p>요청 데이터를 전달할 때의 Method가 GET방식일 경우에는 URI Query 형태로 데이터를 설정해야 하고, PUT방식일 경우에는 Payload에 JSON 형태로 데이터를 설정해야 합니다. 
+<p>요청 데이터를 전달할 때의 Method가 GET방식일 경우에는 URI Query 형태로 데이터를 설정해야 하고, PUT방식일 경우에는 Payload에 JSON 형태로 데이터를 설정해야 합니다. <br>
 <aside class="notice">요청 데이터에서의 Parameter는 생략이 가능합니다. 하지만 Parameter를 사용하게 되면 반드시 값을 넣으셔야 합니다. (빈값을 허용하지 않습니다.)</aside></p>
 <h3 id='accounts-strongaccountstrong'>ACCOUNTS <strong>(~/account)</strong></h3>
 <p>Site ID 정보에 대한 조회나 업데이트입니다.  </p>
@@ -126,10 +126,10 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>site_id</em>
+<p><em>site_id</em><br>
 : 사이트를 구분하는 ID, 알파벳과 숫자로 이루어진 4글자</p>
 
-<p><em>service_use</em>
+<p><em>service_use</em><br>
 : 서비스 활성화 여부. </p>
 
 <ul>
@@ -138,13 +138,13 @@
 <li><strong>S</strong>: stopped</li>
 </ul>
 
-<p><em>service_url</em>
+<p><em>service_url</em><br>
 : 서비스 URL과 이름</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : 생성일자. GMT 표준(+0), 규격은<strong>yyyyMMddHHmmss</strong></p>
 
-<p>_pack_key, site_key
+<p>_pack_key, site_key<br>
 : 각 각 패키저, 게이트웨이에 입력해야 할 비밀번호</p>
 <h4 id='site-id-정보-업데이트'>Site ID 정보 업데이트</h4><h5 id='request-data'>Request Data</h5>
 <p><strong>PUT 방식:</strong> HTTP Header의 authorization필드의 Site ID에 대한 정보를 Payload에 있는 JSON에 대한 정보로 업데이트하게 됩니다. </p>
@@ -155,13 +155,13 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>service_url</em>
+<p><em>service_url</em><br>
 : 서비스 URL, Web player 인증 URL</p>
 
-<p><em>cid_issue_url</em>
+<p><em>cid_issue_url</em><br>
 : Content ID 발급 페이지 주소</p>
 
-<p><em>content_usage_Rights_info_url</em>
+<p><em>content_usage_Rights_info_url</em><br>
 : 콘텐츠 사용 권한 정보를 조회하는 페이지 주소</p>
 <h5 id='response-data'>Response Data</h5>
 <p>Site ID에 JSON 정보로 업데이트에 대한 결과는 &#39;HTTP Status Code&#39;로 확인이 가능합니다. </p>
@@ -172,17 +172,17 @@
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/pack?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;cid=3k12&amp;file_name=sky&amp;sorting=reg_date</code></p>
 
-<p><em>page, size</em>
+<p><em>page, size</em><br>
 : 페이지 번호와 한번에 보여줄 컬럼의 수. default로 page : ‘1’, size : ‘20’, size는 최대 100으로 제한됩니다. Parameter를 사용하지 않을 경우, default 로 설정됩니다. </p>
 
-<p><em>from, to</em>
-: 조회 범위이고,  규격은 <strong>GMT 표준(+0)</strong>으로 ‘yyyyMMddHHmmss’<br>
+<p><em>from, to</em><br>
+: 조회 범위이고,  규격은 <strong>GMT 표준(+0)</strong>으로 ‘yyyyMMddHHmmss’<br><br>
 from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시간을 기준으로 무제한 시간으로 조회됩니다. </p>
 
-<p><em>cid, file_name</em>
+<p><em>cid, file_name</em><br>
 : 검색할 CID(32byte) 혹은 file name</p>
 
-<p><em>sorting</em>
+<p><em>sorting</em><br>
 : default는 ‘reg_date’. ‘cid’, ‘file_name&#39;도 가능.</p>
 <h5 id='response-data'>Response Data</h5>
 <p><strong>DRM 콘텐츠 정보 조회 결과: <em>HTTP Status Code + JSON</em></strong></p>
@@ -199,22 +199,22 @@ from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시�
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>count</em>
+<p><em>count</em><br>
 : 검색 대상의 전체 수</p>
 
-<p><em>data</em>
+<p><em>data</em><br>
 : count와 함께 쓰이는 Parameter로, 실제로 요청한 데이터가 data 안에 배열로 들어가있습니다. </p>
 
-<p><em>file_name</em>
+<p><em>file_name</em><br>
 : content’s file name</p>
 
-<p><em>cid</em>
+<p><em>cid</em><br>
 : content’s ID(32 byte)</p>
 
-<p><em>cek</em>
+<p><em>cek</em><br>
 : content’s key</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : 생성일자. <strong>GMT 표준(+0)</strong>으로, 규격은<strong>yyyyMMddHHmmss</strong></p>
 <h3 id='issued-license-info-stronglicensestrong'>Issued License Info <strong>(~/license?~)</strong></h3>
 <p>PallyCon Cloud Service Site에서 발급된 License에 대한 정보를 조회합니다. </p>
@@ -223,20 +223,20 @@ from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시�
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/license?page=1&amp;size=2&amp;from=201409071209&amp;to=201409081522&amp;status=success&amp;cid=3k12&amp;user_id=dese&amp;device_id=DKEOWK234KE&amp;device_model=iPhone&amp;sorting=reg_date</code></p>
 
-<p><em>page, size</em>
+<p><em>page, size</em><br>
 : 페이지 번호와 한번에 보여줄 컬럼의 수. default로 page : ‘1’, size : ‘20’, size는 최대 100으로 제한됩니다. Parameter를 사용하지 않을 경우, default 로 설정됩니다. </p>
 
-<p><em>from, to</em>
-: 조회 범위이고,  규격은 GMT 표준(+0)으로 ‘yyyyMMddHHmmss’ 
+<p><em>from, to</em><br>
+: 조회 범위이고,  규격은 GMT 표준(+0)으로 ‘yyyyMMddHHmmss’ <br>
 from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시간을 기준으로 무제한 시간으로 조회됩니다. </p>
 
-<p><em>status</em>
+<p><em>status</em><br>
 : License 발급 성공여부. ‘success’ 혹은 ‘fail’이 가능. Parameter를 사용하지 않을 경우, 발급 여부와 상관없이 License가 조회됩니다. </p>
 
-<p><em>cid, user_id, device_id</em>
+<p><em>cid, user_id, device_id</em><br>
 : 검색할 CID 혹은 User_ID, Device_ID</p>
 
-<p><em>sorting</em>
+<p><em>sorting</em><br>
 : default는 ‘reg_date’. ‘cid’, ‘user_id’, ‘device_id’도 가능</p>
 <h5 id='response-data'>Response Data</h5>
 <p><strong>License 정보 조회 결과: <em>HTTP Status Code + JSON</em></strong></p>
@@ -258,31 +258,31 @@ from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시�
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>count</em>
+<p><em>count</em><br>
 : 리턴하는 데이터가 복수일 때, 그 모든 합.</p>
 
-<p><em>data</em>
+<p><em>data</em><br>
 : count와 함께 쓰이는 Parameter로, 실제로 요청한 데이터가 data 안에 배열로 들어가있습니다. </p>
 
-<p><em>cid</em>
+<p><em>cid</em><br>
 : 32 byte의 Content ID</p>
 
-<p><em>status</em>
+<p><em>status</em><br>
 : 라이센스 발급 성공여부. ‘success’ 혹은 ‘fail’</p>
 
-<p><em>user_id</em>
+<p><em>user_id</em><br>
 : 사용자 ID</p>
 
-<p><em>device_id, device_model</em>
+<p><em>device_id, device_model</em><br>
 : 사용자 기기의 ID와 모델명</p>
 
-<p><em>ro_start, ro_end</em>
+<p><em>ro_start, ro_end</em><br>
 : 저작권 정보(재생가능한 시작일과 종료일) 규격은 <strong>GMT 표준(+0)</strong>시간으로  ‘yyyyMMddHHmmss’.</p>
 
-<p><em>ro_cnt</em>
+<p><em>ro_cnt</em><br>
 : 재생 횟수</p>
 
-<p><em>reg_date</em>
+<p><em>reg_date</em><br>
 : 생성일자. GMT 표준(+0)으로 작성한다. 규격은 ‘yyyyMMddHHmmss’.</p>
 <h3 id='statistics-strongstatisticsstrong'>Statistics <strong>(~/statistics?~)</strong></h3>
 <p>전반적인 서비스 현황을 조회하기 위해 사용합니다. </p>
@@ -291,8 +291,8 @@ from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시�
 
 <p><code class="prettyprint">https://tokyo.pallycon.com/api/my/statistics?from=201409071209&amp;to=201409081522</code></p>
 
-<p><em>from, to</em>
-: 조회 범위이고,  규격은 GMT 표준(+0)으로 ‘yyyyMMddHHmmss’ 
+<p><em>from, to</em><br>
+: 조회 범위이고,  규격은 GMT 표준(+0)으로 ‘yyyyMMddHHmmss’ <br>
 from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시간을 기준으로 무제한 시간으로 조회됩니다. </p>
 <h4 id='response-data'>Response Data</h4>
 <p><strong>서비스 현황 정보 조회 결과: <em>HTTP Status Code + JSON</em></strong></p>
@@ -306,7 +306,7 @@ from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시�
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em>
+<p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em><br>
 : 발급된 License 수, 등록된 기기 대수, 사용자수, PC 수, iOS 기기 수, Android 기기 수</p>
 
 <p><strong>Revision History</strong></p>
