@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation</title>
+
+    <link href="../stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="../javascripts/all_nosearch.js" type="text/javascript"></script>
+
+  </head>
+
+  <body class="en en_sdk">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <a href="#"> <img src="../images/logo.png" /></a>
+      <div id="toc">
+      </div>
++-
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='sdk-guide'>SDK Guide</h1>
+<p>PallyCon SDK is an SDK to apply DRM service to all types of content using NCG DRM.</p>
+<h2 id='who-should-use-39pallycon-sdk39'>Who should use &lsquo;PallyCon SDK&rsquo;?</h2>
+<p><strong>PallyCon SDK is the easiest and simplest DRM solution to apply DRM to the Apps that providers have already had them in service.</strong> 
+In addition, <strong>PallyCon SDK is a solution most appropriate for the properties of PallyCon which can apply NCG DRM technology to all contents.</strong>  </p>
+
+<p>The providers who should use PallyCon SDK are as follows: </p>
+
+<ul>
+<li>A provider who desires to provide DRM Service not for sound source/video contents but for other contents</li>
+<li>A provider who desires to make its own Player not the sound source/video Player provided by PallyCon Service </li>
+<li>A provider who desires to use PallyCon On-premise Server</li>
+</ul>
+
+<p>PallyCon SDK is compatible with both PallyCon Cloud Service and PallyCon On-premise Server.<br>
+However, PallyCon PC/Mobile Player is compatible only with PallyCon Cloud Service; thus, a provider who desires to use PallyCon On-premise Server must use PallyCon SDK.</p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>Video/Music Contents</th>
+<th>Other Contents</th>
+<th>PallyCon Cloud Service</th>
+<th>PallyCon On-premise Server</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PallyCon PC/Mobile Player</td>
+<td>Support</td>
+<td>NOT Support</td>
+<td></td>
+<td>Support</td>
+</tr>
+<tr>
+<td>PallyCon SDK</td>
+<td>Support</td>
+<td>Support</td>
+<td></td>
+<td>Support</td>
+</tr>
+</tbody></table>
+<h2 id='functions-that-pallycon-sdk-provides'>Functions that PallyCon SDK provides</h2>
+<p>The functions that PallyCon SDK provides are as follows:</p>
+<h3 id='a-function-for-convenient-development'>A function for convenient development</h3>
+<ul>
+<li>provide abstracted functions and application scenarios which can be applied to the current App in service on an easy and simple basis</li>
+<li>provide the function to unpack all the contents to which NCG DRM apply</li>
+<li>provide the function to partially decrypt high-capacity contents for the purpose of more effectively using them</li>
+</ul>
+<h3 id='a-function-for-content-security'>A function for content security</h3>
+<ul>
+<li>provide a variety of security setting function to safely use term contents</li>
+<li>provide the function to restrict external output and screen shot (Android) to protect contents</li>
+<li>provide a variety of functions to secure the use of DRM contents in accordance with license </li>
+</ul>
+<h2 id='pallycon-sdk-specification'>PallyCon SDK Specification</h2>
+<p>PallyCon SDK provides Windows, Android, and iOS SDK. </p>
+
+<p>The specification for each platform of PallyCon SDK is as follows: </p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>PallyCon Windows SDK</th>
+<th>PallyCon Android SDK</th>
+<th>PallyCon iOS SDK</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Support Spec.</td>
+<td>XP or above (Visual Studio 2008 or above)</td>
+<td>2.3 version or above</td>
+<td>iOS 6.0 or above (iPad2, iPhone4 or above)</td>
+</tr>
+</tbody></table>
+<h2 id='pallycon-sdk-application'>PallyCon SDK Application</h2>
+<ul>
+<li><p>STEP1. First make an App where original contents can run without a problem.</p></li>
+<li><p>STEP2. Use PallyCon SDK Sample to become familiar with how to apply SDK and use DRM Contents.</p></li>
+<li><p>STEP3. Determine DRM Service policy and scenario.</p></li>
+<li><p>STEP4. Build License Server, and develop the page necessary to generate DRM Contents and the page necessary to issue license in accordance with the DRM Service policy.</p></li>
+<li><p>STEP5. Add PallyCon SDK to the App.</p></li>
+<li><p>STEP6. Apply DRM Service to the App.</p></li>
+</ul>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>

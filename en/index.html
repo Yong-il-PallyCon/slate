@@ -26,7 +26,8 @@
       </div>
         <ul class="toc-footer">
             <li><a href='/ko'>▶ IN KOREAN</a></li>
-            <li><a href='http://www.pallycon.com'>▶ PALLYCON HOME</a></li>
+            <li><a href='http://help.netsync.co.kr' target="_blank">▶ HELPDESK</a></li>
+            <li><a href='http://www.pallycon.com' target="_blank">▶ PALLYCON HOME</a></li>
         </ul>
       +-
     </div>
@@ -43,15 +44,17 @@
 <h2 id='guides'>Guides</h2>
 <p>You can integrate PallyCon service with your content service site using the below guide documents.</p>
 
-<p><strong><a href="#quick-start-guide">Quick Start Guide</a> Provides test codes, samples and setup guide for a quick trial of PallyCon service.</strong> </p>
+<p><strong><a href="#quickstart-guide">Quick Start Guide</a> Provides test codes, samples and setup guide for a quick trial of PallyCon service.</strong> </p>
 
-<p><strong><a href="#intergration-overview">Intergration Guides</a> Explains overall flow and how-to of the service integration.</strong> </p>
+<p><strong><a href="#integration-overview">Integration Guides</a> Explains overall flow and how-to of the service integration.</strong> </p>
 
 <ul>
-<li><p>You must <a href="#packaging-guide">intergrate packager</a> to your CMS(Content Management System). And learn how to <a href="#license-issue-guide">issue license</a> with usage rights when end-user plays DRM content. </p></li>
-<li><p>You can intergrate <a href="#mobile-player-guide">Pallycon Mobile Player</a> with your mobile content service site.</p></li>
+<li><p>You must <a href="#packaging-guide">integrate packager</a> to your CMS(Content Management System). And learn how to <a href="#license-issue-guide">issue license</a> with usage rights when end-user plays DRM content. </p></li>
+<li><p>You can integrate <a href="#mobile-player-integration">Pallycon Mobile Player</a> and <a href="#pc-player-integration">Pallycon PC Player</a> with your content service site.</p></li>
 <li><p>Also You can manage your Pallycon service via <a href="#rest-api-guide">ReST API</a>  </p></li>
 </ul>
+
+<p>If you want to develop your own service application for customization, <a href="#sdk-guide">PallyCon Client SDK</a>s can be provided by separated contract. The below guide explain how to use the SDKs for each platform. For more details please check the API reference included in the SDK after signing contract.</p>
 <h2 id='downloads'>Downloads</h2>
 <p>For Quick Start, please download the below sample and refer to Quick Start Guide page.
 For CMS integration, please download &lsquo;Packager&rsquo; which includes Application and CLI packager for Windows and Linux.</p>
@@ -227,23 +230,19 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
 <td>Empty</td>
 <td>Empty</td>
 </tr>
-<tr>
-<td>&mdash;&mdash;&mdash;&mdash;&mdash;</td>
-<td>&mdash;-</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
 
 <p>Date: GMT (YYYY-MM-DDThh:mm:ss)</p>
 <h5 id='content_list-configration'>content_list configration</h5>
-<p>Set the information required for playing and downloading DRM contents. 
-- <strong>sSite_ID:</strong> The site ID that has been issued in the PallyCon Admin page.
-- <strong>sSite_Url:</strong> Current server IP and domain
-- <strong>sContent_Url1:</strong> File name of the first content in the list
-- <strong>sContent_Url2:</strong> File name of the second content in the list
-- <strong>sContent_Url3:</strong> File name of the third content in the list</p>
+<p>Set the information required for playing and downloading DRM contents. </p>
+
+<ul>
+<li><strong>sSite_ID:</strong> The site ID that has been issued in the PallyCon Admin page.</li>
+<li><strong>sSite_Url:</strong> Current server IP and domain</li>
+<li><strong>sContent_Url1:</strong> File name of the first content in the list</li>
+<li><strong>sContent_Url2:</strong> File name of the second content in the list</li>
+<li><strong>sContent_Url3:</strong> File name of the third content in the list</li>
+</ul>
 <h4 id='step4-set-url-in-pallycon-cp-admin-'>Step4: Set URL in PallyCon CP Admin.</h4>
 <p>Set the URL of CIDIssue.jsp to the Content ID Issue Page URL in PallyCon CP Admin, and set the URL of ContentUsageRightsInfo.jsp to the Content Usage Rights Info Page URL. </p>
 
@@ -290,7 +289,9 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
 <p>On the PallyConCPAdmin page, you can see information about the licenses that were issued during a simple test, as well as the registered devices and packaged contents. </p>
 
 <aside class="success"><b>Important:</b> If you start with Starter, you can issue up to 100 licenses for free. To issue more licenses, you must change to a paid service. </aside>
-<h2 id='revision-history'>Revision History</h2>
+
+<p><strong>Revision History</strong></p>
+
 <p>This table describes the revisions of the Quick Guide.</p>
 
 <table><thead>
@@ -305,7 +306,7 @@ You must install Java Runtime Environment (JRE) that distributes and supports Ja
 </tr>
 </tbody></table>
 
-          <h1 id='integration-guide'>Integration Guide</h1><h2 id='integraion-overview'>Integraion Overview</h2><h3 id='about-pallycon-service'>About PallyCon Service</h3>
+          <h1 id='integration-guide'>Integration Guide</h1><h2 id='integration-overview'>Integration Overview</h2><h3 id='about-pallycon-service'>About PallyCon Service</h3>
 <p>The PallyCon Service is provided to allow vendors to service secured (DRM) contents or source (non-DRM) contents that they have. </p>
 
 <p><img alt="overview_building" src="../images/Overview_Building.png" /></p>
@@ -361,19 +362,21 @@ You can set up only one PallyCon Service for one site ID. You may not set up mul
 <strong>STEP7:</strong> Start the service. </p>
 
 <p>PallyCon Service provides the Guide documents for the setting up procedure. </p>
-<h4 id='packaging-guide'>Packaging Guide</h4>
+<h4 id='packaging-overview'>Packaging Overview</h4>
 <p>This guide is for <strong>STEP1 ~ STEP4</strong>. This guide document describes the packaging method, the CID issue page development procedure, and cautions. </p>
 
 <p><img alt="overview_packagingguide" src="../images/Overview_PackagingGuide.png" /></p>
-<h4 id='license-issue-guide'>License Issue Guide</h4>
+<h4 id='license-issue-overview'>License Issue Overview</h4>
 <p>This guide is for <strong>STEP5</strong>. This guide document provides information and cautions about the license required for using DRM contents, the creation and issuance of license, and the development of the content usage information page. </p>
 
 <p><img alt="overview_licenseissueguide" src="../images/Overview_LicenseIssueGuide.png" /></p>
-<h4 id='web-working-guide-mobile-working-guide'>Web Working Guide, Mobile Working Guide</h4>
+<h4 id='webmobile-working-overview'>Web/Mobile Working Overview</h4>
 <p>This guide is for <strong>STEP6</strong>. This guide document explains the interconnection tasks required for using Web Player and Mobile Player provided by PallyCon Service. </p>
 
 <p><img alt="overview_playerworking" src="../images/Overview_PlayerWorkingGuide.png" /></p>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong> </p>
+
 <p>This table describes the revisions of the Overview Guide.</p>
 
 <table><thead>
@@ -919,7 +922,9 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 <td>Unknown error</td>
 </tr>
 </tbody></table>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong> </p>
+
 <p>This table describes the revisions of the PallyCon Packaging Guide.</p>
 
 <table><thead>
@@ -1173,7 +1178,9 @@ This feature is provided together with the <strong>Device Release</strong>. You 
 <p>Order ID is the order identification of the contents that a user wants to play. This information is identical to the value received from the Service Site of the vendor and is used for identifying the contents to be played. </p>
 
 <p>In actual service, the same contents may be classified into different categories. In this case, contents in different categories may have the same Content ID. To distinguish this, you must use the Order ID. </p>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong> </p>
+
 <p>This table describes the revisions of the License Issue Guide.</p>
 
 <table><thead>
@@ -1187,7 +1194,7 @@ This feature is provided together with the <strong>Device Release</strong>. You 
 <td style="text-align: left">License Issue Guide was created</td>
 </tr>
 </tbody></table>
-<h2 id='moblie-player-integration'>Moblie Player Integration</h2><h3 id='introduction'>Introduction</h3>
+<h2 id='mobile-player-integration'>Mobile Player Integration</h2><h3 id='introduction'>Introduction</h3>
 <p>This guide has been written to help you set the interaction between <strong>PallyCon Player</strong> and <strong>Service Site</strong> (web server or web page operated by the vendor to interact with the functions provided by PallyCon Player). </p>
 <h4 id='about-pallycon-player'>About PallyCon Player</h4>
 <aside class="noticce"> PallyCon Player(Mobile, PC) does not support content playback with count-limited license.</aside>
@@ -1815,7 +1822,9 @@ When you touch the &#39;Log View&rsquo; button in Environment Settings, the vend
 You can reset the logs by touching the <strong>‘Refresh’</strong> button at top right.</p>
 
 <p><img alt="Mobile_Scenario_DeviceRelease" src="../images/Mobile_Log.png" /></p>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong> </p>
+
 <p>This table describes the revisions of the PallyCon Player Interconnection Guide.</p>
 
 <table><thead>
@@ -2243,7 +2252,9 @@ When a user adds, updates, or deletes a bookmark, the player sends all the bookm
 
 <p><em>Delete Bookmark</em>
 : A user can click the Delete button for bookmarks in the bookmark list to delete them. Then the total bookmark list after the deletion is transferred to the Web server of the Service Site. </p>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong></p>
+
 <p>This table describes the revisions of the Pallycon Player Interconnection Guide.</p>
 
 <table><thead>
@@ -2587,7 +2598,9 @@ If only from or to parameter is used, the query range is unlimited from or to th
 
 <p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em>
 : Number of issued licenses, number of registered devices, number of users, number of PCs, number of iOS devices, and number of Android devices</p>
-<h2 id='revision-history'>Revision History</h2>
+
+<p><strong>Revision History</strong></p>
+
 <p>This table describes the revisions of the REST API Guide.</p>
 
 <table><thead>
@@ -2602,7 +2615,93 @@ If only from or to parameter is used, the query range is unlimited from or to th
 </tr>
 </tbody></table>
 
-<p><img alt="footer" src="../images/footer.png" /></p>
+          <h1 id='sdk-guide'>SDK Guide</h1>
+<p>PallyCon SDK is an SDK to apply DRM service to all types of content using NCG DRM.</p>
+<h2 id='who-should-use-39pallycon-sdk39'>Who should use &lsquo;PallyCon SDK&rsquo;?</h2>
+<p><strong>PallyCon SDK is the easiest and simplest DRM solution to apply DRM to the Apps that providers have already had them in service.</strong> 
+In addition, <strong>PallyCon SDK is a solution most appropriate for the properties of PallyCon which can apply NCG DRM technology to all contents.</strong>  </p>
+
+<p>The providers who should use PallyCon SDK are as follows: </p>
+
+<ul>
+<li>A provider who desires to provide DRM Service not for sound source/video contents but for other contents</li>
+<li>A provider who desires to make its own Player not the sound source/video Player provided by PallyCon Service </li>
+<li>A provider who desires to use PallyCon On-premise Server</li>
+</ul>
+
+<p>PallyCon SDK is compatible with both PallyCon Cloud Service and PallyCon On-premise Server.<br>
+However, PallyCon PC/Mobile Player is compatible only with PallyCon Cloud Service; thus, a provider who desires to use PallyCon On-premise Server must use PallyCon SDK.</p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>Video/Music Contents</th>
+<th>Other Contents</th>
+<th>PallyCon Cloud Service</th>
+<th>PallyCon On-premise Server</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PallyCon PC/Mobile Player</td>
+<td>Support</td>
+<td>NOT Support</td>
+<td></td>
+<td>Support</td>
+</tr>
+<tr>
+<td>PallyCon SDK</td>
+<td>Support</td>
+<td>Support</td>
+<td></td>
+<td>Support</td>
+</tr>
+</tbody></table>
+<h2 id='functions-that-pallycon-sdk-provides'>Functions that PallyCon SDK provides</h2>
+<p>The functions that PallyCon SDK provides are as follows:</p>
+<h3 id='a-function-for-convenient-development'>A function for convenient development</h3>
+<ul>
+<li>provide abstracted functions and application scenarios which can be applied to the current App in service on an easy and simple basis</li>
+<li>provide the function to unpack all the contents to which NCG DRM apply</li>
+<li>provide the function to partially decrypt high-capacity contents for the purpose of more effectively using them</li>
+</ul>
+<h3 id='a-function-for-content-security'>A function for content security</h3>
+<ul>
+<li>provide a variety of security setting function to safely use term contents</li>
+<li>provide the function to restrict external output and screen shot (Android) to protect contents</li>
+<li>provide a variety of functions to secure the use of DRM contents in accordance with license </li>
+</ul>
+<h2 id='pallycon-sdk-specification'>PallyCon SDK Specification</h2>
+<p>PallyCon SDK provides Windows, Android, and iOS SDK. </p>
+
+<p>The specification for each platform of PallyCon SDK is as follows: </p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>PallyCon Windows SDK</th>
+<th>PallyCon Android SDK</th>
+<th>PallyCon iOS SDK</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Support Spec.</td>
+<td>XP or above (Visual Studio 2008 or above)</td>
+<td>2.3 version or above</td>
+<td>iOS 6.0 or above (iPad2, iPhone4 or above)</td>
+</tr>
+</tbody></table>
+<h2 id='pallycon-sdk-application'>PallyCon SDK Application</h2>
+<ul>
+<li><p>STEP1. First make an App where original contents can run without a problem.</p></li>
+<li><p>STEP2. Use PallyCon SDK Sample to become familiar with how to apply SDK and use DRM Contents.</p></li>
+<li><p>STEP3. Determine DRM Service policy and scenario.</p></li>
+<li><p>STEP4. Build License Server, and develop the page necessary to generate DRM Contents and the page necessary to issue license in accordance with the DRM Service policy.</p></li>
+<li><p>STEP5. Add PallyCon SDK to the App.</p></li>
+<li><p>STEP6. Apply DRM Service to the App.</p></li>
+</ul>
+
+          <p><img alt="footer" src="../images/footer.png" /> 
+<p style="text-align: center;">Copyright 2014 INKA ENTWORKS. All Rights Reserved.</p></p>
 
       </div>
       <div class="dark-box">

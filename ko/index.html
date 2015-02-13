@@ -25,8 +25,9 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='/en'>▶ 영어로 읽기</a></li>
-            <li><a href='http://www.pallycon.com'>▶ PALLYCON HOME</a></li>
+            <li><a href='/en'>▶ IN ENGLISH</a></li>
+            <li><a href='http://help.netsync.co.kr' target="_blank">▶ HELPDESK</a></li>
+            <li><a href='http://www.pallycon.com' target="_blank">▶ PALLYCON HOME</a></li>
         </ul>
       +-
     </div>
@@ -52,6 +53,9 @@
 <li><p>콘텐츠 재생을 위해 <a href="#모바일-플레이어-연동">모바일 플레이어</a>와 <a href="#pc-플레이어-연동">PC 플레이어</a>를 연동할 수 있습니다. </p></li>
 <li><p>또한 PallyCon 서비스에서 제공하는 관리사이트와 별도로, 자체적인 어드민 사이트를 구축하기 원하는 고객을 위해 <a href="#rest-api-가이드">REST API</a>를 통해 서비스 관련 정보를 제공합니다.  </p></li>
 </ul>
+
+<p><a href="#sdk-가이드">PallyCon SDK</a>를 이용해 자체 플레이어를 개발하기 원하는 고객사를 위하여 SDK 개발 가이드를 제공합니다.
+보다 상세한 API 레퍼런스 문서는 별도 계약 후 전달되는 각 플랫폼 별 SDK에 포함되어 있습니다.</p>
 <h2 id='다운로드'>다운로드</h2>
 <p>빠른 시작을 위해서는 아래 &lsquo;퀵 스타트 샘플&#39;을 다운로드 받고 <a href="#퀵스타트-가이드">퀵스타트 가이드</a>를 따라해 주시기 바랍니다.
 콘텐츠 파일 패키징을 위한 패키져도 아래 링크에서 다운로드 가능합니다.</p>
@@ -292,7 +296,9 @@ Java 6 (1.6)와 Java 7 (1.7) 응용 프로그램 및 서버 환경에서 Java를
 <p>간단히 적용하여 테스트 하면서 발급받은 Licnese와 Packaging된 콘텐츠에 대한 정보를 PallyCon CP Admin  페이지에서 조회할 수 있습니다. </p>
 
 <aside class="success">Starter로 시작하면, 100개까지의 License는 무료로 발급받아 사용할 수 있습니다. 그 이상의 License는 받을 수 없으며, 유료로 전환해야 그 이상의 License를 발급받을 수 있습니다. </aside>  
-<h2 id='revision-history'>Revision History</h2>
+
+<p><strong>Revision History</strong></p>
+
 <p>이 테이블은 Quick 가이드의 수정사항에 대해 설명한 것입니다.</p>
 
 <table><thead>
@@ -368,19 +374,21 @@ Site ID하나 당 하나의 PallyCon Service를 구축 할 수 있으나, 하나
 <strong>STEP7:</strong> 서비스를 시작합니다. </p>
 
 <p>PallyCon Service에서는 구축에 필요한 가이드 문서를 제공합니다. </p>
-<h4 id='packaging-guide'>Packaging Guide</h4>
+<h4 id='packaging-overview'>Packaging Overview</h4>
 <p><strong>STEP1 ~ STEP4</strong>에 대한 가이드 문서입니다. 이 가이드 문서에서는 Packaging 하는 방법과 CID 발급 페이지 개발에 필요한 정보, 주의사항에 대하여 설명합니다. </p>
 
 <p><img alt="overview_packagingguide" src="../images/Overview_PackagingGuide.png" /></p>
-<h4 id='license-issue-guide'>License Issue Guide</h4>
+<h4 id='license-issue-overview'>License Issue Overview</h4>
 <p><strong>STEP5</strong>에 대한 가이드 문서입니다. 이 가이드 문서에서는 DRM 콘텐츠를 사용하기 위해 필요한 License와 License 생성, 발급, 콘텐츠 사용 권한 정보 페이지 개발에 필요한 정보 및 주의사항에 대하여 설명합니다. </p>
 
 <p><img alt="overview_licenseissueguide" src="../images/Overview_LicenseIssueGuide.png" /></p>
-<h4 id='web-working-guide-mobile-working-guide'>Web Working Guide, Mobile Working Guide</h4>
+<h4 id='webmobile-working-overview'>Web/Mobile Working Overview</h4>
 <p><strong>STEP6</strong>에 대한 가이드 문서입니다. 이 가이드 문서는 PallyCon Service에서 제공하는 Web Player와 Mobile Player를 사용하기 위해 필요한 연동 작업들에 대하여 설명합니다. </p>
 
 <p><img alt="overview_playerworking" src="../images/Overview_PlayerWorkingGuide.png" /></p>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong> </p>
+
 <p>이 테이블은 Overview 가이드의 수정사항에 대해 설명한 것입니다.</p>
 
 <table><thead>
@@ -932,7 +940,9 @@ pallyconpack pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</s
 <td>알 수 없는 에러.</td>
 </tr>
 </tbody></table>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong> </p>
+
 <p>이 테이블은 PallyCon Packaging 가이드의 수정사항에 대해 설명한 것입니다.</p>
 
 <table><thead>
@@ -1201,7 +1211,9 @@ pallyconpack pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</s
 <p>Order ID는 사용자가 재생하고자 하는 콘텐츠의 주문 정보입니다. 이 정보는 업체의 Service Site에서 전달 받은 값을 그대로 전달하는 것으로, Content ID외에 재생하고자 하는 콘텐츠가 어떤 콘텐츠인지 확인하는 정보로 활용됩니다. </p>
 
 <p>실제 서비스에서 동일한 콘텐츠를 다른 카테고리로 묶어 서비스 할 경우가 생깁니다. 이 때, Content ID는 동일하나 실제 다른 카테고리일 수 있습니다. 이것을 구분하기 위하여 주문정보를 활용해야만 합니다. </p>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong> </p>
+
 <p>이 테이블은 License Issue 가이드의 수정사항에 대해 설명한 것입니다.</p>
 
 <table><thead>
@@ -1960,7 +1972,9 @@ ex) <strong>&ldquo;lms_sections&rdquo;:&ldquo;0:30,50:100&rdquo;</strong><br>
 로그는 우측 상단의 <strong>‘새로고침’</strong> 버튼을 통해 리셋을 할 수 있습니다.</p>
 
 <p><img alt="Mobile_Log" src="../images/Mobile_Log.png" /></p>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong> </p>
+
 <p>이 테이블은 PallyCon Player 연동 가이드의 수정사항에 대해 설명한 것입니다.</p>
 
 <table><thead>
@@ -2404,7 +2418,9 @@ JSON Data의 모든 Parameter는 필수로 사용하셔야 합니다.</aside>
 
 <p><em>Bookmark 삭제</em> 
 : 사용자가 북마크 리스트에서 원하는 북마크의 삭제 버튼을 클릭하여, 리스트에서 삭제하고 삭제된 후의 전체 북마크 리스트를 생성하여 Service Site의 웹 서버에서도 삭제할 수 있습니다. </p>
-<h3 id='revision-history'>Revision History</h3>
+
+<p><strong>Revision History</strong> </p>
+
 <p>이 테이블은 PallyCon Player 연동 가이드의 수정사항에 대해 설명한 것입니다.</p>
 
 <table><thead>
@@ -2698,7 +2714,9 @@ from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시�
 
 <p><em>license_count, use_device_count, user_count, pc_count, ios_count, android_count</em>
 : 발급된 License 수, 등록된 기기 대수, 사용자수, PC 수, iOS 기기 수, Android 기기 수</p>
-<h2 id='revision-history'>Revision History</h2>
+
+<p><strong>Revision History</strong></p>
+
 <p>이 테이블은 REST API 가이드의 수정사항에 대해 설명한 것입니다.</p>
 
 <table><thead>
@@ -2721,7 +2739,93 @@ from, to 둘 중 하나의 Parameter만 사용하게 될 경우, 하나의 시�
 </tr>
 </tbody></table>
 
-<p><img alt="footer" src="../images/footer.png" /></p>
+          <h1 id='sdk-가이드'>SDK 가이드</h1>
+<p>PallyCon SDK는 NCG DRM을 사용하여 모든 타입의 Content에 DRM 서비스를 적용시킬 수 있는 SDK입니다. </p>
+<h2 id='who-should-use-39pallycon-sdk39'>Who should use &lsquo;PallyCon SDK&rsquo;?</h2>
+<p><strong>PallyCon SDK는 업체가 이미 서비스 중인 앱에 DRM을 적용하는데 가장 쉽고, 간편한 DRM 솔루션입니다.</strong> 
+뿐만 아니라, <strong>PallyCon SDK는 모든 콘텐츠에 NCG DRM 기술을 적용할 수 있는 PallyCon의 특징에 가장 잘 부합하는 솔루션입니다.</strong>  </p>
+
+<p>PallyCon SDK를 사용해야 하는 업체은 다음과 같습니다.  </p>
+
+<ul>
+<li>음원/동영상 Contents가 아닌 기타 Contents를 DRM Service하려는 업체 </li>
+<li>PallyCon Service에서 제공하는 음원/동영상 Player가 아닌 전용 Player를 만들려는 업체 </li>
+<li>PallyCon On-premise Server를 사용하려는 업체</li>
+</ul>
+
+<p>PallyCon SDK는 PallyCon Cloud Service와 PallyCon On-premise Server에 모두 호환됩니다.<br>
+하지만, PallyCon PC/Mobile Player는 PallyCon Cloud Service만 호환이 되기 때문에, PallyCon On-premise Server를 사용하고자 하는 업체는 반드시 PallyCon SDK를 사용하셔야만 합니다.</p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>Video/Music Contents</th>
+<th>Other Contents</th>
+<th>PallyCon Cloud Service</th>
+<th>PallyCon On-premise Server</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PallyCon PC/Mobile Player</td>
+<td>Support</td>
+<td>NOT Support</td>
+<td></td>
+<td>Support</td>
+</tr>
+<tr>
+<td>PallyCon SDK</td>
+<td>Support</td>
+<td>Support</td>
+<td></td>
+<td>Support</td>
+</tr>
+</tbody></table>
+<h2 id='pallycon-sdk에서-제공하는-기능'>PallyCon SDK에서 제공하는 기능</h2>
+<p>PallyCon SDK에서 제공하는 기능은 다음과 같습니다. </p>
+<h3 id='개발의-편의를-위한-기능'>개발의 편의를 위한 기능</h3>
+<ul>
+<li>현재 서비스 중인 앱에 쉽고 간편하게 적용이 가능한 추상화된 함수와 적용 시나리오 제공</li>
+<li>NCG DRM이 적용된 모든 Content를 Un-packaging하는 기능 제공</li>
+<li>크기가 큰 Content를 효과적으로 사용하기 위한 부분 복호화 기능 제공</li>
+</ul>
+<h3 id='content-보안을-위한-기능'>Content 보안을 위한 기능</h3>
+<ul>
+<li>기간제 Content를 안전하게 사용하기 위한 다양한 보안 설정 기능 제공</li>
+<li>Content 보호를 위해 외부 출력 제한, 스크린샷 제한(Android) 기능 제공</li>
+<li>License에 의한 DRM Content 사용 보장을 위한 다양한 기능 제공<br></li>
+</ul>
+<h2 id='pallycon-sdk-사양'>PallyCon SDK 사양</h2>
+<p>PallyCon SDK는 Windows, Android, iOS SDK를 제공합니다. </p>
+
+<p>PallyCon SDK의 각 플랫폼별 사양은 다음과 같습니다. </p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>PallyCon Windows SDK</th>
+<th>PallyCon Android SDK</th>
+<th>PallyCon iOS SDK</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Support Spec.</td>
+<td>XP or above (Visual Studio 2008 or above)</td>
+<td>2.3 version or above</td>
+<td>iOS 6.0 or above (iPad2, iPhone4 or above)</td>
+</tr>
+</tbody></table>
+<h2 id='pallycon-sdk-적용'>PallyCon SDK 적용</h2>
+<ul>
+<li><p>STEP1. 원본 콘텐츠가 문제없이 구동되는 앱을 먼저 만듭니다.</p></li>
+<li><p>STEP2. PallyCon SDK 샘플을 통해 SDK 적용 방법과 DRM Content 사용 방법을 익힙니다.</p></li>
+<li><p>STEP3. DRM Service 정책과 시나리오를 결정합니다.</p></li>
+<li><p>STEP4. License Server를 구축하고, DRM Content 생성에 필요한 페이지와 License 발급에 필요한 페이지를 DRM Service 정책에 맞게 개발합니다. </p></li>
+<li><p>STEP5. 앱에 PallyCon SDK를 추가합니다.</p></li>
+<li><p>STEP6. 앱에 DRM Service를 적용합니다.</p></li>
+</ul>
+
+          <p><img alt="footer" src="../images/footer.png" /> 
+<p style="text-align: center;">Copyright 2014 INKA ENTWORKS. All Rights Reserved.</p></p>
 
       </div>
       <div class="dark-box">
