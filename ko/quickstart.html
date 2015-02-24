@@ -154,7 +154,7 @@ Java 6 (1.6)와 Java 7 (1.7) 응용 프로그램 및 서버 환경에서 Java를
 <h4 id='step2-config-jsp-파일-수정'>Step2: config.jsp 파일 수정</h4>
 <p><strong>config.jsp 파일의 수정은 PC / Mobile에 공통으로 영향을 주는 값들에 대한 수정입니다.</strong> </p>
 <h5 id='aes256-configration-emaes-key-configem'>aes256 configration (<em>aes key config</em>)</h5>
-<p>key를 PallyCon CP Admin에서 확인이 가능한  Site Key 로 변경하여 세팅합니다. <strong>AES256 암호화 및 복호화에 Site Key와 함께 사용되는 Initial Vector는 고정값으로 사용됩니다. (Initial Vector: <em>1234567890abcdef</em>)</strong></p>
+<p>key를 PallyCon CP Admin에서 확인이 가능한  Site Key 로 변경하여 세팅합니다. <strong>AES256 암호화 및 복호화에 Site Key와 함께 사용되는 Initial Vector는 고정값으로 사용됩니다. (Initial Vector: <em>0123456789abcdef</em>)</strong></p>
 <h5 id='content-usage-info-page-emgateway-configem'>Content Usage Info Page (<em>gateway config</em>)</h5>
 <p>DRM이 적용된 컨텐츠를 사용하기 위한 라이선스 정보를 설정합니다. <code class="prettyprint">LIMIT</code>, <code class="prettyprint">PD_START</code>, <code class="prettyprint">PD_END</code>, <code class="prettyprint">PD_COUNT</code> 값을 아래와 같이 설정하여 라이선스 정보을 결정합니다. <strong>PallyCon Player(Mobile, PC)는 횟수제가 설정된 라이선스에 대한 재생 처리는 지원하지 않습니다.</strong></p>
 
