@@ -641,7 +641,7 @@ Both packagers used for packaging receives the input of Site ID, Packager Key, S
 
 <ul>
 <li>Key: 32 byte  (This can be checked in PallyCon CP Admin Page.)</li>
-<li>Initial vector: 16 byte (a fixed value:  <strong>1234567890abcdef</strong>)</li>
+<li>Initial vector: 16 byte (a fixed value:  <strong>0123456789abcdef</strong>)</li>
 </ul>
 
 <p><em>Padding</em><br>
@@ -1100,7 +1100,7 @@ ncgpackager pack F001 FVJDp2LT2Xr0f4Di18z6lzv3DKvNOP20  <span class="s2">"d:</sp
 <p><em>Key, Initial vector</em></p>
 
 <p>: - Key: 32 byte  (This can be checked in PallyCon CP Admin pageCloud-Admin)<br>
-- Initial vector: 16 byte (a fixed value: <strong>1234567890abcdef</strong>)  </p>
+- Initial vector: 16 byte (a fixed value: <strong>0123456789abcdef</strong>)  </p>
 
 <p><em>Padding</em></p>
 
@@ -1368,7 +1368,7 @@ The following functions use communication between PallyCon Player and Web server
 <p><em>Key, Initial vector</em></p>
 
 <p>: - Key: 32 byte  (The key for each service site can be checked in the PallyCon CP Admin Page)<br>
-- Initial vector: 16 byte  (a fixed value: <strong>1234567890abcdef</strong>)</p>
+- Initial vector: 16 byte  (a fixed value: <strong>0123456789abcdef</strong>)</p>
 
 <p><em>Padding</em></p>
 
@@ -1422,7 +1422,7 @@ Access to URL Scheme is blocked if the status of PallyCon Player is **‘Downloa
 <p><strong>AES 256 encryption/decryption Key, IV(Initial vector):</strong></p>
 
 <ul>
-<li>You receive the key for AES256 encryption/decryption of the data for interconnecting with the Web server when contracting with INKA. Because this value is matched to &#39;site_id&rsquo;, you must use the site_id, AES256 Key that you received at the time of contract.  (The Initial Vector used together with the AES256 Key is a fixed value of 16 bytes, which is &rsquo;<strong>1234567890abcdef</strong>&rsquo;.)<br></li>
+<li>You receive the key for AES256 encryption/decryption of the data for interconnecting with the Web server when contracting with INKA. Because this value is matched to &#39;site_id&rsquo;, you must use the site_id, AES256 Key that you received at the time of contract.  (The Initial Vector used together with the AES256 Key is a fixed value of 16 bytes, which is &rsquo;<strong>0123456789abcdef</strong>&rsquo;.)<br></li>
 <li>The vendor name, key and IV received through vendor authentication are saved in the DB.<br></li>
 <li>Because the communication with the RI Cloud server of INKA uses <a href="http://en.wikipedia.org/wiki/Public_key_infrastructure">PKI</a>, the data used in the communication and DB are strongly protected. </li>
 </ul>
@@ -1968,7 +1968,7 @@ You can reset the logs by touching the <strong>‘Refresh’</strong> button at 
 
 <ul>
 <li>Key: 32 bytes (Can be checked for each service site on the Cloud Admin page)</li>
-<li>Initial vector: 16 byte  (Fixed value: <strong>123456890abcdef</strong>)</li>
+<li>Initial vector: 16 byte  (Fixed value: <strong>0123456789abcdef</strong>)</li>
 </ul>
 
 <p><em>Padding</em></p>
